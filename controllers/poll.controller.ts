@@ -6,7 +6,7 @@ import { Choice } from '../entities/Choice'
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  const polls = await DI.pollRepository.findAll()
+  const polls = await DI.pollRepository.findAll(['choices'])
   res.json(polls)
 })
 
@@ -35,7 +35,7 @@ router.post('/create', async (req, res) => {
     return res.status(400).json('New polls must have a question and answers')
   }
 
-  if (req.body.choices.length < 1) {
+  if (req.body.choices.length <= 1) {
     return res.status(400).json('Questions must have at least two choices')
   }
 
@@ -46,6 +46,8 @@ router.post('/create', async (req, res) => {
   poll.choices = choices
 
   await DI.pollRepository.persistAndFlush(poll)
+
+  res.status(200).json(poll)
 })
 
 export const pollController = router
