@@ -6,32 +6,39 @@ import { pollController } from './controllers/poll.controller'
 import db from './db'
 import { Choice } from './entities/Choice'
 import { Poll } from './entities/Poll'
+
 const app = express()
 
-export const DI = {} as {
+interface DatabaseInfo {
   orm: MikroORM,
   em: EntityManager,
   pollRepository: EntityRepository<Poll>,
   choiceRepository: EntityRepository<Choice>
 }
 
-(async () => {
+export const DI = {} as DatabaseInfo
+
+export const initDB = async () => {
   DI.orm = await db()
   DI.pollRepository = DI.orm.em.getRepository(Poll)
   DI.choiceRepository = DI.orm.em.getRepository(Choice)
+}
 
-  app.use(express.json())
+initDB()
 
-  app.get('/', (req, res) => {
-    res.send('Hello World!')
-  })
+app.use(express.json())
 
-  app.use('/polls', pollController)
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
-  // Catch all remaining requests to nonexisting routes
-  app.use((req, res) => res.status(404).json({ message: 'Resource not found' }))
+app.use('/polls', pollController)
 
-  app.listen(config.PORT, () => {
-    console.log(`Chromapoll API is ready at http://localhost:${config.PORT}`)
-  })
-})()
+// Catch all remaining requests to nonexisting routes
+app.use((req, res) => res.status(404).json({ message: 'Resource not found' }))
+
+app.listen(config.PORT, () => {
+  console.log(`Chromapoll API is ready at http://localhost:${config.PORT}`)
+})
+
+export default app
