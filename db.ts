@@ -1,6 +1,7 @@
 import { MikroORM  } from '@mikro-orm/core'
 import { Poll } from './entities/Poll'
 import config from './config'
+import { Choice } from './entities/Choice'
 
 let orm: MikroORM
 
@@ -10,7 +11,7 @@ export const dbPool = async () => {
   }
   
   orm = await MikroORM.init({
-    entities: [Poll],
+    entities: [Poll, Choice],
     dbName: 'chromapoll',
     type: 'mongo',
     clientUrl: config.DB_URL,
