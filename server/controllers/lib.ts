@@ -1,5 +1,3 @@
-import { Choice } from "../entities/Choice";
-
 export const getColors = (length: number) => {
   switch (length) {
     case 2:

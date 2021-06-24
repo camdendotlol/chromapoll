@@ -1,9 +1,8 @@
 import express from 'express'
 import { DI } from '../index'
-import { Poll } from '../entities/Poll'
-import { Choice } from '../entities/Choice'
+import { Poll } from '../../server/entities/Poll'
+import { Choice } from '../../server/entities/Choice'
 import { getColors } from './lib'
-import { Collection } from '@mikro-orm/core'
 
 const router = express.Router()
 
