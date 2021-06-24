@@ -7,8 +7,8 @@
   "private": true,
   "scripts": {
     "start:full": "yarn build:server && yarn build:ui && node dist/server/index.js",
-    "start:server": "tsc --project server/tsconfig.json && node dist/server/index.js",
-    "start:ui": "tsc --project frontend/tsconfig.json && node dist/frontend/index.js",
+    "start:server": "node dist/server/index.js",
+    "start:ui": "node dist/frontend/index.js",
     "dev:server": "tsc-watch --project server/tsconfig.json --onSuccess \"node dist/server/index.js\"",
     "dev:ui": "webpack serve --mode=development",
     "test:server": "jest --config ./server/jest.config.ts",
