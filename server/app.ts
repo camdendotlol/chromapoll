@@ -11,7 +11,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.use('/polls', pollController)
+app.use('/api/polls', pollController)
 
 // Catch all remaining requests to nonexisting routes
 app.use('/api/*', (req, res) => res.status(404).json({ message: 'Resource not found' }))
