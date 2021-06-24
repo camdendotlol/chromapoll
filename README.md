@@ -12,8 +12,9 @@ First, use `yarn install` to install dependencies.
 
 Commands:
 
-* `yarn start` to create a fresh build and run it.
-* `yarn dev` for a development build that automatically reloads when you make a change.
+* `yarn start:server` to create a fresh build and run it.
+* `yarn dev:server` for a development build that automatically reloads when you make a change.
+* `yarn test:server` for some very rudimentary testing of the server API.
 
 ## Configuration
 
