@@ -2,6 +2,8 @@ import express from 'express'
 import { DI } from '../index'
 import { Poll } from '../entities/Poll'
 import { Choice } from '../entities/Choice'
+import { getColors } from './lib'
+import { Collection } from '@mikro-orm/core'
 
 const router = express.Router()
 
@@ -40,8 +42,13 @@ router.post('/create', async (req, res) => {
   }
 
   const poll = new Poll(req.body.title)
+  const colors = getColors(req.body.choices.length)
+  const choices = req.body.choices
 
-  const choices = req.body.choices.map((c: string) => new Choice(c, poll))
+  // Map each choice to its corresponding color
+  for (let i = 0; i < choices.length; i++) {
+    choices[i] = new Choice(choices[i], colors[i], poll)
+  }
 
   poll.choices = choices
 
