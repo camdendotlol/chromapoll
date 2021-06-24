@@ -1,44 +1,21 @@
-import { MikroORM } from '@mikro-orm/core'
-import { EntityManager, EntityRepository } from '@mikro-orm/mongodb'
-import express from 'express'
 import config from './config'
-import { pollController } from './controllers/poll.controller'
-import db from './db'
-import { Choice } from './entities/Choice'
-import { Poll } from './entities/Poll'
+import http from 'http'
+import path from 'path'
+import app from './app'
 
-const app = express()
+const server = http.createServer(app)
 
-interface DatabaseInfo {
-  orm: MikroORM,
-  em: EntityManager,
-  pollRepository: EntityRepository<Poll>,
-  choiceRepository: EntityRepository<Choice>
-}
-
-export const DI = {} as DatabaseInfo
-
-export const initDB = async () => {
-  DI.orm = await db()
-  DI.pollRepository = DI.orm.em.getRepository(Poll)
-  DI.choiceRepository = DI.orm.em.getRepository(Choice)
-}
-
-initDB()
-
-app.use(express.json())
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+app.get('/ui.js', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'ui.js'))
 })
 
-app.use('/polls', pollController)
+// Provide the homepage for any unknown frontend request, URLs created by react-router will still work.
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'))
+})
 
-// Catch all remaining requests to nonexisting routes
-app.use((req, res) => res.status(404).json({ message: 'Resource not found' }))
-
-app.listen(config.PORT, () => {
+server.listen(config.PORT, () => {
   console.log(`Chromapoll API is ready at http://localhost:${config.PORT}`)
 })
 
-export default app
+export default server

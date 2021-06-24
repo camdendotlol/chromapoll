@@ -1,5 +1,5 @@
 import express from 'express'
-import { DI } from '../index'
+import { DI } from '../app'
 import { Poll } from '../../server/entities/Poll'
 import { Choice } from '../../server/entities/Choice'
 import { getColors } from './lib'
