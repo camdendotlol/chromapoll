@@ -1,0 +1,11 @@
+/* This file is only for styles that apply to the body or entire html */
+/* DO NOT put component-level styles in here */
+
+body {
+  background: #202020;
+  box-sizing: border-box;
+}
+
+a {
+  color: orange;
+}
