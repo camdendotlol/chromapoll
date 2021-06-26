@@ -1,11 +1,7 @@
 import React, { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-
-const pollSVG = (
-  <svg height="600" width="600">
-    <circle cx="300" cy="300" r="240" stroke="black" strokeWidth="3" fill="red" />
-  </svg>
-)
+import { animated, useSpring } from 'react-spring'
+import AnimatedChart from './AnimatedChart'
 
 const pollDivStyles: CSSProperties = {
   display: 'flex',
@@ -27,7 +23,7 @@ const PollPie: React.FC = () => {
     <div>
       <Link to='/' style={homeLinkStyles}>Back home</Link>
       <div style={pollDivStyles}>
-        {pollSVG}
+        <AnimatedChart />
       </div>
     </div>
   )
