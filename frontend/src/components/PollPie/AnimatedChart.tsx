@@ -23,7 +23,7 @@ const AnimatedChart: React.FC<Props> = ({ results }) => {
   return (
     <animated.svg height='200' width='200' style={parentProps}>
       <animated.circle cx='100' cy='100' r='100' fill='#e9e9e9' />
-      {results.map(r => <Slice color={r.color} percentage={r.percent ? r.percent : 0} offset={r.offset ? r.offset : 0} key={r.label} />)}
+      {results.map((r, index) => <Slice color={r.color} percentage={r.percent ? r.percent : 0} offset={r.offset ? r.offset : 0} index={index} key={r.label} />)}
     </animated.svg>
   )
 }
