@@ -12,11 +12,9 @@ const subtitleStyle: CSSProperties = {
 }
 
 const Subtitles: React.FC<Props> = ({ items }) => {
-  const [open, setOpen] = useState(true)
-
   return (
-    <div onClick={() => setOpen(!open)}>
-      <Trail open={open}>
+    <div>
+      <Trail open={true}>
         {items.map(i => <p style={subtitleStyle} key={i}>{i}</p>)}
       </Trail>
     </div>
