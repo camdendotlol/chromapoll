@@ -18,9 +18,9 @@ const Slice: React.FC<Props> = ({ percentage, offset, color }) => {
       r='50'
       fill='transparent'
       stroke={color}
-      strokeDasharray={`${getDashArray(percentage * 2)} 314.16`}
-      strokeDashoffset={offset}
+      strokeDasharray={`${getDashArray(percentage)} 314.16`}
       strokeWidth='100'
+      strokeDashoffset={`-${offset * 3.14159}`}
       transform='rotate(-90) translate(-200)'
     />
   )
