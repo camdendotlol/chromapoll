@@ -10,10 +10,10 @@ interface Props {
 const AnimatedChart: React.FC<Props> = ({ results }) => {
   const parentProps = useSpring({
     from: {
-      scale: '100%'
+      scale: '50%'
     },
     to: {
-      scale: '200%'
+      scale: '100%'
     },
     config: {
       duration: 240
@@ -21,8 +21,8 @@ const AnimatedChart: React.FC<Props> = ({ results }) => {
   })
 
   return (
-    <animated.svg height='200' width='200' style={parentProps}>
-      <animated.circle cx='100' cy='100' r='100' fill='#e9e9e9' />
+    <animated.svg height='400' width='400' style={parentProps}>
+      <animated.circle cx='200' cy='200' r='200' fill='#e9e9e9' />
       {results.map((r, index) => <Slice color={r.color} percentage={r.percent ? r.percent : 0} offset={r.offset ? r.offset : 0} index={index} key={r.label} />)}
     </animated.svg>
   )

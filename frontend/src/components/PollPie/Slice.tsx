@@ -8,34 +8,31 @@ interface Props {
   index: number
 }
 
-const getDashArray = (percentage: number) => {
-  return percentage * 314.16 / 100
-}
-
 const Slice: React.FC<Props> = ({ percentage, offset, color, index }) => {
   const props = useSpring({
     from: {
-      stroke: 'transparent',
+      stroke: 'transparent'
     },
     to: {
-      stroke: color,
+      stroke: color
     },
     delay: index * 500,
     config: {
       duration: 240
     }
   })
+
   return (
     <animated.circle
       style={props}
-      cx='100'
-      cy='100'
-      r='50'
+      cx='200'
+      cy='200'
+      r='100'
       fill='transparent'
-      strokeDasharray={`${getDashArray(percentage)} 314.16`}
-      strokeWidth='100'
-      strokeDashoffset={`-${offset * 3.14159}`}
-      transform='rotate(-90) translate(-200)'
+      strokeDasharray={`${percentage * 628.319 / 100} 628.319`}
+      strokeWidth='200'
+      strokeDashoffset={`${offset * -6.28319}`}
+      transform='rotate(-90) translate(-400)'
     />
   )
 }
