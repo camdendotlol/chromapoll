@@ -3,7 +3,8 @@ export interface Poll {
   choices: {
     text: string,
     color: string
-  }
+  },
+  id: string
 }
 
 export interface PollOption {

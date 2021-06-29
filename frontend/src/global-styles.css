@@ -1,15 +1,22 @@
 /* This file is only for styles that apply to the entire html */
 /* DO NOT put classes or component-level styles in here */
 
+@font-face {
+  font-family: "Noto Sans JP";
+  src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
+}
+
 body {
   background: #202020;
   box-sizing: border-box;
 }
 
 a {
+  font-family: "Noto Sans JP";
   color: orange;
 }
 
 h1, h2, h3, h4, h5, h6, p, span {
+  font-family: "Noto Sans JP";
   color: #e9e9e9;
 }

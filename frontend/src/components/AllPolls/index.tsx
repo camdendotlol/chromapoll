@@ -13,7 +13,7 @@ const AllPolls: React.FC = () => {
 
   return (
     <div>
-      {polls.map(poll => <p>{poll.title}</p>)}
+      {polls.map(poll => <p key={poll.id}>{poll.title}</p>)}
     </div>
   )
 }
