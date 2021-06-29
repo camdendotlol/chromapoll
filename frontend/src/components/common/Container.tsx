@@ -4,6 +4,8 @@ import styled from 'styled-components'
 const ContainerDiv = styled.div`
   margin: 0 auto;
   max-width: 80%;
+  position: relative;
+  top: 60px;
 
   @media(max-width: 1040px) {
     max-width: 100%;

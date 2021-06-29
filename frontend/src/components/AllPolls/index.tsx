@@ -1,6 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { CSSProperties, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { getAllPolls } from '../../reducers/pollReducer'
+
+const styles: CSSProperties = {
+  textAlign: 'center'
+}
 
 const AllPolls: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -12,7 +16,7 @@ const AllPolls: React.FC = () => {
   }, [dispatch])
 
   return (
-    <div>
+    <div style={styles}>
       {polls.map(poll => <p key={poll.id}>{poll.title}</p>)}
     </div>
   )

@@ -1,6 +1,4 @@
 import React, { CSSProperties } from 'react'
-import { Link } from 'react-router-dom'
-import { animated, useSpring } from 'react-spring'
 import { PollOption } from '../../types'
 import AnimatedChart from './AnimatedChart'
 import Legend from './Legend'
@@ -64,17 +62,10 @@ const pollDivStyles: CSSProperties = {
   flexWrap: 'wrap'
 }
 
-const homeLinkStyles: CSSProperties = {
-  display: 'block',
-  textAlign: 'center',
-  paddingBottom: '30px'
-}
-
 const PollPie: React.FC = () => {
   const calculatedResults = getPercentages(exampleResults)
   return (
     <div>
-      <Link to='/' style={homeLinkStyles}>Back home</Link>
       <div style={pollDivStyles}>
         <AnimatedChart results={calculatedResults}/>
         <Legend results={calculatedResults} />
