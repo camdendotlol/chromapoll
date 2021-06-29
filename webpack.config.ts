@@ -12,7 +12,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(tsx|js)$/,
+        test: /\.(tsx|ts|js)$/,
         loader: 'babel-loader',
         options: {
           presets: [
@@ -29,7 +29,7 @@ const config = {
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.js']
+    extensions: ['.tsx', '.ts', '.js']
   },
   devServer: {
     proxy: {

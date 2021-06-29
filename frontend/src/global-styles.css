@@ -1,5 +1,5 @@
-/* This file is only for styles that apply to the body or entire html */
-/* DO NOT put component-level styles in here */
+/* This file is only for styles that apply to the entire html */
+/* DO NOT put classes or component-level styles in here */
 
 body {
   background: #202020;
@@ -8,4 +8,8 @@ body {
 
 a {
   color: orange;
+}
+
+h1, h2, h3, h4, h5, h6, p, span {
+  color: #e9e9e9;
 }

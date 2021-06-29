@@ -7,7 +7,6 @@ interface Props {
 
 const titleStyle: CSSProperties = {
   textAlign: 'center',
-  color: '#D3D3D3',
   fontSize: '5rem',
 }
 

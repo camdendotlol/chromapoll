@@ -1,3 +1,11 @@
+export interface Poll {
+  title: string,
+  choices: {
+    text: string,
+    color: string
+  }
+}
+
 export interface PollOption {
   label: string,
   votes: number,
