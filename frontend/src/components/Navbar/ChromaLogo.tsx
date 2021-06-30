@@ -8,7 +8,8 @@ const styles: CSSProperties = {
   background: 'linear-gradient(to top right, #36A4C7, #B13E84)',
   backgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
-  display: 'inline-block'
+  display: 'inline-block',
+  WebkitBackgroundClip: 'text'
 }
 const ChromaLogo: React.FC = () => {
   return (
