@@ -11,6 +11,9 @@ export class Choice extends BaseEntity {
   @Property()
   color: string
 
+  @Property()
+  votes: number
+
   @ManyToOne(() => Poll)
   poll!: Poll
 
@@ -19,5 +22,6 @@ export class Choice extends BaseEntity {
     this.label = text
     this.color = color
     this.poll = poll
+    this.votes = 0
   }
 }
