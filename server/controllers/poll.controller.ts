@@ -11,11 +11,6 @@ router.get('/', async (req, res) => {
   res.json(polls)
 })
 
-router.get('/choices', async (req, res) => {
-  const choices = await DI.choiceRepository.findAll()
-  res.status(200).json(choices)
-})
-
 router.get('/:id', async (req, res) => {
   const poll = await DI.pollRepository.findOne(req.params.id, ['choices'])
   if (!poll) {
