@@ -14,6 +14,7 @@ const LogoText = styled.p`
 
   &:hover {
     text-decoration: underline;
+    text-decoration-color: #84a2f4;
   }
 `
 

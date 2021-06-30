@@ -2,12 +2,12 @@ import React, { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import ChromaLogo from './ChromaLogo'
+import breakpoints from '../../breakpoints'
 
 const styles: CSSProperties = {
   position: 'fixed',
   top: '0px',
   background: '#4C4E52',
-  // height: '60px',
   width: '100%',
   margin: '0',
   zIndex: 1000,
@@ -23,6 +23,10 @@ const NavbarContent = styled.div`
   flex-direction: row;
   align-items: center;
   align-content: center;
+
+  @media(max-width: ${breakpoints.laptop}) {
+    width: 100%;
+  }
 `
 
 const Navbar: React.FC = () => {

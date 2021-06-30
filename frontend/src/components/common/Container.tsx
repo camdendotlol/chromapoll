@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import breakpoints from '../../breakpoints'
 
 const ContainerDiv = styled.div`
   margin: 0 auto;
@@ -7,7 +8,7 @@ const ContainerDiv = styled.div`
   position: relative;
   top: 60px;
 
-  @media(max-width: 1040px) {
+  @media(max-width: ${breakpoints.laptop}) {
     max-width: 100%;
     width: 100%;
     margin: 0;
