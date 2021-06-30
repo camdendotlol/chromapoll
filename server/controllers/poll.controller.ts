@@ -55,25 +55,34 @@ router.post('/create', async (req, res) => {
   return res.status(200).json(poll)
 })
 
-router.post('/vote/:id', async (req, res) => {
-  const choice = await DI.choiceRepository.findOne(req.params.id)
-  const ip = req.ip
+// Vote on a poll
+router.post('/vote/:pid/:cid', async (req, res) => {
+  const poll = await DI.pollRepository.findOne(req.params.pid, ['choices', 'voters'])
+
+  if (!poll) {
+    return res.status(404).json('Poll not found')
+  }
+
+  const choice = poll.choices.getItems().find(c => c.id === req.params.cid)
 
   if (!choice) {
     return res.status(404).json('Choice not found')
   }
 
-  if (choice.voters.find(v => v.address === ip)) {
+  const ip = req.ip
+
+  if (poll.voters.getIdentifiers('address').includes(ip)) {
     return res.status(400).json('You have already voted in this poll')
   }
 
   const ipToSave = new IP(ip)
 
+  poll.voters.add(ipToSave)
   choice.votes = choice.votes += 1
-  await DI.pollRepository.persistAndFlush(choice)
-  await DI.IpRepository.persistAndFlush(ipToSave)
 
-  return res.status(200).json(choice)
+  await DI.pollRepository.persistAndFlush(poll)
+
+  return res.status(200).json(poll)
 })
 
 export const pollController = router
