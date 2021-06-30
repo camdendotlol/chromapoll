@@ -3,6 +3,7 @@ import { DI } from '../app'
 import { Poll } from '../../server/entities/Poll'
 import { Choice } from '../../server/entities/Choice'
 import { getColors } from './lib'
+import { IP } from '../entities/Ip'
 
 const router = express.Router()
 
@@ -51,7 +52,28 @@ router.post('/create', async (req, res) => {
 
   await DI.pollRepository.persistAndFlush(poll)
 
-  res.status(200).json(poll)
+  return res.status(200).json(poll)
+})
+
+router.post('/vote/:id', async (req, res) => {
+  const choice = await DI.choiceRepository.findOne(req.params.id)
+  const ip = req.ip
+
+  if (!choice) {
+    return res.status(404).json('Choice not found')
+  }
+
+  if (choice.voters.find(v => v.address === ip)) {
+    return res.status(400).json('You have already voted in this poll')
+  }
+
+  const ipToSave = new IP(ip)
+
+  choice.votes = choice.votes += 1
+  await DI.pollRepository.persistAndFlush(choice)
+  await DI.IpRepository.persistAndFlush(ipToSave)
+
+  return res.status(200).json(choice)
 })
 
 export const pollController = router

@@ -6,6 +6,7 @@ import db from './db'
 import { Choice } from './entities/Choice'
 import { Poll } from './entities/Poll'
 import { pollController } from './controllers/poll.controller'
+import { IP } from './entities/Ip'
 
 const app = express()
 app.use(express.json())
@@ -20,7 +21,8 @@ interface DatabaseInfo {
   orm: MikroORM,
   em: EntityManager,
   pollRepository: EntityRepository<Poll>,
-  choiceRepository: EntityRepository<Choice>
+  choiceRepository: EntityRepository<Choice>,
+  IpRepository: EntityRepository<IP>
 }
 
 export const DI = {} as DatabaseInfo
@@ -29,6 +31,7 @@ export const initDB = async () => {
   DI.orm = await db()
   DI.pollRepository = DI.orm.em.getRepository(Poll)
   DI.choiceRepository = DI.orm.em.getRepository(Choice)
+  DI.IpRepository = DI.orm.em.getRepository(IP)
 }
 
 initDB()
