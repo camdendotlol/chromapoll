@@ -13,6 +13,16 @@ export const getAllPolls = createAsyncThunk(
   }
 )
 
+export const getPoll = createAsyncThunk(
+  '/getPollStatus',
+  async (id: string) => {
+    const poll = await pollService.getPoll(id)
+    if (poll) {
+      return poll
+    }
+  }
+)
+
 const pollSlice = createSlice({
   name: 'pollSlice',
   initialState,
@@ -20,6 +30,12 @@ const pollSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAllPolls.fulfilled, (state, { payload }) => {
       return state = payload
+    }),
+    builder.addCase(getPoll.fulfilled, (state, { payload }) => {
+      if (state.find(p => p.id === payload.id)) {
+        return state = state
+      }
+      return state = [...state, payload]
     })
   }
 })

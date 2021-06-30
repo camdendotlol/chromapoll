@@ -1,4 +1,5 @@
 import React, { CSSProperties, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { getAllPolls } from '../../reducers/pollReducer'
 
@@ -17,7 +18,7 @@ const AllPolls: React.FC = () => {
 
   return (
     <div style={styles}>
-      {polls.map(poll => <p key={poll.id}>{poll.title}</p>)}
+      {polls.map(poll => <p key={poll.id}><Link to={`/poll/${poll.id}`}>{poll.title}</Link></p>)}
     </div>
   )
 }

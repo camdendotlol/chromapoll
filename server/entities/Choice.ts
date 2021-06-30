@@ -6,7 +6,7 @@ import { Poll } from './Poll'
 export class Choice extends BaseEntity {
 
   @Property()
-  text: string
+  label: string
 
   @Property()
   color: string
@@ -16,7 +16,7 @@ export class Choice extends BaseEntity {
 
   constructor(text: string, color: string, poll: Poll) {
     super()
-    this.text = text
+    this.label = text
     this.color = color
     this.poll = poll
   }

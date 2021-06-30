@@ -1,16 +1,17 @@
 export interface Poll {
   title: string,
-  choices: {
-    text: string,
-    color: string
-  },
+  choices: Choice[],
   id: string
 }
 
-export interface PollOption {
+export interface Choice {
   label: string,
-  votes: number,
   color: string,
-  percent?: number,
-  offset?: number
+  votes: number,
+  id: string
+}
+
+export interface ChoiceWithData extends Choice {
+  percent: number,
+  offset: number
 }

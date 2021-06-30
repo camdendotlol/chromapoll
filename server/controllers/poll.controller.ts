@@ -18,6 +18,9 @@ router.get('/choices', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const poll = await DI.pollRepository.findOne(req.params.id, ['choices'])
+  if (!poll) {
+    res.status(404).json({ error: 'Poll not found' })
+  }
   res.status(200).json(poll)
 })
 

@@ -15,7 +15,7 @@ const App: React.FC = () => (
         <Route path='/all'>
           <AllPolls />
         </Route>
-        <Route path='/example'>
+        <Route path='/poll/:id'>
           <PollPie />
         </Route>
         <Route path='/'>

@@ -7,6 +7,12 @@ const getAllPolls = async () => {
   return res.data
 }
 
+const getPoll = async (id: string) => {
+  const res = await axios.get(`${baseUrl}/${id}`)
+  return res.data
+}
+
 export default {
-  getAllPolls
+  getAllPolls,
+  getPoll
 }

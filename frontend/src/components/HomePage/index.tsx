@@ -13,7 +13,6 @@ const HomePage: React.FC = () => {
     <div style={homeStyles}>
       <Title text={'Chromapoll!'} />
       <p><Link to='/all'>List of all polls</Link></p>
-      <p><Link to='/example'>See example poll</Link></p>
       <Subtitles items={['Make polls with color', 'Share them with friends!']} />
     </div>
   )

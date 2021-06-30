@@ -1,33 +1,13 @@
-import React, { CSSProperties } from 'react'
-import { PollOption } from '../../types'
+import React, { CSSProperties, useEffect } from 'react'
+import { Choice, ChoiceWithData } from '../../types'
 import AnimatedChart from './AnimatedChart'
 import Legend from './Legend'
+import { useAppSelector, useAppDispatch } from '../../hooks'
+import { useParams } from 'react-router-dom'
+import { getPoll } from '../../reducers/pollReducer'
+import styled from 'styled-components'
 
-// Temporary for early development
-const exampleResults: PollOption[] = [
-  {
-    label: 'Webster',
-    votes: 41201,
-    color: 'red'
-  },
-  {
-    label: 'Van Buren',
-    votes: 764176,
-    color: 'green'
-  },
-  {
-    label: 'Harrison',
-    votes: 550816,
-    color: 'blue'
-  },
-  {
-    label: 'White',
-    votes: 146109,
-    color: 'black'
-  }
-]
-
-const getPercentages = (resultsArray: PollOption[]) => {
+const getPercentages = (resultsArray: Choice[]) => {
   const reducer = (a: number, b: number) => a + b
   const total = resultsArray.map(r => r.votes).reduce(reducer)
 
@@ -39,7 +19,7 @@ const getPercentages = (resultsArray: PollOption[]) => {
     } else {
       return 0
     }
-  })
+  }) as ChoiceWithData[]
 
   const resultsWithPercent = sortedResults.map(r => r = {
     ...r,
@@ -55,17 +35,44 @@ const getPercentages = (resultsArray: PollOption[]) => {
 const pollDivStyles: CSSProperties = {
   display: 'flex',
   gap: '10vw',
-  height: '100vh',
+  height: '70vh',
   width: '100%',
   alignItems: 'center',
   justifyContent: 'center',
   flexWrap: 'wrap'
 }
 
+const Header = styled.h1`
+    text-align: center
+`
+
 const PollPie: React.FC = () => {
-  const calculatedResults = getPercentages(exampleResults)
+  const { id } = useParams<({ id: string })>()
+
+  const dispatch = useAppDispatch()
+  
+  useEffect(() => {
+    dispatch(getPoll(id))
+  }, [id])
+
+  const poll = useAppSelector(({ polls }) => polls.find(p => p.id === id))
+
+  if (!poll) {
+    // TODO: nice error screen
+    // use the loading implementation from Groupread
+    return <p>Poll not found :(</p>
+  }
+
+  // The ballot stuffing is temporary for early development
+  const pollWithFakeResults: Choice[] = poll.choices.map(
+    c => c = { ...c, votes: Math.floor(Math.random() * 1000) }
+  )
+
+  const calculatedResults = getPercentages(pollWithFakeResults)
+
   return (
     <div>
+      <Header>{poll.title}</Header>
       <div style={pollDivStyles}>
         <AnimatedChart results={calculatedResults}/>
         <Legend results={calculatedResults} />

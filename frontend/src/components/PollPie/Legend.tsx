@@ -1,8 +1,8 @@
 import React, { CSSProperties } from 'react'
-import { PollOption } from '../../types'
+import { ChoiceWithData } from '../../types'
 
 interface Props {
-  results: PollOption[]
+  results: ChoiceWithData[]
 }
 
 const boxStyles = {
@@ -32,13 +32,13 @@ const Legend: React.FC<Props> = ({ results }) => {
     <div style={boxStyles}>
       <ul style={listStyles}>
         {results.map(r =>
-          <li key={r.label} style={itemStyles}>
+          <li key={r.id} style={itemStyles}>
             {colorKey(r.color)}
             &nbsp;
             {r.label}
             &nbsp;-&nbsp;
             {/* The null check here is just a formality to make TS happy */}
-            {r.percent ? `${Math.floor(r.percent * 100) / 100}%` : null}
+            {`${Math.floor(r.percent * 100) / 100}%`}
           </li>
           )}
       </ul>
