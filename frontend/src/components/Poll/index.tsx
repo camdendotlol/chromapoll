@@ -1,5 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from 'react'
-import { Choice, ChoiceWithData } from '../../types'
+import { ChoiceWithData } from '../../types'
 import Circle from './Circle'
 import Legend from './Legend'
 import { useAppSelector, useAppDispatch } from '../../hooks'

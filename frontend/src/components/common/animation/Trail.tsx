@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTrail, a } from 'react-spring'
+import { useTrail, animated } from 'react-spring'
 
 const trailStyles = {
   // The text goes invisibly off the side of the screen, so let's make sure the scrollbar doesn't show.
@@ -20,9 +20,9 @@ const Trail: React.FC<{ open: boolean }> = ({ open, children }) => {
   return (
     <div style={trailStyles}>
       {trail.map(({ height, ...style }, index) => (
-        <a.div key={index} style={style}>
-          <a.div style={{ height }}>{items[index]}</a.div>
-        </a.div>
+        <animated.div key={index} style={style}>
+          <animated.div style={{ height }}>{items[index]}</animated.div>
+        </animated.div>
       ))}
     </div>
   )
