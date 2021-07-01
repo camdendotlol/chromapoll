@@ -1,21 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
 import { ChoiceWithData } from '../../../types'
 import { mixColors } from '../../lib'
+import { useAppDispatch } from '../../../hooks'
+import { updateUIColor } from '../../../reducers/colorReducer'
 
 interface Props {
   results: ChoiceWithData[]
 }
 
 const Chroma: React.FC<Props> = ({ results }) => {
-  const colorToShow = mixColors(results)
+  const [color, setColor] = useState('rgba(0, 0, 0, 0)')
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    const newColor = mixColors(results)
+    setColor(newColor)
+    dispatch(updateUIColor(newColor))
+  }, [results])
 
   const props = useSpring({
     from: {
       fill: 'transparent'
     },
     to: {
-      fill: colorToShow
+      fill: color
     },
     config: {
       duration: 240
@@ -23,7 +32,7 @@ const Chroma: React.FC<Props> = ({ results }) => {
   })
 
   return (
-    <animated.circle style={props} cx='200' cy='200' r='200' fill={colorToShow} />
+    <animated.circle style={props} cx='200' cy='200' r='200' fill={color} />
   )
 }
 

@@ -19,7 +19,9 @@ const pollDivStyles: CSSProperties = {
 }
 
 const Header = styled.h1`
-  text-align: center
+  text-align: center;
+  transition: color 0.2s;
+  color: ${props => props.color};
 `
 
 const PollSwitchButton = styled.button`
@@ -35,6 +37,7 @@ export enum ChartType {
 const PollPie: React.FC = () => {
   const [chartType, setChartType] = useState<ChartType>(ChartType.Chroma)
   const [results, setResults] = useState<ChoiceWithData[]>([])
+
   const { id } = useParams<({ id: string })>()
 
   const dispatch = useAppDispatch()
@@ -44,6 +47,7 @@ const PollPie: React.FC = () => {
   }, [id])
 
   const poll = useAppSelector(({ polls }) => polls.find(p => p.id === id))
+  const uiColor = useAppSelector(({ uiColor }) => uiColor)
 
   useEffect(() => {
     // The ballot stuffing is temporary for early development
@@ -65,13 +69,9 @@ const PollPie: React.FC = () => {
   const handleButton = () => {
     switch(chartType) {
       case ChartType.Chroma:
-        return (
-          <PollSwitchButton onClick={() => setChartType(ChartType.Pie)}>switch to pie</PollSwitchButton>
-        )
+        return <PollSwitchButton onClick={() => setChartType(ChartType.Pie)}>switch to pie</PollSwitchButton>
       case ChartType.Pie:
-        return (
-          <PollSwitchButton onClick={() => setChartType(ChartType.Chroma)}>switch to chroma</PollSwitchButton>
-        )
+        return <PollSwitchButton onClick={() => setChartType(ChartType.Chroma)}>switch to chroma</PollSwitchButton>
     }
   }
 
@@ -79,7 +79,7 @@ const PollPie: React.FC = () => {
 
   return (
     <div>
-      <Header>{poll.title}</Header>
+      <Header color={uiColor}>{poll.title}</Header>
       {handleButton()}
       <div style={pollDivStyles}>
         <Circle results={calculatedResults} chartType={chartType} />
