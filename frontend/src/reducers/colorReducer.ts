@@ -15,12 +15,7 @@ const colorSlice = createSlice({
       const tuple = JSON.parse(`{"color": ${colorArray.slice(3, colorArray.length)}}`)
 
       const handleBrightness = (colorCode: number) => {
-        return colorCode + (Math.floor((255 - colorCode) / 2))
-        // if (colorCode < 155) {
-        //   return colorCode + 100
-        // } else {
-        //   return colorCode
-        // }
+        return colorCode + (Math.floor((255 - colorCode) / 1.5))
       }
 
       const colorObject = {
