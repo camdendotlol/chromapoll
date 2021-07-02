@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import breakpoints from '../../breakpoints'
 import { useAppSelector } from '../../hooks'
 
 const FooterText = styled.footer`
@@ -7,7 +8,15 @@ const FooterText = styled.footer`
   margin: 0 auto;
   text-align: center;
   bottom: 0;
-  color: ${props => props.color}
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  padding-bottom: 40px;
+  color: ${props => props.color};
+
+  @media(max-width: ${breakpoints.laptop}) {
+    font-size: 0.8rem;
+  }
 `
 
 const Footer: React.FC = () => {
