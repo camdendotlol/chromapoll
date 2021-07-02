@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import { getPoll } from '../../reducers/pollReducer'
 import styled from 'styled-components'
 import { getPercentages } from '../lib'
+import ToggleButton from './ToggleButton'
 
 const pollDivStyles: CSSProperties = {
   display: 'flex',
@@ -24,18 +25,13 @@ const Header = styled.h1`
   color: ${props => props.color};
 `
 
-const PollSwitchButton = styled.button`
-  display: block;
-  margin: 0 auto;
-`
-
 export enum ChartType {
   Chroma,
   Pie
 }
 
 const PollPie: React.FC = () => {
-  const [chartType, setChartType] = useState<ChartType>(ChartType.Chroma)
+  const [showPie, setShowPie] = useState<boolean>(false)
   const [results, setResults] = useState<ChoiceWithData[]>([])
 
   const { id } = useParams<({ id: string })>()
@@ -66,23 +62,19 @@ const PollPie: React.FC = () => {
     return <p>still loading...</p>
   }
 
-  const handleButton = () => {
-    switch(chartType) {
-      case ChartType.Chroma:
-        return <PollSwitchButton onClick={() => setChartType(ChartType.Pie)}>switch to pie</PollSwitchButton>
-      case ChartType.Pie:
-        return <PollSwitchButton onClick={() => setChartType(ChartType.Chroma)}>switch to chroma</PollSwitchButton>
-    }
-  }
-
   const calculatedResults = getPercentages(results)
 
   return (
     <div>
       <Header color={uiColor}>{poll.title}</Header>
-      {handleButton()}
+      <ToggleButton
+        condition={showPie}
+        primaryLabel={'switch to pie'}
+        secondaryLabel={'switch to chroma'}
+        callback={setShowPie}
+      />
       <div style={pollDivStyles}>
-        <Circle results={calculatedResults} chartType={chartType} />
+        <Circle results={calculatedResults} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
         <Legend results={calculatedResults} />
       </div>
     </div>
