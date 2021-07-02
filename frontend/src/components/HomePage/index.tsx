@@ -8,7 +8,6 @@ const homeStyles: CSSProperties = {
 }
 
 const HomePage: React.FC = () => {
-
   return (
     <div style={homeStyles}>
       <Title text={'Chromapoll!'} />

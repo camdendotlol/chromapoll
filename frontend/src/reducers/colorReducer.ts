@@ -9,7 +9,27 @@ const colorSlice = createSlice({
   initialState,
   reducers: {
     updateUIColor(state, action: PayloadAction<string>) {
-      return state = action.payload
+      const color = action.payload
+      const colorArray = color.replace('(', '[').replace(')', ']')
+
+      const tuple = JSON.parse(`{"color": ${colorArray.slice(3, colorArray.length)}}`)
+
+      const handleBrightness = (colorCode: number) => {
+        return colorCode + (Math.floor((255 - colorCode) / 2))
+        // if (colorCode < 155) {
+        //   return colorCode + 100
+        // } else {
+        //   return colorCode
+        // }
+      }
+
+      const colorObject = {
+        r: handleBrightness(tuple.color[0]),
+        g: handleBrightness(tuple.color[1]),
+        b: handleBrightness(tuple.color[2])
+      }
+
+      return state = `rgb(${colorObject.r}, ${colorObject.g}, ${colorObject.b})`
     }
   }
 })
