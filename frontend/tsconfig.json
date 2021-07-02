@@ -23,6 +23,7 @@
   },
   "include": [
     "./src",
+    "./index.d.ts"
   ],
   "exclude": [
     "./cypress"

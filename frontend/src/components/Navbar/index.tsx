@@ -1,28 +1,32 @@
-import React, { CSSProperties } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import ChromaLogo from './ChromaLogo'
 import breakpoints from '../../breakpoints'
+import { useAppSelector } from '../../hooks'
 
-const styles: CSSProperties = {
-  position: 'fixed',
-  top: '0px',
-  background: '#4C4E52',
-  width: '100%',
-  margin: '0',
-  zIndex: 1000,
-  boxShadow: '0 0 3px #4e4a4a',
-}
+const NavbarDiv = styled.div`
+  position: fixed;
+  top: 0px;
+  background: ${props => props.color}};
+  width: 100%;
+  margin: 0;
+  z-index: 1000;
+  box-shadow: 0 0 3px #4e4a4a;
+  transition: background 0.2s;
+`
 
 const NavbarContent = styled.div`
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
   padding-top: 10px;
   padding-bottom: 10px;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  align-content: center;
+
+  a{
+    text-decoration: none;
+  }
 
   @media(max-width: ${breakpoints.laptop}) {
     width: 100%;
@@ -30,12 +34,22 @@ const NavbarContent = styled.div`
 `
 
 const Navbar: React.FC = () => {
+  const uiColor = useAppSelector(({ uiColor }) => uiColor)
+
+  const pickColor = () => {
+    if (uiColor === 'rgb(233, 233, 233)') {
+      return '#4c4e52'
+    } else {
+      return uiColor
+    }
+  }
+
   return (
-    <div style={styles}>
+    <NavbarDiv color={pickColor()}>
       <NavbarContent>
         <Link to='/'><ChromaLogo /></Link>
       </NavbarContent>
-    </div>
+    </NavbarDiv>
   )
 }
 

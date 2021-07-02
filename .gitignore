@@ -4,6 +4,7 @@ server/requests
 
 # Exclude everything in the dist folder except for favicon and index.html
 # These files are needed for compilation and serving the subsequent webpage.
-dist/*
-!/dist/frontend/favicon.ico
-!/dist/frontend/index.html
+dist/server
+dist/frontend/*
+!dist/frontend/favicon.svg
+!dist/frontend/index.html

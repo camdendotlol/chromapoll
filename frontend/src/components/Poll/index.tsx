@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 import { getPoll } from '../../reducers/pollReducer'
 import styled from 'styled-components'
 import { getPercentages } from '../lib'
-import ToggleButton from './ToggleButton'
+import ToggleButton from '../common/ToggleButton'
 
 const pollDivStyles: CSSProperties = {
   display: 'flex',
@@ -67,15 +67,17 @@ const PollPie: React.FC = () => {
   return (
     <div>
       <Header color={uiColor}>{poll.title}</Header>
-      <ToggleButton
-        condition={showPie}
-        primaryLabel={'switch to pie'}
-        secondaryLabel={'switch to chroma'}
-        callback={setShowPie}
-      />
       <div style={pollDivStyles}>
         <Circle results={calculatedResults} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
-        <Legend results={calculatedResults} />
+        <div>
+          <Legend results={calculatedResults} />
+          <ToggleButton
+            condition={showPie}
+            primaryLabel={'switch to pie'}
+            secondaryLabel={'switch to chroma'}
+            callback={setShowPie}
+          />
+        </div>
       </div>
     </div>
   )
