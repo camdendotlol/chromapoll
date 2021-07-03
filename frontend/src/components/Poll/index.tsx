@@ -12,7 +12,6 @@ import ToggleButton from '../common/ToggleButton'
 const pollDivStyles: CSSProperties = {
   display: 'flex',
   gap: '10vw',
-  height: '70vh',
   width: '100%',
   alignItems: 'center',
   justifyContent: 'center',
@@ -65,7 +64,7 @@ const PollPie: React.FC = () => {
   const calculatedResults = getPercentages(results)
 
   return (
-    <div>
+    <>
       <Header color={uiColor}>{poll.title}</Header>
       <div style={pollDivStyles}>
         <Circle results={calculatedResults} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
@@ -79,7 +78,7 @@ const PollPie: React.FC = () => {
           />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

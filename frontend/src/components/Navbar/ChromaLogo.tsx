@@ -8,6 +8,12 @@ const LogoDiv = styled.div`
   flex-flow: row;
   text-decoration: none;
   align-items: center;
+  padding: 2px;
+  border-radius: 5px;
+
+  :hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
 `
 
 const Logo = styled.img`
@@ -20,19 +26,27 @@ const LogoText = styled.p`
   fontWeight: 1000;
   font-size: 1.5rem;
   margin: 0;
-  padding-left: 10px;
+  padding-left: 10px; 
   display: inline-block;
-  color: black;
-  fitler: invert(50%);
+  color: ${props => props.color};
+  transition: color 0.2s;
 `
 
 const ChromaLogo: React.FC = () => {
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
 
+  const getColor = () => {
+    if (uiColor === 'rgb(233, 233, 233)') {
+      return '#e9e9e9'
+    } else {
+      return '#202020'
+    }
+  }
+
   return (
     <LogoDiv>
       <Logo src={colorWheel} />
-      <LogoText color={uiColor}>Chromapoll</LogoText>
+      <LogoText color={getColor()}>Chromapoll</LogoText>
     </LogoDiv>
   )
 }

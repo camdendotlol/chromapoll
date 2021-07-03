@@ -4,14 +4,12 @@ import breakpoints from '../../breakpoints'
 
 const ContainerDiv = styled.div`
   margin: 0 auto;
-  max-width: 80%;
-  position: relative;
-  top: 60px;
+  margin-top: 60px;
+  width: 80%;
 
   @media(max-width: ${breakpoints.laptop}) {
     max-width: 100%;
     width: 100%;
-    margin: 0;
   }
 `
 
