@@ -2,7 +2,7 @@
 
 Super secret project 😌
 
-More details will come soon!
+More details will come soon!!
 
 ## How to run
 
