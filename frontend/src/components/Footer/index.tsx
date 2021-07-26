@@ -4,8 +4,6 @@ import breakpoints from '../../breakpoints'
 import { useAppSelector } from '../../hooks'
 
 const FooterDiv = styled.footer`
-  position: absolute;
-  bottom: 0;
   height: 40px;
   width: 100%;
   margin: 0 auto;

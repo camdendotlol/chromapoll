@@ -9,7 +9,7 @@ import Footer from './components/Footer'
 import './global-styles.css'
 
 const App: React.FC = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '3000px' }}>
+  <div>
     <Navbar />
     <main>
       <Container>
