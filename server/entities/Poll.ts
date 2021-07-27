@@ -12,7 +12,7 @@ export class Poll extends BaseEntity {
   @OneToMany(() => Choice, c => c.poll)
   choices = new Collection<Choice>(this)
 
-  @ManyToMany(() => IP, 'votes', { owner: true })
+  @ManyToMany(() => IP, 'votes', { owner: true, lazy: true })
   voters = new Collection<IP>(this)
 
   constructor(title: string) {

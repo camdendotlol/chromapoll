@@ -1,14 +1,24 @@
-import React, { CSSProperties } from 'react'
+import React from 'react'
 import { animated, useSpring } from 'react-spring'
+import styled from 'styled-components'
+import breakpoints from '../../breakpoints'
 
 interface Props {
   text: string
 }
 
-const titleStyle: CSSProperties = {
-  textAlign: 'center',
-  fontSize: '5rem',
-}
+const AnimatedHeader = styled(animated.h1)`
+  text-align: center;
+  font-size: 5rem;
+
+  @media (max-width: ${breakpoints.laptop}) {
+    font-size: 3rem;
+  }
+
+  @media (max-width: ${breakpoints.phone}) {
+    font-size: 2rem;
+  }
+`
 
 const Title: React.FC<Props> = ({ text }) => {
   const props = useSpring({
@@ -28,7 +38,7 @@ const Title: React.FC<Props> = ({ text }) => {
   })
 
   return (
-    <animated.p style={{ ...titleStyle, ...props }}>{text}</animated.p>
+    <AnimatedHeader style={props}>{text}</AnimatedHeader>
   )
 }
 

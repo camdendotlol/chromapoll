@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { PrettyLink } from '../common/styledComponents'
 import Logo from '../common/Logo'
+import breakpoints from '../../breakpoints'
 
 const HomeDiv = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ const HomeDiv = styled.div`
   gap: 20px;
 
   // Make room for navbar on top
-  height: calc(100vh - 60px);
+  height: calc(100vh - 80px);
 
   > * {
     margin: 0 auto;
@@ -29,6 +30,10 @@ const TitleDiv = styled.div`
 
   > * {
     margin: 0 auto;
+  }
+
+  @media (max-width: ${breakpoints.phone}) {
+    flex-flow: column;
   }
 `
 
