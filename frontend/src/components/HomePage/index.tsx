@@ -1,19 +1,48 @@
-import React, { CSSProperties } from 'react'
-import Subtitles from './Subtitles'
+import React from 'react'
 import Title from './Title'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { PrettyLink } from '../common/styledComponents'
+import Logo from '../common/Logo'
 
-const homeStyles: CSSProperties = {
-  textAlign: 'center'
-}
+const HomeDiv = styled.div`
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  gap: 20px;
+
+  // Make room for navbar on top
+  height: calc(100vh - 60px);
+
+  > * {
+    margin: 0 auto;
+  }
+`
+
+const TitleDiv = styled.div`
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: 10px;
+
+  > * {
+    margin: 0 auto;
+  }
+`
 
 const HomePage: React.FC = () => {
   return (
-    <div style={homeStyles}>
-      <Title text={'Chromapoll!'} />
-      <p><Link to='/all'>List of all polls</Link></p>
-      <Subtitles items={['Make polls with color', 'Share them with friends!']} />
-    </div>
+    <HomeDiv>
+      <TitleDiv>
+        <Logo size={'100px'} />
+        <Title text={'Chromapoll!'} />
+      </TitleDiv>
+      <Link to='/all'>
+        <PrettyLink>See polls</PrettyLink>
+      </Link>
+    </HomeDiv>
   )
 }
 
