@@ -5,7 +5,7 @@ import AllPolls from './components/AllPolls'
 import Poll from './components/Poll'
 import Container from './components/common/Container'
 import Navbar from './components/Navbar'
-import styled, { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
   body {

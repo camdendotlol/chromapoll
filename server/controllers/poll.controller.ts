@@ -2,14 +2,17 @@ import express from 'express'
 import { DI } from '../app'
 import { Poll } from '../../server/entities/Poll'
 import { Choice } from '../../server/entities/Choice'
-import { getColors } from './lib'
+import { getColors, removeVoters } from './lib'
 import { IP } from '../entities/Ip'
 
 const router = express.Router()
 
 router.get('/', async (req, res) => {
   const polls = await DI.pollRepository.findAll(['choices'])
-  res.json(polls)
+  
+  const sanitizedPolls = polls.map(p => removeVoters(p))
+
+  res.json(sanitizedPolls)
 })
 
 router.get('/:id', async (req, res) => {

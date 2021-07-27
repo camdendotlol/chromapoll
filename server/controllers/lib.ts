@@ -1,3 +1,8 @@
+import { Collection, LoadedCollection } from "@mikro-orm/core"
+import { Choice } from "../entities/Choice"
+import { IP } from "../entities/Ip"
+import { Poll } from "../entities/Poll"
+
 export const getColors = (length: number) => {
   switch (length) {
     case 2:
@@ -9,4 +14,14 @@ export const getColors = (length: number) => {
     default:
       throw new Error('Invalid number of choices - only 2, 3, or 4 is currently supported.')
   }
+}
+
+type PollWithVoters = (Poll & {
+  choices: LoadedCollection<Choice, Choice>;
+  voters?: Collection<IP, unknown>;
+})
+
+export const removeVoters = (poll: PollWithVoters) => {
+  const clone = { ...poll, voters: undefined }
+  return clone
 }
