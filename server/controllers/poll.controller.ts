@@ -2,7 +2,6 @@ import express from 'express'
 import { DI } from '../app'
 import { Poll } from '../../server/entities/Poll'
 import { Choice } from '../../server/entities/Choice'
-import { getColors } from './lib'
 import { IP } from '../entities/Ip'
 
 const router = express.Router()
@@ -22,11 +21,20 @@ router.get('/:id', async (req, res) => {
 
 // EXAMPLE NEW POLL REQUEST BODY:
 // {
-//   title: 'What\'s your favorite color?'
+//   title: 'What\'s your favorite animal?'
 //   choices: [
-//     'red',
-//     'green',
-//     'blue'
+// {
+//   "name": "Rabbit",
+//     "color": "#ff0000"
+// },
+// {
+//   "name": "Horse",
+//     "color": "#008000"
+// },
+// {
+//   "name": "Frog",
+//     "color": "#0000ff"
+// }
 //   ]
 // }
 
@@ -39,16 +47,18 @@ router.post('/create', async (req, res) => {
     return res.status(400).json('Questions must have at least two choices')
   }
 
+  const choices: Choice[] = []
+
   const poll = new Poll(req.body.title)
-  const colors = getColors(req.body.choices.length)
-  const choices = req.body.choices
 
   // Map each choice to its corresponding color
-  for (let i = 0; i < choices.length; i++) {
-    choices[i] = new Choice(choices[i], colors[i], poll)
-  }
+  for (let x = 0; x < req.body.choices.length; x++) {
+    if (!req.body.choices[x].color) {
+      return res.status(400).json('At least one choice is missing a color')
+    }
 
-  poll.choices = choices
+    choices.push(new Choice(req.body.choices[x], req.body.choices[x].color, poll))
+  }
 
   await DI.pollRepository.persistAndFlush(poll)
 
