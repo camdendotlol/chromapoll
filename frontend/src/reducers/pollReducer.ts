@@ -42,16 +42,16 @@ const pollSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAllPolls.fulfilled, (state, { payload }) => {
-      return state = payload
+      return payload
     }),
     builder.addCase(getPoll.fulfilled, (state, { payload }) => {
       if (state.find(p => p.id === payload.id)) {
-        return state = state
+        return state
       }
-      return state = [...state, payload]
+      return [...state, payload]
     }),
     builder.addCase(vote.fulfilled, (state, { payload }) => {
-      return state = state.map(poll => poll.id === payload.id ? payload : poll)
+      return state.map(poll => poll.id === payload.id ? payload : poll)
     })
   }
 })

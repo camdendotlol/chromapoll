@@ -24,7 +24,7 @@ const colorSlice = createSlice({
         b: handleBrightness(tuple.color[2])
       }
 
-      return state = `rgb(${colorObject.r}, ${colorObject.g}, ${colorObject.b})`
+      return `rgb(${colorObject.r}, ${colorObject.g}, ${colorObject.b})`
     }
   }
 })

@@ -57,6 +57,10 @@ const Legend: React.FC<Props> = ({ results, pollID }) => {
     await dispatch(vote({pollID, choiceID}))
   }
 
+  const displayPercentage = (percentage: number) => {
+    return `${Math.round(percentage * 10) / 10}%`
+  }
+
   return (
     <div>
       <LegendTitle color={uiColor}>Results</LegendTitle>
@@ -64,7 +68,7 @@ const Legend: React.FC<Props> = ({ results, pollID }) => {
         <LegendList>
           {results.map(r =>
             <li key={r.id} onClick={() => handleVote(r.id)}>
-              {colorKey(r.color)}<ChoiceName><Label color={r.color}>{r.label}</Label>:&nbsp;{`${Math.floor(r.percent * 100) / 100}%`}</ChoiceName>
+              {colorKey(r.color)}<ChoiceName><Label color={r.color}>{r.label}</Label>:&nbsp;{displayPercentage(r.percent)}</ChoiceName>
               <br />
               <Subtitle>{r.votes} votes</Subtitle>
             </li>
