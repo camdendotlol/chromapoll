@@ -1,10 +1,12 @@
 import React, { CSSProperties } from 'react'
 import styled from 'styled-components'
-import { useAppSelector } from '../../hooks'
+import { useAppSelector, useAppDispatch } from '../../hooks'
+import { vote } from '../../reducers/pollReducer'
 import { ChoiceWithData } from '../../types'
 
 interface Props {
-  results: ChoiceWithData[]
+  results: ChoiceWithData[],
+  pollID: string
 }
 
 const LegendTitle = styled.h3`
@@ -41,7 +43,8 @@ const ChoiceName = styled.span`
   margin-left: 5px;
 `
 
-const Legend: React.FC<Props> = ({ results }) => {
+const Legend: React.FC<Props> = ({ results, pollID }) => {
+  const dispatch = useAppDispatch()
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
 
   const colorKey = (color: string) => (
@@ -50,13 +53,17 @@ const Legend: React.FC<Props> = ({ results }) => {
     </svg>
   )
 
+  const handleVote = async (choiceID: string) => {
+    await dispatch(vote({pollID, choiceID}))
+  }
+
   return (
     <div>
       <LegendTitle color={uiColor}>Results</LegendTitle>
       <LegendBox color={uiColor}>
         <LegendList>
           {results.map(r =>
-            <li key={r.id}>
+            <li key={r.id} onClick={() => handleVote(r.id)}>
               {colorKey(r.color)}<ChoiceName><Label color={r.color}>{r.label}</Label>:&nbsp;{`${Math.floor(r.percent * 100) / 100}%`}</ChoiceName>
               <br />
               <Subtitle>{r.votes} votes</Subtitle>

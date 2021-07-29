@@ -5,6 +5,11 @@ import { Poll } from '../types'
 
 const initialState: Poll[] = []
 
+interface VotePayload {
+  pollID: string,
+  choiceID: string
+}
+
 export const getAllPolls = createAsyncThunk(
   '/getAllPollsStatus',
   async () => {
@@ -23,6 +28,14 @@ export const getPoll = createAsyncThunk(
   }
 )
 
+export const vote = createAsyncThunk(
+  '/voteStatus',
+  async (payload: VotePayload) => {
+    const res = await pollService.vote(payload.pollID, payload.choiceID)
+    return res
+  }
+)
+
 const pollSlice = createSlice({
   name: 'pollSlice',
   initialState,
@@ -36,6 +49,9 @@ const pollSlice = createSlice({
         return state = state
       }
       return state = [...state, payload]
+    }),
+    builder.addCase(vote.fulfilled, (state, { payload }) => {
+      return state = state.map(poll => poll.id === payload.id ? payload : poll)
     })
   }
 })

@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ChoiceWithData } from '../../types'
 import Circle from './Circle'
 import Legend from './Legend'
@@ -8,15 +8,22 @@ import { getPoll } from '../../reducers/pollReducer'
 import styled from 'styled-components'
 import { sum, calculateDisplayData } from '../lib'
 import ToggleButton from '../common/ToggleButton'
+import breakpoints from '../../breakpoints'
 
-const pollDivStyles: CSSProperties = {
-  display: 'flex',
-  gap: '10vw',
-  width: '100%',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexWrap: 'wrap'
-}
+const PollDiv = styled.div`
+  display: flex;
+  gap: 10vw;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 100px;
+
+  @media (max-width: ${breakpoints.phone}) {
+    margin-top: 20px;
+    flex-direction: column-reverse;
+  }
+`
 
 const Header = styled.h1`
   text-align: center;
@@ -80,13 +87,13 @@ const PollPie: React.FC = () => {
   return (
     <>
       <Header color={uiColor}>{poll.title}</Header>
-      <div style={pollDivStyles}>
+      <PollDiv>
         <Circle results={results} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
         <div>
-          <Legend results={results} />
+          <Legend results={results} pollID={poll.id} />
           {handleToggleButton()}
         </div>
-      </div>
+      </PollDiv>
     </>
   )
 }

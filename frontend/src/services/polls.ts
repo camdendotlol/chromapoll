@@ -12,7 +12,13 @@ const getPoll = async (id: string) => {
   return res.data
 }
 
+const vote = async (pollID: string, choiceID: string) => {
+  const res = await axios.post(`${baseUrl}/vote/${pollID}/${choiceID}`)
+  return res.data
+}
+
 export default {
   getAllPolls,
-  getPoll
+  getPoll,
+  vote
 }
