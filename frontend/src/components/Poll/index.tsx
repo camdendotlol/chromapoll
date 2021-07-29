@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks'
 import { useParams } from 'react-router-dom'
 import { getPoll } from '../../reducers/pollReducer'
 import styled from 'styled-components'
-import { getPercentages } from '../lib'
+import { sum, calculateDisplayData } from '../lib'
 import ToggleButton from '../common/ToggleButton'
 
 const pollDivStyles: CSSProperties = {
@@ -45,9 +45,9 @@ const PollPie: React.FC = () => {
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
 
   useEffect(() => {
-    // The ballot stuffing is temporary for early development
     if (poll) {
-      setResults(poll.choices.map(c => c = { ...c, votes: Math.floor(Math.random() * 1000) }) as ChoiceWithData[])
+      const calculatedResults = calculateDisplayData(poll.choices)
+      setResults(calculatedResults)
     }
   }, [poll])
 
@@ -61,21 +61,30 @@ const PollPie: React.FC = () => {
     return <p>still loading...</p>
   }
 
-  const calculatedResults = getPercentages(results)
+  // Don't show the pie option if there's nothing useful to show in it
+  const handleToggleButton = () => {
+    if (results.map(r => r.votes).reduce(sum) < 2) {
+      return null
+    } else {
+      return (
+        <ToggleButton
+          condition={showPie}
+          primaryLabel={'switch to pie'}
+          secondaryLabel={'switch to chroma'}
+          callback={setShowPie}
+        />
+      )
+    }
+  }
 
   return (
     <>
       <Header color={uiColor}>{poll.title}</Header>
       <div style={pollDivStyles}>
-        <Circle results={calculatedResults} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
+        <Circle results={results} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
         <div>
-          <Legend results={calculatedResults} />
-          <ToggleButton
-            condition={showPie}
-            primaryLabel={'switch to pie'}
-            secondaryLabel={'switch to chroma'}
-            callback={setShowPie}
-          />
+          <Legend results={results} />
+          {handleToggleButton()}
         </div>
       </div>
     </>

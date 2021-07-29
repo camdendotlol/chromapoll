@@ -15,3 +15,9 @@ export interface ChoiceWithData extends Choice {
   percent: number,
   offset: number
 }
+
+export interface RGBColor {
+  r: number,
+  g: number,
+  b: number
+}

@@ -21,20 +21,20 @@ router.get('/:id', async (req, res) => {
 
 // EXAMPLE NEW POLL REQUEST BODY:
 // {
-//   title: 'What\'s your favorite animal?'
-//   choices: [
-// {
-//   "name": "Rabbit",
-//     "color": "#ff0000"
-// },
-// {
-//   "name": "Horse",
-//     "color": "#008000"
-// },
-// {
-//   "name": "Frog",
-//     "color": "#0000ff"
-// }
+//   title: "What's your favorite animal?""
+//   "choices": [
+//     {
+//       "name": "Rabbit",
+//         "color": "#ff0000"
+//     },
+//     {
+//       "name": "Horse",
+//         "color": "#008000"
+//     },
+//     {
+//       "name": "Frog",
+//         "color": "#0000ff"
+//     }
 //   ]
 // }
 
@@ -57,7 +57,11 @@ router.post('/create', async (req, res) => {
       return res.status(400).json('At least one choice is missing a color')
     }
 
-    choices.push(new Choice(req.body.choices[x], req.body.choices[x].color, poll))
+    choices.push(new Choice(
+      req.body.choices[x].name,
+      req.body.choices[x].color,
+      poll
+    ))
   }
 
   await DI.pollRepository.persistAndFlush(poll)
