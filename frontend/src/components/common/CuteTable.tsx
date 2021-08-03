@@ -19,6 +19,7 @@ const TableContainer = styled.div`
 const Table = styled.table`
   border-spacing: 0px;
   border-radius: 10px;
+  font-weight: 600;
 
   th, td {
     padding: 10px;
