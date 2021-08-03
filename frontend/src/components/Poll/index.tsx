@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ChoiceWithData } from '../../types'
 import Circle from './Circle'
-import Legend from './Legend'
+import VotePanel from '../VotePanel'
 import { useAppSelector, useAppDispatch } from '../../hooks'
 import { useParams } from 'react-router-dom'
 import { getPoll } from '../../reducers/pollReducer'
@@ -90,7 +90,7 @@ const PollPie: React.FC = () => {
       <PollDiv>
         <Circle results={results} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
         <div>
-          <Legend results={results} pollID={poll.id} />
+          <VotePanel results={results} pollID={poll.id} />
           {handleToggleButton()}
         </div>
       </PollDiv>
