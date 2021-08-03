@@ -8,6 +8,9 @@ const colorSlice = createSlice({
   name: 'colorSlice',
   initialState,
   reducers: {
+    resetUIColor(state) {
+      return initialState
+    },
     updateUIColor(state, action: PayloadAction<string>) {
       const color = action.payload
       const colorArray = color.replace('(', '[').replace(')', ']')
@@ -29,7 +32,7 @@ const colorSlice = createSlice({
   }
 })
 
-export const { updateUIColor } = colorSlice.actions
+export const { resetUIColor, updateUIColor } = colorSlice.actions
 
 export default colorSlice.reducer
 

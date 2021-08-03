@@ -1,6 +1,7 @@
 import React, { CSSProperties, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../hooks'
+import { resetUIColor } from '../../reducers/colorReducer'
 import { getAllPolls } from '../../reducers/pollReducer'
 import PollItem from './PollItem'
 
@@ -12,6 +13,10 @@ const AllPolls: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const polls = useAppSelector(({ polls }) => polls)
+
+  useEffect(() => {
+    dispatch(resetUIColor())
+  }, [])
 
   useEffect(() => {
     dispatch(getAllPolls())

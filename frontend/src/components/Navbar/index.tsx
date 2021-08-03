@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import ChromaLogo from './ChromaLogo'
 import breakpoints from '../../breakpoints'
-import { useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { resetUIColor } from '../../reducers/colorReducer'
 
 const NavbarDiv = styled.nav`
   position: fixed;
@@ -41,6 +42,7 @@ const NavbarContent = styled.div`
 `
 
 const Navbar: React.FC = () => {
+  const dispatch = useAppDispatch();
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
 
   const pickColor = () => {
@@ -54,7 +56,7 @@ const Navbar: React.FC = () => {
   return (
     <NavbarDiv color={pickColor()}>
       <NavbarContent>
-        <Link to='/'><ChromaLogo /></Link>
+        <Link to='/' onClick={() => dispatch(resetUIColor())}><ChromaLogo /></Link>
       </NavbarContent>
     </NavbarDiv>
   )
