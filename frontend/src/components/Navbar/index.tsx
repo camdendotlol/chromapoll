@@ -46,10 +46,10 @@ const Navbar: React.FC = () => {
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
 
   const pickColor = () => {
-    if (uiColor === 'rgb(233, 233, 233)') {
+    if (uiColor.default) {
       return '#4c4e52'
     } else {
-      return uiColor
+      return uiColor.light
     }
   }
 

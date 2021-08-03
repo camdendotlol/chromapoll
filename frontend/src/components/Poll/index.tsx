@@ -86,7 +86,7 @@ const PollPie: React.FC = () => {
 
   return (
     <>
-      <Header color={uiColor}>{poll.title}</Header>
+      <Header color={uiColor.light}>{poll.title}</Header>
       <PollDiv>
         <Circle results={results} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
         <div>

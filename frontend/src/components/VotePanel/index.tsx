@@ -44,7 +44,7 @@ const VotePanel: React.FC<Props> = ({ results, pollID }) => {
   return (
     <div>
       <LegendTitle
-        color={uiColor}
+        color={uiColor.light}
       >
         Results
       </LegendTitle>
