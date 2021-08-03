@@ -1,3 +1,4 @@
+import { UIColor } from "../reducers/colorReducer"
 import { Choice, ChoiceWithData, RGBColor } from "../types"
 
 export const sum = (a: number, b: number) => a + b
@@ -88,4 +89,12 @@ export const mixColors = (choices: Choice[]) => {
   }
 
   return `rgb(${averages.r}, ${averages.g}, ${averages.b})`
+}
+
+export const getTextColor = (uiColor: UIColor) => {
+  if (uiColor.default) {
+    return '#e9e9e9'
+  } else {
+    return '#202020'
+  }
 }

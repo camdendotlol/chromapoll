@@ -5,6 +5,7 @@ import ChromaLogo from './ChromaLogo'
 import breakpoints from '../../breakpoints'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { resetUIColor } from '../../reducers/colorReducer'
+import { getTextColor } from '../lib'
 
 const NavbarDiv = styled.nav`
   position: fixed;
@@ -17,7 +18,7 @@ const NavbarDiv = styled.nav`
   box-shadow: 0 0 3px #4e4a4a;
   transition: background 0.2s;
 `
-
+  
 const NavbarContent = styled.div`
   width: 60%;
   margin: 0 auto;
@@ -25,6 +26,8 @@ const NavbarContent = styled.div`
   padding-bottom: 10px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
   a {
     text-decoration: none;
@@ -37,7 +40,20 @@ const NavbarContent = styled.div`
   }
 
   @media(max-width: ${breakpoints.laptop}) {
-    width: 100%;
+    width: calc(100% - 20px);
+  }
+`
+
+const NavbarLinks = styled.div`
+  fontWeight: 500;
+  font-size: 1.2rem;
+  margin: 0;
+  padding-left: 10px;
+  display: inline-block;
+  transition: color 0.2s;
+
+  a {
+    color: ${props => props.color}
   }
 `
 
@@ -45,7 +61,7 @@ const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
 
-  const pickColor = () => {
+  const getNavColor = () => {
     if (uiColor.default) {
       return '#4c4e52'
     } else {
@@ -54,9 +70,12 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <NavbarDiv color={pickColor()}>
+    <NavbarDiv color={getNavColor()}>
       <NavbarContent>
         <Link to='/' onClick={() => dispatch(resetUIColor())}><ChromaLogo /></Link>
+        <NavbarLinks color={getTextColor(uiColor)}>
+          <Link to='/create'>New Poll</Link>
+        </NavbarLinks>
       </NavbarContent>
     </NavbarDiv>
   )

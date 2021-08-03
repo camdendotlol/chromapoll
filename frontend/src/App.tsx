@@ -9,6 +9,7 @@ import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from './GlobalStyle'
 import { useAppSelector } from './hooks'
 import { UIColor } from './reducers/colorReducer'
+import CreatePoll from './components/CreatePoll'
 
 const chromaTheme = (uiColor: UIColor) => ({
   backgroundColor: uiColor.dark
@@ -29,6 +30,9 @@ const App: React.FC = () => {
               </Route>
               <Route path='/poll/:id'>
                 <Poll />
+              </Route>
+              <Route path='/create'>
+                <CreatePoll />
               </Route>
               <Route path='/'>
                 <HomePage />

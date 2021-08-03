@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useAppSelector } from '../../hooks'
 import colorWheel from '../../public/img/color_wheel.svg'
+import { getTextColor } from '../lib'
 
 const LogoDiv = styled.div`
   display: flex;
@@ -35,18 +36,10 @@ const LogoText = styled.p`
 const ChromaLogo: React.FC = () => {
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
 
-  const getColor = () => {
-    if (uiColor === 'rgb(233, 233, 233)') {
-      return '#e9e9e9'
-    } else {
-      return '#202020'
-    }
-  }
-
   return (
     <LogoDiv>
       <Logo src={colorWheel} />
-      <LogoText color={getColor()}>Chromapoll</LogoText>
+      <LogoText color={getTextColor(uiColor)}>Chromapoll</LogoText>
     </LogoDiv>
   )
 }
