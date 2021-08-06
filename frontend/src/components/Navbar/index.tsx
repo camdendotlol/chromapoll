@@ -53,7 +53,8 @@ const NavbarLinks = styled.div`
   transition: color 0.2s;
 
   a {
-    color: ${props => props.color}
+    color: ${props => props.color};
+    margin-left: 20px;
   }
 `
 
@@ -74,6 +75,7 @@ const Navbar: React.FC = () => {
       <NavbarContent>
         <Link to='/' onClick={() => dispatch(resetUIColor())}><ChromaLogo /></Link>
         <NavbarLinks color={getTextColor(uiColor)}>
+          <Link to='/all'>Latest Polls</Link>
           <Link to='/create'>New Poll</Link>
         </NavbarLinks>
       </NavbarContent>
