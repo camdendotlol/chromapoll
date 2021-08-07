@@ -1,12 +1,12 @@
 import React, { CSSProperties, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { resetUIColor } from '../../reducers/colorReducer'
 import { getAllPolls } from '../../reducers/pollReducer'
 import PollItem from './PollItem'
 
 const styles: CSSProperties = {
-  textAlign: 'center'
+  textAlign: 'center',
+  margin: '0 auto'
 }
 
 const AllPolls: React.FC = () => {
@@ -26,9 +26,12 @@ const AllPolls: React.FC = () => {
     <div style={styles}>
       <h1>Latest polls</h1>
       {polls.map(poll => (
-        <Link to={`/poll/${poll.id}`} key={poll.id}>
-          <PollItem label={poll.title} choices={poll.choices} />
-        </Link>
+        <PollItem
+          key={poll.id}
+          id={poll.id}
+          label={poll.title}
+          choices={poll.choices}
+        />
       ))}
     </div>
   )

@@ -55,6 +55,8 @@ const NavbarLinks = styled.div`
   a {
     color: ${props => props.color};
     margin-left: 20px;
+    padding: 8px;
+    border-radius: 10px;
   }
 `
 
