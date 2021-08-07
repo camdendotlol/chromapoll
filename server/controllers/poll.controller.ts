@@ -25,15 +25,15 @@ router.get('/:id', async (req, res) => {
 //   "choices": [
 //     {
 //       "name": "Rabbit",
-//         "color": "#ff0000"
+//       "color": "#ff0000"
 //     },
 //     {
 //       "name": "Horse",
-//         "color": "#008000"
+//       "color": "#008000"
 //     },
 //     {
 //       "name": "Frog",
-//         "color": "#0000ff"
+//       "color": "#0000ff"
 //     }
 //   ]
 // }
@@ -53,6 +53,9 @@ router.post('/create', async (req, res) => {
 
   // Map each choice to its corresponding color
   for (let x = 0; x < req.body.choices.length; x++) {
+    if (!req.body.choices[x].name) {
+      return res.status(400).json('At least one choice is missing a label')
+    }
     if (!req.body.choices[x].color) {
       return res.status(400).json('At least one choice is missing a color')
     }

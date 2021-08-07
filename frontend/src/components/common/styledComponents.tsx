@@ -20,3 +20,18 @@ export const PrettyLink = styled.p`
     font-size: 1rem;
   }
 `
+
+export const CenteredHeader = styled.h1`
+  text-align: center;
+`
+
+export const Subtitle = styled.h2`
+  text-align: left;
+  font-size: 1.1rem;
+`
+
+export const FormInput = styled.input`
+  padding: 10px;
+  font-size 1.1rem;
+  width: 90%;
+`

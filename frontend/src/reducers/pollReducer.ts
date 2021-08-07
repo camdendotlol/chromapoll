@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import pollService from '../services/polls'
-import { Poll } from '../types'
+import { NewPollObject, Poll } from '../types'
 
 const initialState: Poll[] = []
 
@@ -28,6 +28,19 @@ export const getPoll = createAsyncThunk(
   }
 )
 
+export const createPoll = createAsyncThunk(
+  '/createPollStatus',
+  async (payload: NewPollObject) => {
+    let res
+    try {
+      res = await pollService.createPoll(payload)
+    } catch(e) {
+      throw new Error(e.message)
+    }
+    return res
+  }
+)
+
 export const vote = createAsyncThunk(
   '/voteStatus',
   async (payload: VotePayload) => {
@@ -50,6 +63,9 @@ const pollSlice = createSlice({
       }
       return [...state, payload]
     }),
+    builder.addCase(createPoll.fulfilled, (state, { payload }) => {
+      return [...state, payload]
+    })
     builder.addCase(vote.fulfilled, (state, { payload }) => {
       return state.map(poll => poll.id === payload.id ? payload : poll)
     })

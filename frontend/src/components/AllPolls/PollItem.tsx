@@ -11,7 +11,8 @@ interface Props {
 }
 
 const ListDiv = styled.div`
-  display: flex;
+  display: inline-flex;
+  margin: 0 auto;
   flex-flow: row;
   justify-content: center;
   align-items: center;

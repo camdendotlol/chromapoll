@@ -21,3 +21,13 @@ export interface RGBColor {
   g: number,
   b: number
 }
+
+export interface NewPollObject {
+  title: string,
+  choices: NewPollChoice[]
+}
+
+export interface NewPollChoice {
+  name: string,
+  color: string
+}

@@ -6,7 +6,10 @@ import PollItem from './PollItem'
 
 const styles: CSSProperties = {
   textAlign: 'center',
-  margin: '0 auto'
+  margin: '0 auto',
+  display: 'flex',
+  flexFlow: 'column',
+  gap: '20px'
 }
 
 const AllPolls: React.FC = () => {
