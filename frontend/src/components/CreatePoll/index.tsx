@@ -5,12 +5,12 @@ import { useAppDispatch } from '../../hooks'
 import { resetUIColor } from '../../reducers/colorReducer'
 import { createPoll } from '../../reducers/pollReducer'
 import { NewPollObject } from '../../types'
-import Button from '../common/Button'
-import { CenteredHeader, FormInput, Subtitle } from '../common/styledComponents'
+import { CenteredHeader, CenteredSubtitle, FormInput } from '../common/styledComponents'
+import { generateRandomColor } from '../lib'
 import { ChoiceItem, ExpansionButtons, FormItem, PollFormContainer, SubmitButton } from './styledComponents'
 
 const CreatePoll: React.FC = () => {
-  const { control, register, handleSubmit } = useForm()
+  const { control, register, handleSubmit, watch } = useForm()
   const dispatch = useAppDispatch()
   const history = useHistory()
 
@@ -19,6 +19,13 @@ const CreatePoll: React.FC = () => {
   }, [])
 
   const createNewPoll = async (data: NewPollObject) => {
+    const dataToSend = {
+      title: data.title,
+      choices: data.choices.forEach(choice => ({
+        name: choice.name,
+        color: choice.color
+      }))
+    }
     try {
       const res = await dispatch(createPoll(data)).unwrap()
 
@@ -36,14 +43,13 @@ const CreatePoll: React.FC = () => {
   // Populate the first two choices on component load
   useEffect(() => {
     append([
-      { name: '', color: '#ff0000' },
-      { name: '', color: '#0000ff' }]
+      { name: '', color: generateRandomColor() },
+      { name: '', color: generateRandomColor() }]
     )
   }, [])
 
-  // TODO: generate a random hex code for new choices
   const addChoice = () => {
-    append({ name: '', color: '#000000' })
+    append({ name: '', color: generateRandomColor() })
   }
 
   const removeChoice = () => {
@@ -51,6 +57,9 @@ const CreatePoll: React.FC = () => {
       remove(fields.length - 1)
     }
   }
+
+  // This keeps the hex text and color picker in sync
+  const _watchChoices = watch('choices')
 
   return (
     <PollFormContainer>
@@ -60,39 +69,55 @@ const CreatePoll: React.FC = () => {
           <label htmlFor='title'>Name</label>
           <FormInput id='title' {...register('title')} />
         </FormItem>
-        <Subtitle>Choices</Subtitle>
+        <CenteredSubtitle>Choices</CenteredSubtitle>
         <ExpansionButtons>
-          <button onClick={() => addChoice()}>+</button>
-          <button onClick={() => removeChoice()}>-</button>
+          <button
+            type='button'
+            onClick={() => addChoice()}
+          >
+            +
+          </button>
+          <button
+            type='button'
+            onClick={() => removeChoice()}
+          >
+            -
+          </button>
         </ExpansionButtons>
         {fields.map((field, index) => (
-          <div key={field.id}>
-            <ChoiceItem>
-              <FormItem>
-                <label
-                  htmlFor={`choice${index}Name`}
-                >
-                  Label
-                </label>
-                <input
-                  id={`choice${index}Name`}
-                  {...register(`choices.${index}.name`)}
-                />
-              </FormItem>
-              <FormItem>
-                <label
-                  htmlFor={`choice${index}Color`}
-                >
-                    Color
-                </label>
-                <input
-                  type='color'
-                  id={`choice${index}Color`}
-                  {...register(`choices.${index}.color`)}
-                />
-              </FormItem>
-            </ChoiceItem>
-          </div>
+          <ChoiceItem key={field.id}>
+            <FormItem>
+              <label
+                htmlFor={`choice${index}Name`}
+              >
+                Label
+              </label>
+              <input
+                type='text'
+                id={`choice${index}Name`}
+                {...register(`choices.${index}.name`)}
+              />
+            </FormItem>
+            <FormItem>
+              <label
+                htmlFor={`choice${index}Color`}
+              >
+                Color
+              </label>
+              <input
+                type='text'
+                id={`choice${index}Hex`}
+                {...register(`choices.${index}.color`)}
+              />
+            </FormItem>
+            <FormItem>
+              <input
+                type='color'
+                id={`choice${index}Picker`}
+                {...register(`choices.${index}.color`)}
+              />
+            </FormItem>
+          </ChoiceItem>
         ))}
         <SubmitButton type='submit'>Submit</SubmitButton>
       </form>

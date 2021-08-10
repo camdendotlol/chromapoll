@@ -98,3 +98,16 @@ export const getTextColor = (uiColor: UIColor) => {
     return '#202020'
   }
 }
+
+export const generateRandomColor = () => {
+  const hexAlphabet = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
+
+  const color = []
+
+  for (let i = 0; i < 6; i++) {
+    const char = hexAlphabet[Math.floor(Math.random() * hexAlphabet.length)]
+    color.push(char)
+  }
+
+  return '#' + color.join('')
+}

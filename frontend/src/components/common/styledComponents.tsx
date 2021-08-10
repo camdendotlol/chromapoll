@@ -25,8 +25,8 @@ export const CenteredHeader = styled.h1`
   text-align: center;
 `
 
-export const Subtitle = styled.h2`
-  text-align: left;
+export const CenteredSubtitle = styled.h2`
+  text-align: center;
   font-size: 1.1rem;
 `
 

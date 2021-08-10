@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import breakpoints from "../../breakpoints"
 
 export const PollFormContainer = styled.div`
   max-width: 600px;
@@ -11,6 +12,10 @@ export const PollFormContainer = styled.div`
   p {
     text-align: left;
   }
+
+  @media (max-width: ${breakpoints.phone}) {
+    width: calc(100% - 20px);
+  }
 `
 
 export const FormItem = styled.div`
@@ -19,12 +24,19 @@ export const FormItem = styled.div`
     text-align: left;
   }
 
-  input {
+  input[type=text] {
     font-size: 1.1rem;
-    width: 90%;
     padding: 10px;
-    margin: 0 auto;
+    border-radius: 10px;
+    border: none;
   }
+
+  input[type=color] {
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+  }
+}
 `
 
 export const SubmitButton = styled.button`
@@ -44,13 +56,29 @@ export const SubmitButton = styled.button`
 export const ChoiceItem = styled.div`
   display: flex;
   flex-flow: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 0 auto;
+  margin-bottom: 20px;
 
-  :nth-child(1) {
-    flex-grow: 3
+  * input {
+    width: 90%;
   }
 
-  :nth-child(2) {
-    flex-grow: 1
+  div:nth-child(1) {
+    width: calc(65% - 20px);
+  }
+
+  div:nth-child(2) {
+    width: calc(20% - 20px);
+  }
+
+  div:nth-child(3) input {
+    align-self: center;
+    height: 40px;
+    width: 40px;
+    position: relative;
+    top: 40%;
   }
 `
 
