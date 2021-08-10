@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import breakpoints from '../../breakpoints'
 import { Choice } from '../../types'
 import { mixColors } from '../lib'
 
@@ -11,19 +12,26 @@ interface Props {
 }
 
 const ListDiv = styled.div`
-  display: inline-flex;
-  margin: 0 auto;
-  flex-flow: row;
-  justify-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
   align-items: center;
+  max-width: ${breakpoints.phone};
+  display: flex;
   gap: 10px;
   transition: filter 0.2s;
+
+  a {
+    max-width: 80%;
+  }
+
+  @media (max-width: ${breakpoints.phone}) {
+    max-width: 100vw;
+  }
 `
 
-const Label = styled.span`
-  display: inline-block;
+const Label = styled.p`
   font-size: 1.2em;
-  max-width: 600px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -33,12 +41,12 @@ const Label = styled.span`
   }
 `
 
-const ColoredCircle = styled.span`
-  display: inline-block;
+const ColoredCircle = styled.div`
   background-color: ${props => props.color};
   height: 60px;
   width: 60px;
   border-radius: 50%;
+  flex-shrink: 0;
 `
 
 const PollItem: React.FC<Props> = ({ id, label, choices }) => {
