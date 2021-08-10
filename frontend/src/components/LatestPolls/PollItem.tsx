@@ -16,17 +16,17 @@ const ListDiv = styled.div`
   margin-right: 10px;
   margin-bottom: 20px;
   align-items: center;
-  max-width: ${breakpoints.phone};
+  width: ${breakpoints.phone};
   display: flex;
   gap: 10px;
   transition: filter 0.2s;
 
   a {
-    max-width: 80%;
+    max-width: calc(100% - 70px);
   }
 
   @media (max-width: ${breakpoints.phone}) {
-    max-width: 100vw;
+    width: 100vw;
   }
 `
 
