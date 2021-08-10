@@ -2,7 +2,7 @@ import React from 'react'
 import Title from './Title'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { PrettyLink } from '../common/styledComponents'
+import { CenteredSubtitle, PrettyLink } from '../common/styledComponents'
 import Logo from '../common/Logo'
 import breakpoints from '../../breakpoints'
 
@@ -44,6 +44,7 @@ const HomePage: React.FC = () => {
         <Logo size={'100px'} />
         <Title text={'Chromapoll!'} />
       </TitleDiv>
+      <CenteredSubtitle>Make polls with color</CenteredSubtitle>
       <Link to='/all'>
         <PrettyLink>See polls</PrettyLink>
       </Link>

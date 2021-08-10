@@ -30,7 +30,7 @@ const Title: React.FC<Props> = ({ text }) => {
       { color: 'green' },
       { color: 'blue' }
     ],
-    delay: 2000,
+    delay: 500,
     loop: { reverse: true },
     config: {
       duration: 3000

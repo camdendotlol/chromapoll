@@ -111,6 +111,7 @@ const CreatePoll: React.FC = () => {
               />
             </FormItem>
             <FormItem>
+              {/* TODO: use an OnChange param to keep these in sync */}
               <input
                 type='color'
                 id={`choice${index}Picker`}
