@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { CenteredSubtitle, PrettyLink } from '../common/styledComponents'
 import Logo from '../common/Logo'
 import breakpoints from '../../breakpoints'
+import { animated, useSpring } from 'react-spring'
 
 const HomeDiv = styled.div`
   display: flex;
@@ -22,7 +23,7 @@ const HomeDiv = styled.div`
   }
 `
 
-const TitleDiv = styled.div`
+const TitleDiv = styled(animated.div)`
   display: flex;
   flex-flow: row;
   align-items: center;
@@ -37,10 +38,17 @@ const TitleDiv = styled.div`
   }
 `
 
+
 const HomePage: React.FC = () => {
+  const props = useSpring({
+    to: { opacity: 1 },
+    from: { opacity: 0 },
+    config: { duration: 300 }
+  })
+
   return (
     <HomeDiv>
-      <TitleDiv>
+      <TitleDiv style={props}>
         <Logo size={'100px'} />
         <Title text={'Chromapoll!'} />
       </TitleDiv>
