@@ -1,7 +1,7 @@
 import React from 'react'
 import HomePage from './components/HomePage'
 import { Route, Switch } from 'react-router-dom'
-import AllPolls from './components/AllPolls'
+import LatestPolls from './components/LatestPolls'
 import Poll from './components/Poll'
 import Container from './components/common/Container'
 import Navbar from './components/Navbar'
@@ -26,7 +26,7 @@ const App: React.FC = () => {
           <Container>
             <Switch>
               <Route path='/all'>
-                <AllPolls />
+                <LatestPolls />
               </Route>
               <Route path='/poll/:id'>
                 <Poll />

@@ -3,7 +3,7 @@ import { NewPollObject } from '../types'
 
 const baseUrl = '/api/polls'
 
-const getAllPolls = async () => {
+const getLatestPolls = async () => {
   const res = await axios.get(`${baseUrl}`)
   return res.data
 }
@@ -24,7 +24,7 @@ const createPoll = async (data: NewPollObject) => {
 }
 
 export default {
-  getAllPolls,
+  getLatestPolls,
   getPoll,
   createPoll,
   vote

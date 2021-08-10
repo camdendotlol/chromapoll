@@ -10,10 +10,10 @@ interface VotePayload {
   choiceID: string
 }
 
-export const getAllPolls = createAsyncThunk(
-  '/getAllPollsStatus',
+export const getLatestPolls = createAsyncThunk(
+  '/getLatestPollsStatus',
   async () => {
-    const polls = await pollService.getAllPolls()
+    const polls = await pollService.getLatestPolls()
     return polls
   }
 )
@@ -54,7 +54,7 @@ const pollSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllPolls.fulfilled, (state, { payload }) => {
+    builder.addCase(getLatestPolls.fulfilled, (state, { payload }) => {
       return payload
     }),
     builder.addCase(getPoll.fulfilled, (state, { payload }) => {

@@ -3,11 +3,16 @@ import { DI } from '../app'
 import { Poll } from '../../server/entities/Poll'
 import { Choice } from '../../server/entities/Choice'
 import { IP } from '../entities/Ip'
+import { QueryOrder } from '@mikro-orm/core'
 
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  const polls = await DI.pollRepository.findAll(['choices'])
+  const polls = await DI.pollRepository.findAll({
+    orderBy: { createdAt: QueryOrder.DESC },
+    populate: ['choices'],
+    limit: 20
+  })
   res.json(polls)
 })
 

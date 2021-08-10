@@ -1,7 +1,7 @@
 import React, { CSSProperties, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { resetUIColor } from '../../reducers/colorReducer'
-import { getAllPolls } from '../../reducers/pollReducer'
+import { getLatestPolls } from '../../reducers/pollReducer'
 import PollItem from './PollItem'
 
 const styles: CSSProperties = {
@@ -12,7 +12,7 @@ const styles: CSSProperties = {
   gap: '20px'
 }
 
-const AllPolls: React.FC = () => {
+const LatestPolls: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const polls = useAppSelector(({ polls }) => polls)
@@ -22,7 +22,7 @@ const AllPolls: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    dispatch(getAllPolls())
+    dispatch(getLatestPolls())
   }, [dispatch])
 
   return (
@@ -40,4 +40,4 @@ const AllPolls: React.FC = () => {
   )
 }
 
-export default AllPolls
+export default LatestPolls
