@@ -25,7 +25,7 @@ const App: React.FC = () => {
         <main>
           <Container>
             <Switch>
-              <Route path='/all'>
+              <Route path='/latest'>
                 <LatestPolls />
               </Route>
               <Route path='/poll/:id'>

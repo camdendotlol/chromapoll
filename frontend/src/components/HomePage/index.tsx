@@ -45,7 +45,7 @@ const HomePage: React.FC = () => {
         <Title text={'Chromapoll!'} />
       </TitleDiv>
       <CenteredSubtitle>Make polls with color</CenteredSubtitle>
-      <Link to='/all'>
+      <Link to='/latest'>
         <PrettyLink>See polls</PrettyLink>
       </Link>
     </HomeDiv>

@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
       <NavbarContent>
         <Link to='/' onClick={() => dispatch(resetUIColor())}><ChromaLogo /></Link>
         <NavbarLinks color={getTextColor(uiColor)}>
-          <Link to='/all'>Latest Polls</Link>
+          <Link to='/latest'>Latest Polls</Link>
           <Link to='/create'>New Poll</Link>
         </NavbarLinks>
       </NavbarContent>
