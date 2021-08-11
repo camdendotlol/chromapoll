@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
   const polls = await DI.pollRepository.findAll({
     orderBy: { createdAt: QueryOrder.DESC },
     populate: ['choices'],
-    limit: 20
+    limit: 50
   })
   res.json(polls)
 })

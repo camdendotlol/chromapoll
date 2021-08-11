@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import breakpoints from '../../breakpoints'
 import { Choice } from '../../types'
 import { mixColors } from '../lib'
 
@@ -11,52 +10,40 @@ interface Props {
   choices: Choice[]
 }
 
-const ListDiv = styled.div`
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 20px;
-  align-items: center;
-  width: ${breakpoints.phone};
+const ListItem = styled.div`
+  background: ${props => props.color};
+  border-radius: 10px;
+  padding: 10px;
+  width: 200px;
+  height: 100px;
   display: flex;
+  align-items: center;
   gap: 10px;
-  transition: filter 0.2s;
+  transition: 0.2s;
 
-  a {
-    max-width: calc(100% - 70px);
-  }
-
-  @media (max-width: ${breakpoints.phone}) {
-    width: 100vw;
+  a:hover, a:focus {
+    filter: brightness(110%);
+    box-shadow: 3px 3px;
   }
 `
 
 const Label = styled.p`
-  font-size: 1.2em;
-  white-space: nowrap;
+  color: white;
+  font-size: 1.1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  :hover {
-    filter: brightness(150%);
-  }
-`
-
-const ColoredCircle = styled.div`
-  background-color: ${props => props.color};
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  flex-shrink: 0;
 `
 
 const PollItem: React.FC<Props> = ({ id, label, choices }) => {
   return (
-    <ListDiv>
-      <ColoredCircle color={mixColors(choices)} />
       <Link to={`/poll/${id}`}>
-        <Label>{label}</Label>
+        <ListItem color={mixColors(choices)}>
+            <Label>{label}</Label>
+        </ListItem>
       </Link>
-    </ListDiv>
   )
 }
 

@@ -8,8 +8,21 @@ import { CenteredHeader } from '../common/styledComponents'
 import PollItem from './PollItem'
 
 const PollList = styled.div`
-  width: ${breakpoints.phone};
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-content: space-between;
+  flex-wrap: wrap;
   margin: 0 auto;
+  
+  a {
+    outline: none;
+  }
+
+  a:hover div, a:focus div {
+    filter: brightness(110%);
+    box-shadow: 3px 3px;
+  }
 
   @media (max-width ${breakpoints.phone}) {
     width: calc(100vw - 20px);
