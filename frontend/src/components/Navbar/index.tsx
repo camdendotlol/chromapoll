@@ -58,6 +58,26 @@ const NavbarLinks = styled.div`
     padding: 8px;
     border-radius: 10px;
   }
+
+  @media (max-width: ${breakpoints.phone}) {
+    display: none;
+  }
+`
+
+const BurgerButton = styled.div`
+  display: none;
+  float: right;
+
+  @media (max-width: ${breakpoints.phone}) {
+    display: unset;
+
+    hr {
+      width: 30px;
+      border-radius: 10px;
+      border-top: 2px solid white;
+      color: white;
+    }
+  }
 `
 
 const Navbar: React.FC = () => {
@@ -80,6 +100,11 @@ const Navbar: React.FC = () => {
           <Link to='/latest'>Latest Polls</Link>
           <Link to='/create'>New Poll</Link>
         </NavbarLinks>
+        <BurgerButton>
+          <hr />
+          <hr />
+          <hr />
+        </BurgerButton>
       </NavbarContent>
     </NavbarDiv>
   )
