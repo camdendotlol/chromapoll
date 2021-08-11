@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import breakpoints from "../../breakpoints"
+import styled from 'styled-components'
+import breakpoints from '../../breakpoints'
 
 export const PollFormContainer = styled.div`
   max-width: 600px;
@@ -22,6 +22,7 @@ export const FormItem = styled.div`
   label {
     font-size: 1.2rem;
     text-align: left;
+
   }
 
   input[type=text] {
@@ -29,9 +30,13 @@ export const FormItem = styled.div`
     padding: 10px;
     border-radius: 10px;
     border: none;
+    margin: 0 auto;
+    display: block;
+    width: 90%;
   }
 
   input[type=color] {
+    padding-left: 10px;
     border: none;
     border-radius: 50%;
     background-color: transparent;
@@ -55,30 +60,27 @@ export const SubmitButton = styled.button`
 
 export const ChoiceItem = styled.div`
   display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
   gap: 20px;
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  justify-content: space-between;
 
-  * input {
-    width: 90%;
+  div:nth-child(1) {
+    flex-grow: 4;
   }
 
   div:nth-child(1) {
-    width: calc(65% - 20px);
+    flex-grow: 1;
   }
 
-  div:nth-child(2) {
-    width: calc(20% - 20px);
+  div:nth-child(2) label {
+    margin-left: 5px;
   }
-
-  div:nth-child(3) input {
-    align-self: center;
+  
+  div:nth-child(2) input {
+    display: block;
     height: 40px;
-    width: 40px;
-    position: relative;
-    top: 40%;
+    width: 80px;
   }
 `
 
@@ -89,12 +91,23 @@ export const ExpansionButtons = styled.div`
   gap: 10px;
 
   button {
+    display: flex;
+    justify-content: center;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
     font-size: 1.2rem;
     border: none;
     text-align: center;
     transition: 0.2s;
+    font-weight: 600;
+  }
+
+  // Just a little exta positioning to center the text
+  button span {
+    position: relative;
+    top: -2px;
   }
 
   button:hover {

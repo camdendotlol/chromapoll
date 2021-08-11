@@ -58,16 +58,14 @@ const CreatePoll: React.FC = () => {
     }
   }
 
-  // This keeps the hex text and color picker in sync
-  const _watchChoices = watch('choices')
-
   return (
     <PollFormContainer>
       <CenteredHeader>Create a poll</CenteredHeader>
       <form onSubmit={handleSubmit(createNewPoll)}>
         <FormItem>
-          <label htmlFor='title'>Name</label>
-          <FormInput id='title' {...register('title')} />
+          <label htmlFor='title'>Question</label>
+          <br />
+          <FormInput type='text' id='title' {...register('title')} />
         </FormItem>
         <CenteredSubtitle>Choices</CenteredSubtitle>
         <ExpansionButtons>
@@ -75,13 +73,13 @@ const CreatePoll: React.FC = () => {
             type='button'
             onClick={() => addChoice()}
           >
-            +
+            <span>+</span>
           </button>
           <button
             type='button'
             onClick={() => removeChoice()}
           >
-            -
+            <span>-</span>
           </button>
         </ExpansionButtons>
         {fields.map((field, index) => (
@@ -90,8 +88,9 @@ const CreatePoll: React.FC = () => {
               <label
                 htmlFor={`choice${index}Name`}
               >
-                Label
+                Choice
               </label>
+              <br />
               <input
                 type='text'
                 id={`choice${index}Name`}
@@ -104,17 +103,10 @@ const CreatePoll: React.FC = () => {
               >
                 Color
               </label>
-              <input
-                type='text'
-                id={`choice${index}Hex`}
-                {...register(`choices.${index}.color`)}
-              />
-            </FormItem>
-            <FormItem>
-              {/* TODO: use an OnChange param to keep these in sync */}
+              <br />
               <input
                 type='color'
-                id={`choice${index}Picker`}
+                id={`choice${index}Color`}
                 {...register(`choices.${index}.color`)}
               />
             </FormItem>
