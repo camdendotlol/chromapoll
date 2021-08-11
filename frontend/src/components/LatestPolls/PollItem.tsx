@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Choice } from '../../types'
-import { mixColors } from '../lib'
+import { isBright, mixColors } from '../lib'
 
 interface Props {
   id: string,
@@ -28,7 +28,7 @@ const ListItem = styled.div`
 `
 
 const Label = styled.p`
-  color: white;
+  color: ${props => props.color};
   font-size: 1.1rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -38,10 +38,13 @@ const Label = styled.p`
 `
 
 const PollItem: React.FC<Props> = ({ id, label, choices }) => {
+  const choiceColor = mixColors(choices)
   return (
       <Link to={`/poll/${id}`}>
-        <ListItem color={mixColors(choices)}>
-            <Label>{label}</Label>
+      <ListItem color={choiceColor}>
+        <Label color={isBright(choiceColor) ? 'black' : 'white'}>
+              {label}
+            </Label>
         </ListItem>
       </Link>
   )

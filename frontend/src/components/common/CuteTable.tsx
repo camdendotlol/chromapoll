@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { isBright } from '../lib'
 
 interface Props {
   items: {
@@ -40,7 +41,23 @@ const ColorfulRow = styled.tr`
   background: ${props => props.color};
 `
 
+const Label = styled.td`
+  color: ${props => props.color};
+`
+
 const CuteTable: React.FC<Props> = ({ items }) => {
+  const getLabelColor = (itemColor: string | undefined) => {
+    if (!itemColor) {
+      return 'white'
+    }
+
+    if (isBright(itemColor)) {
+      return 'black'
+    } else {
+      return 'white'
+    }
+  }
+
   return (
     <TableContainer>
       <Table>
@@ -51,12 +68,13 @@ const CuteTable: React.FC<Props> = ({ items }) => {
               color={item.color ? item.color : 'inital'}
             >
               {item.properties.map((property, index) =>
-                <td
+                <Label
+                  color={getLabelColor(item.color)}
                   key={index}
                   onClick={item.callback ? item.callback : undefined }
                 >
                   {property}
-                </td>)}
+                </Label>)}
             </ColorfulRow>
           ))}
         </tbody>

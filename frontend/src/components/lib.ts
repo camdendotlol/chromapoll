@@ -46,7 +46,7 @@ export const calculateDisplayData = (resultsArray: Choice[]) => {
   return newResults
 }
 
-const hexToRGB = (hexColor: string) => ({
+export const hexToRGB = (hexColor: string) => ({
   r: parseInt(hexColor.slice(1, 3), 16),
   g: parseInt(hexColor.slice(3, 5), 16),
   b: parseInt(hexColor.slice(5, 7), 16)
@@ -60,6 +60,16 @@ const getAverageColor = (colors: RGBColor[]) => (
     b: Math.floor(colors.map(c => c.b).reduce(sum) / colors.length)
   }
 )
+
+// Add a leading 0 if the number is low to keep it safe to color hex codes
+const toHex = (number: number): string => {
+  const hex = number.toString(16)
+  if (hex.length < 2) {
+    return `0${hex}`
+  } else {
+    return hex
+  }
+}
 
 export const mixColors = (choices: Choice[]) => {
   let multipliedColors = []
@@ -88,7 +98,7 @@ export const mixColors = (choices: Choice[]) => {
     }
   }
 
-  return `rgb(${averages.r}, ${averages.g}, ${averages.b})`
+  return `#${toHex(averages.r)}${toHex(averages.g)}${toHex(averages.b)}`
 }
 
 export const getTextColor = (uiColor: UIColor) => {
@@ -96,6 +106,17 @@ export const getTextColor = (uiColor: UIColor) => {
     return '#e9e9e9'
   } else {
     return '#202020'
+  }
+}
+
+// Determine whether a color is bright enough to use dark text on it
+export const isBright = (hexColor: string) => {
+  const rgbColor = hexToRGB(hexColor)
+  const total = rgbColor.b + rgbColor.g + rgbColor.r
+  if (total > 480) {
+    return true
+  } else {
+    return false
   }
 }
 

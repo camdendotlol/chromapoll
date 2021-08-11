@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { hexToRGB } from '../components/lib'
 
 export interface UIColor {
   default: boolean,
@@ -23,10 +24,7 @@ const colorSlice = createSlice({
       return initialState
     },
     updateUIColor(state, action: PayloadAction<string>) {
-      const color = action.payload
-      const colorArray = color.replace('(', '[').replace(')', ']')
-
-      const tuple = JSON.parse(`{"color": ${colorArray.slice(3, colorArray.length)}}`)
+      const rgbColor = hexToRGB(action.payload)
 
       const getBrightMode = (colorCode: number) => {
         return colorCode + Math.floor((255 - colorCode) / 1.5)
@@ -38,14 +36,14 @@ const colorSlice = createSlice({
 
       const colors = {
         light: {
-          r: getBrightMode(tuple.color[0]),
-          g: getBrightMode(tuple.color[1]),
-          b: getBrightMode(tuple.color[2])
+          r: getBrightMode(rgbColor.r),
+          g: getBrightMode(rgbColor.g),
+          b: getBrightMode(rgbColor.b)
         },
         dark: {
-          r: getDarkMode(tuple.color[0]),
-          g: getDarkMode(tuple.color[1]),
-          b: getDarkMode(tuple.color[2])
+          r: getDarkMode(rgbColor.r),
+          g: getDarkMode(rgbColor.g),
+          b: getDarkMode(rgbColor.b)
         }
       }
 
