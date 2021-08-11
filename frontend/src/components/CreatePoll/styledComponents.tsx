@@ -1,3 +1,4 @@
+import { animated } from 'react-spring'
 import styled from 'styled-components'
 import breakpoints from '../../breakpoints'
 
@@ -38,7 +39,6 @@ export const FormItem = styled.div`
   input[type=color] {
     padding-left: 10px;
     border: none;
-    border-radius: 50%;
     background-color: transparent;
   }
 }
@@ -58,7 +58,7 @@ export const SubmitButton = styled.button`
   }
 `
 
-export const ChoiceItem = styled.div`
+export const ChoiceItem = styled(animated.div)`
   display: flex;
   gap: 20px;
   margin: 0 auto;

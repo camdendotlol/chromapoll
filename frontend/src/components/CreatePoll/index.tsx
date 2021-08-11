@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { useHistory } from 'react-router'
+import { animated, useSpring, useTrail } from 'react-spring'
 import { useAppDispatch } from '../../hooks'
 import { resetUIColor } from '../../reducers/colorReducer'
 import { createPoll } from '../../reducers/pollReducer'
@@ -47,6 +48,14 @@ const CreatePoll: React.FC = () => {
       { name: '', color: generateRandomColor() }]
     )
   }, [])
+
+  const trail = useTrail(fields.length, {
+    from: { opacity: 0, translateY: '-30px' },
+    to: { opacity: 1, translateY: '0px' },
+    config: {
+      duration: 80
+    }
+  })
 
   const addChoice = () => {
     if (fields.length < 8) {
@@ -96,9 +105,8 @@ const CreatePoll: React.FC = () => {
           <FormInput type='text' id='title' {...register('title')} />
         </FormItem>
         <CenteredSubtitle>Choices</CenteredSubtitle>
-
-        {fields.map((field, index) => (
-          <ChoiceItem key={field.id}>
+        {trail.map((style, index) => (
+          <ChoiceItem key={index} style={style}>
             <FormItem>
               <label
                 htmlFor={`choice${index}Name`}
