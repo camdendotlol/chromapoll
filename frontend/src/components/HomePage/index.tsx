@@ -15,8 +15,8 @@ const HomeDiv = styled.div`
   text-align: center;
   gap: 20px;
 
-  // Make room for navbar on top
-  height: calc(100vh - 80px);
+  // Make room for navbar on top and Container's bottom margin
+  height: calc(100vh - 100px);
 
   > * {
     margin: 0 auto;
