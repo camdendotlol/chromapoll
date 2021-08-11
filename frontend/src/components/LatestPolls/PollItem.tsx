@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import breakpoints from '../../breakpoints'
 import { Choice } from '../../types'
 import { isBright, mixColors } from '../lib'
 
@@ -41,10 +42,10 @@ const PollItem: React.FC<Props> = ({ id, label, choices }) => {
   const choiceColor = mixColors(choices)
   return (
       <Link to={`/poll/${id}`}>
-      <ListItem color={choiceColor}>
-        <Label color={isBright(choiceColor) ? 'black' : 'white'}>
-              {label}
-            </Label>
+        <ListItem color={choiceColor}>
+          <Label color={isBright(choiceColor) ? 'black' : 'white'}>
+            {label}
+          </Label>
         </ListItem>
       </Link>
   )

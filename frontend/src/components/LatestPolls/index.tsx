@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { animated, config, useTrail } from 'react-spring'
 import styled from 'styled-components'
 import breakpoints from '../../breakpoints'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { resetUIColor } from '../../reducers/colorReducer'
 import { getLatestPolls } from '../../reducers/pollReducer'
+import { Poll } from '../../types'
 import { CenteredHeader } from '../common/styledComponents'
 import PollItem from './PollItem'
 
@@ -30,13 +32,29 @@ const PollList = styled.div`
 `
 
 const LatestPolls: React.FC = () => {
+  const [polls, setPolls] = useState<Poll[]>([])
+
   const dispatch = useAppDispatch()
 
-  const polls = useAppSelector(({ polls }) => polls)
+  const trail = useTrail(polls.length, {
+    from: { opacity: 0, scale: 0.2 },
+    to: { opacity: 1, scale: 1 },
+    config: {
+      mass: 1,
+      tension: 210,
+      friction: 20
+    }
+  })
+
+  const pollsSelector = useAppSelector(({ polls }) => polls)
 
   useEffect(() => {
     dispatch(resetUIColor())
   }, [])
+  
+  useEffect(() => {
+    setPolls(pollsSelector)
+  }, [pollsSelector])
 
   useEffect(() => {
     dispatch(getLatestPolls())
@@ -46,13 +64,15 @@ const LatestPolls: React.FC = () => {
     <>
       <CenteredHeader>Latest polls</CenteredHeader>
       <PollList>
-        {polls.map(poll => (
-          <PollItem
-            key={poll.id}
-            id={poll.id}
-            label={poll.title}
-            choices={poll.choices}
-          />
+        {trail.map((style, i) => (
+          <animated.div style={style} key={i}>
+            <PollItem
+              key={polls[i].id}
+              id={polls[i].id}
+              label={polls[i].title}
+              choices={polls[i].choices}
+            />
+          </animated.div>
         ))}
       </PollList>
     </>

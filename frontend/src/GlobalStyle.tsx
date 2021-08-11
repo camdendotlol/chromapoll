@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme}>`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Noto Sans JP";
+    font-family: "Noto Sans", sans-serif;
     color: #e9e9e9;
     transition: background 0.2s;
   }

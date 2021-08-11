@@ -34,4 +34,6 @@ export const FormInput = styled.input`
   padding: 10px;
   font-size 1.1rem;
   width: 90%;
+  border: none;
+  border-radius: 10px;
 `
