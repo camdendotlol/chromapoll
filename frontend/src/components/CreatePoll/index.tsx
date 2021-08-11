@@ -49,12 +49,40 @@ const CreatePoll: React.FC = () => {
   }, [])
 
   const addChoice = () => {
-    append({ name: '', color: generateRandomColor() })
+    if (fields.length < 8) {
+      append({ name: '', color: generateRandomColor() })
+    }
   }
 
   const removeChoice = () => {
     if (fields.length > 2) {
       remove(fields.length - 1)
+    }
+  }
+
+  const handleAddButton = () => {
+    if (fields.length < 8) {
+      return (
+        <button
+          type='button'
+          onClick={() => addChoice()}
+        >
+          <span>+</span>
+        </button>
+      )
+    }
+  }
+
+  const handleRemoveButton = () => {
+    if (fields.length > 2) {
+      return (
+        <button
+          type='button'
+          onClick={() => removeChoice()}
+        >
+          <span>-</span>
+        </button>
+      )
     }
   }
 
@@ -68,20 +96,7 @@ const CreatePoll: React.FC = () => {
           <FormInput type='text' id='title' {...register('title')} />
         </FormItem>
         <CenteredSubtitle>Choices</CenteredSubtitle>
-        <ExpansionButtons>
-          <button
-            type='button'
-            onClick={() => addChoice()}
-          >
-            <span>+</span>
-          </button>
-          <button
-            type='button'
-            onClick={() => removeChoice()}
-          >
-            <span>-</span>
-          </button>
-        </ExpansionButtons>
+
         {fields.map((field, index) => (
           <ChoiceItem key={field.id}>
             <FormItem>
@@ -112,6 +127,10 @@ const CreatePoll: React.FC = () => {
             </FormItem>
           </ChoiceItem>
         ))}
+        <ExpansionButtons>
+          {handleAddButton()}
+          {handleRemoveButton()}
+        </ExpansionButtons>
         <SubmitButton type='submit'>Submit</SubmitButton>
       </form>
     </PollFormContainer>

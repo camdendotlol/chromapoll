@@ -48,8 +48,12 @@ router.post('/create', async (req, res) => {
     return res.status(400).json('New polls must have a question and answers')
   }
 
-  if (req.body.choices.length <= 1) {
-    return res.status(400).json('Questions must have at least two choices')
+  if (req.body.choices.length < 2) {
+    return res.status(400).json('Questions must have at least 2 choices')
+  }
+
+  if (req.body.choices.length > 8) {
+    return res.status(400).json('Questions are limited to a maximum of 8 choices')
   }
 
   const choices: Choice[] = []
