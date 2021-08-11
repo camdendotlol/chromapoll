@@ -17,11 +17,12 @@ const PollDiv = styled.div`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  margin: 0 auto;
   margin-top: 100px;
 
   @media (max-width: ${breakpoints.phone}) {
+    flex-wrap: wrap-reverse;
     margin-top: 20px;
-    flex-direction: column-reverse;
   }
 `
 
