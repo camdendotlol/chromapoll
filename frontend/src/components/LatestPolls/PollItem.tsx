@@ -19,12 +19,15 @@ const ListItem = styled.div`
   height: 100px;
   display: flex;
   align-items: center;
-  gap: 10px;
   transition: 0.2s;
 
   a:hover, a:focus {
     filter: brightness(110%);
     box-shadow: 3px 3px;
+  }
+
+  @media (max-width: ${breakpoints.phone}) {
+    min-width: 85vw;
   }
 `
 
@@ -36,6 +39,11 @@ const Label = styled.p`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media (max-width: ${breakpoints.phone}) {
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
 `
 
 const PollItem: React.FC<Props> = ({ id, label, choices }) => {
