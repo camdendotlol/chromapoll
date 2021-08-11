@@ -30,7 +30,7 @@ const ToggleButton: React.FC<Props> = ({ condition, primaryLabel, secondaryLabel
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
   return (
     <Button
-      color={uiColor}
+      color={uiColor.light}
       onClick={() => callback(!condition)}
     >
       {condition ? secondaryLabel : primaryLabel}
