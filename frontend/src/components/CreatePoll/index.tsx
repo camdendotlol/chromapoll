@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { useHistory } from 'react-router'
-import { animated, useSpring, useTrail } from 'react-spring'
+import { useTrail } from 'react-spring'
 import { useAppDispatch } from '../../hooks'
 import { resetUIColor } from '../../reducers/colorReducer'
 import { createPoll } from '../../reducers/pollReducer'
@@ -45,7 +45,7 @@ const CreatePoll: React.FC = () => {
     from: { opacity: 0, translateY: '-30px' },
     to: { opacity: 1, translateY: '0px' },
     config: {
-      duration: 80
+      duration: 120
     }
   })
 

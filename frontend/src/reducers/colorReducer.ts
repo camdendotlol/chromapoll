@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { hexToRGB } from '../components/lib'
+import { hexToRGB, toHex } from '../components/lib'
 
 export interface UIColor {
   default: boolean,
@@ -10,8 +10,8 @@ export interface UIColor {
 const initialState: UIColor = {
   // the "default" property lets components check for initialState without having to import this object
   default: true,
-  light: 'rgb(233, 233, 233)',
-  dark: 'rgb(32, 32, 32)'
+  light: '#E9E9E9',
+  dark: '#202020'
 }
 
 // This reducer determines the color of various UI elements
@@ -49,8 +49,8 @@ const colorSlice = createSlice({
 
       return {
         default: false,
-        light: `rgb(${colors.light.r}, ${colors.light.g}, ${colors.light.b})`,
-        dark: `rgb(${colors.dark.r}, ${colors.dark.g}, ${colors.dark.b})`
+        light: `#${toHex(colors.light.r)}${toHex(colors.light.g)}${toHex(colors.light.b)}`,
+        dark: `#${toHex(colors.dark.r)}${toHex(colors.dark.g)}${toHex(colors.dark.b)}`
       }
     }
   }

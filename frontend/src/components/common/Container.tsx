@@ -6,10 +6,11 @@ const ContainerDiv = styled.div`
   margin: 0 auto;
   margin-top: 80px;
   margin-bottom: 20px;
-  width: 80%;
+  max-width: 80%;
 
-  @media(max-width: ${breakpoints.laptop}) {
-    width: calc(100vw - 20px);
+  @media (max-width: ${breakpoints.phone}) {
+    max-width: 95%;
+    margin: 0 auto;
   }
 `
 

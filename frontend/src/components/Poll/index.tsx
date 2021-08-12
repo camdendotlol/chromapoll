@@ -23,6 +23,7 @@ const PollDiv = styled.div`
   @media (max-width: ${breakpoints.phone}) {
     flex-wrap: wrap-reverse;
     margin-top: 20px;
+    gap: 0;
   }
 `
 

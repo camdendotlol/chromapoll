@@ -62,7 +62,7 @@ const getAverageColor = (colors: RGBColor[]) => (
 )
 
 // Add a leading 0 if the number is low to keep it safe to color hex codes
-const toHex = (number: number): string => {
+export const toHex = (number: number): string => {
   const hex = number.toString(16)
   if (hex.length < 2) {
     return `0${hex}`
@@ -113,7 +113,7 @@ export const getTextColor = (uiColor: UIColor) => {
 export const isBright = (hexColor: string) => {
   const rgbColor = hexToRGB(hexColor)
   const total = rgbColor.b + rgbColor.g + rgbColor.r
-  if (total > 480) {
+  if (total > 450) {
     return true
   } else {
     return false

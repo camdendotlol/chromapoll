@@ -27,7 +27,6 @@ const PollList = styled.div`
   }
 
   @media (max-width: ${breakpoints.phone}) {
-    width: calc(100vw - 20px);
     gap: 20px;
   }
 `
