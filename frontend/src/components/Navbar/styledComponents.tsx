@@ -39,7 +39,7 @@ export const NavbarContent = styled.div`
 `
 
 export const NavbarLinks = styled.div`
-  font-weight: 500;
+  font-weight: 800;
   font-size: 1.2rem;
   margin: 0;
   padding-left: 10px;

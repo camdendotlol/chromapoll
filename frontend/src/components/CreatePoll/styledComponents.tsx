@@ -60,9 +60,8 @@ export const SubmitButton = styled.button`
 
 export const ChoiceItem = styled(animated.div)`
   display: flex;
-  gap: 20px;
   margin: 0 auto;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   justify-content: space-between;
 
   div:nth-child(1) {
