@@ -27,7 +27,7 @@ const ListItem = styled.div`
   }
 
   @media (max-width: ${breakpoints.phone}) {
-    min-width: 85vw;
+    min-width: 80vw;
   }
 `
 
