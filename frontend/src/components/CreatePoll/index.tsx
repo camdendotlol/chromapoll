@@ -20,17 +20,9 @@ const CreatePoll: React.FC = () => {
   }, [])
 
   const createNewPoll = async (data: NewPollObject) => {
-    const dataToSend = {
-      title: data.title,
-      choices: data.choices.forEach(choice => ({
-        name: choice.name,
-        color: choice.color
-      }))
-    }
     try {
       const res = await dispatch(createPoll(data)).unwrap()
-
-      history.push(`/polls/${res.id}`)
+      history.push(`/poll/${res._id}`)
     } catch(e) {
       throw new Error(e)
     }

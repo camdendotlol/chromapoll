@@ -78,7 +78,7 @@ router.post('/create', async (req, res) => {
 
   await DI.pollRepository.persistAndFlush(poll)
 
-  return res.status(200).json(poll)
+  return res.status(200).json({ ...poll, choices: choices })
 })
 
 // Vote on a poll
