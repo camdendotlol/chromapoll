@@ -12,7 +12,8 @@
     "dev:ui": "webpack serve --mode=development",
     "test:server": "jest --config ./server/jest.config.ts",
     "build:server": "tsc --project server/tsconfig.json",
-    "build:ui": "webpack --mode=production"
+    "build:ui": "webpack --mode=production",
+    "build": "yarn build:server && yarn build:ui"
   },
   "dependencies": {
     "@mikro-orm/core": "^4.5.7",

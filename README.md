@@ -14,17 +14,17 @@ First, use `yarn install` to install dependencies.
 
 Then, set your env variables as listed in the Configuration section of this readme.
 
-Now you can use `yarn start:full` to quickly build and run a production build.
+Now you can use `yarn start:full` to build and run Chromapoll in a single command.
 
 Other commands:
 
-* `yarn build:server` to compile the server from TypeScript.
-* `yarn build:ui` to build the frontend with Webpack.
-* `yarn start:server` to run the production server after building.
-* `yarn start:ui` to run the production frontend after building.
+* `yarn build` to create a production build of both the backend and frontend.
+* `yarn start` to run the full production build after building.
 * `yarn dev:server` for a development build that automatically reloads when you make a change.
 * `yarn dev:ui` for a development build of the frontend.
 * `yarn test:server` for some very rudimentary testing of the server API.
+
+The `build` command also offers `:server` and `:ui` suffixes if you only need to build one of them, e.g. `yarn build:server`.
 
 Builds are placed in the `/dist` directory, with `/dist/server` for the backend and `/dist/frontend` for the frontend.
 
