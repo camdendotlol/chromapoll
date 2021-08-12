@@ -9,7 +9,7 @@ const ContainerDiv = styled.div`
   width: 80%;
 
   @media(max-width: ${breakpoints.laptop}) {
-    width: 100vw;
+    width: calc(100vw - 20px);
   }
 `
 
