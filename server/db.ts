@@ -1,4 +1,4 @@
-import { MikroORM  } from '@mikro-orm/core'
+import { Connection, IDatabaseDriver, MikroORM  } from '@mikro-orm/core'
 import { Poll } from './entities/Poll'
 import config from './config'
 import { Choice } from './entities/Choice'
@@ -8,7 +8,7 @@ import { EntityManager } from '@mikro-orm/mongodb'
 
 export const storage = new AsyncLocalStorage<EntityManager>()
 
-const setUpORM = async () => {
+const setUpORM = async (): Promise<MikroORM<IDatabaseDriver<Connection>>> => {
   const orm: MikroORM = await MikroORM.init({
     context: () => storage.getStore(),
     entities: [Poll, Choice, IP],
@@ -18,7 +18,7 @@ const setUpORM = async () => {
     tsNode: true
   })
 
-  console.log(`Connected to database at ${config.DB_URL}`);
+  console.log(`Connected to database at ${config.DB_URL}`)
 
   return orm
 }

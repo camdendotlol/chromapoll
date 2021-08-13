@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
-import styled from 'styled-components'
-import breakpoints from '../../breakpoints'
 import { ChoiceWithData } from '../../types'
 import Chroma from './Chroma'
 import { ChartType } from './index'
@@ -50,18 +48,18 @@ const AnimatedChart: React.FC<Props> = ({ results, chartType }) => {
 
   const displayChart = () => {
     switch (chartType) {
-      case ChartType.Chroma:
-        return <Chroma results={results} />
-      case ChartType.Pie:
-        return <Pie results={results} />
+    case ChartType.Chroma:
+      return <Chroma results={results} />
+    case ChartType.Pie:
+      return <Pie results={results} />
     }
   }
 
   return (
     <animated.div style={voteBounce}>
       <animated.svg height='400' width='400' style={parentProps}>
-          <animated.circle cx='200' cy='200' r='200' fill='#000000' />
-          {displayChart()}
+        <animated.circle cx='200' cy='200' r='200' fill='#000000' />
+        {displayChart()}
       </animated.svg>
     </animated.div>
   )

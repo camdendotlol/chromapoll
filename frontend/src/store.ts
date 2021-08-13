@@ -1,5 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit"
-import colorReducer from "./reducers/colorReducer"
+import { configureStore } from '@reduxjs/toolkit'
+import colorReducer from './reducers/colorReducer'
 import pollReducer from './reducers/pollReducer'
 
 const store = configureStore({

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import breakpoints from "../../breakpoints";
+import styled from 'styled-components'
+import breakpoints from '../../breakpoints'
 
 // Should be used in combination with react-router's Link component
 export const PrettyLink = styled.p`

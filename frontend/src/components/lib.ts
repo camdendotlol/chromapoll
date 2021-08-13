@@ -1,22 +1,22 @@
-import { UIColor } from "../reducers/colorReducer"
-import { Choice, ChoiceWithData, RGBColor } from "../types"
+import { UIColor } from '../reducers/colorReducer'
+import { Choice, ChoiceWithData, RGBColor } from '../types'
 
-export const sum = (a: number, b: number) => a + b
+export const sum = (a: number, b: number): number => a + b
 
 // Calculates the offset for pie slices to appear in the correct spot on the chart
 const getOffset = (index: number, results: ChoiceWithData[]) => {
   switch (index) {
-    case 0:
-      return 0
-    case 1:
-      return results[0].percent
-    default:
-      return results.slice(0, index).map(r => r.percent).reduce(sum)
+  case 0:
+    return 0
+  case 1:
+    return results[0].percent
+  default:
+    return results.slice(0, index).map(r => r.percent).reduce(sum)
   }
 }
 
 // Add percentage and offset to the results array
-export const calculateDisplayData = (resultsArray: Choice[]) => {
+export const calculateDisplayData = (resultsArray: Choice[]): ChoiceWithData[] => {
   // Copy for mutation
   const results = resultsArray.slice()
 
@@ -46,7 +46,7 @@ export const calculateDisplayData = (resultsArray: Choice[]) => {
   return newResults
 }
 
-export const hexToRGB = (hexColor: string) => ({
+export const hexToRGB = (hexColor: string): RGBColor => ({
   r: parseInt(hexColor.slice(1, 3), 16),
   g: parseInt(hexColor.slice(3, 5), 16),
   b: parseInt(hexColor.slice(5, 7), 16)
@@ -71,8 +71,8 @@ export const toHex = (number: number): string => {
   }
 }
 
-export const mixColors = (choices: Choice[]) => {
-  let multipliedColors = []
+export const mixColors = (choices: Choice[]): string => {
+  const multipliedColors = []
 
   // Create an array of color codes, with each one multipled by the number of votes.
   // This makes it easy to average below but I'm sure there's a faster, more
@@ -101,7 +101,7 @@ export const mixColors = (choices: Choice[]) => {
   return `#${toHex(averages.r)}${toHex(averages.g)}${toHex(averages.b)}`
 }
 
-export const getTextColor = (uiColor: UIColor) => {
+export const getTextColor = (uiColor: UIColor): string => {
   if (uiColor.default) {
     return '#e9e9e9'
   } else {
@@ -110,7 +110,7 @@ export const getTextColor = (uiColor: UIColor) => {
 }
 
 // Determine whether a color is bright enough to use dark text on it
-export const isBright = (hexColor: string) => {
+export const isBright = (hexColor: string): boolean => {
   const rgbColor = hexToRGB(hexColor)
   const total = rgbColor.b + rgbColor.g + rgbColor.r
   if (total > 450) {
@@ -120,7 +120,7 @@ export const isBright = (hexColor: string) => {
   }
 }
 
-export const generateRandomColor = () => {
+export const generateRandomColor = (): string => {
   const hexAlphabet = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
 
   const color = []

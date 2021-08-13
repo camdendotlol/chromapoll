@@ -11,7 +11,7 @@ import { generateRandomColor } from '../lib'
 import { ChoiceItem, ExpansionButtons, FormItem, PollFormContainer, SubmitButton } from './styledComponents'
 
 const CreatePoll: React.FC = () => {
-  const { control, register, handleSubmit, watch } = useForm()
+  const { control, register, handleSubmit } = useForm()
   const dispatch = useAppDispatch()
   const history = useHistory()
 

@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import breakpoints from "../../breakpoints"
+import styled from 'styled-components'
+import breakpoints from '../../breakpoints'
 
 export const NavbarDiv = styled.nav`
   position: fixed;

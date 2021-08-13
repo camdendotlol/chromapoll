@@ -20,7 +20,7 @@ const colorSlice = createSlice({
   name: 'colorSlice',
   initialState,
   reducers: {
-    resetUIColor(state) {
+    resetUIColor() {
       return initialState
     },
     updateUIColor(state, action: PayloadAction<string>) {

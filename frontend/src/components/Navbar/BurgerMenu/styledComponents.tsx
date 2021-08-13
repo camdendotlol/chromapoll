@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const FullScreenContainer = styled.div`
   z-index: 1000;

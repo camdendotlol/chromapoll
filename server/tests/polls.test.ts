@@ -4,11 +4,11 @@ import dbPool from '../db'
 import { MikroORM, IDatabaseDriver, Connection } from '@mikro-orm/core'
 
 const examplePoll = {
-  "title": "What's your favorite color?",
-  "choices": [
-    "red",
-    "green",
-    "blue"
+  'title': 'What\'s your favorite color?',
+  'choices': [
+    'red',
+    'green',
+    'blue'
   ]
 }
 

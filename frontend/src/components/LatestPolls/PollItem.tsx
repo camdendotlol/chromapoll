@@ -49,13 +49,13 @@ const Label = styled.p`
 const PollItem: React.FC<Props> = ({ id, label, choices }) => {
   const choiceColor = mixColors(choices)
   return (
-      <Link to={`/poll/${id}`}>
-        <ListItem color={choiceColor}>
-          <Label color={isBright(choiceColor) ? 'black' : 'white'}>
-            {label}
-          </Label>
-        </ListItem>
-      </Link>
+    <Link to={`/poll/${id}`}>
+      <ListItem color={choiceColor}>
+        <Label color={isBright(choiceColor) ? 'black' : 'white'}>
+          {label}
+        </Label>
+      </ListItem>
+    </Link>
   )
 }
 

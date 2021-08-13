@@ -22,7 +22,7 @@ interface DatabaseInfo {
 
 export const DI = {} as DatabaseInfo
 
-export const initDB = async () => {
+export const initDB = async (): Promise<void> => {
   DI.orm = await db()
   DI.pollRepository = DI.orm.em.getRepository(Poll)
   DI.choiceRepository = DI.orm.em.getRepository(Choice)
