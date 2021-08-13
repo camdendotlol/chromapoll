@@ -39,6 +39,10 @@ const Header = styled.h1`
   text-align: center;
   transition: color 0.2s;
   color: ${props => props.color};
+
+  @media (max-width: ${breakpoints.phone}) {
+    font-size: 1.2rem;
+  }
 `
 
 export enum ChartType {

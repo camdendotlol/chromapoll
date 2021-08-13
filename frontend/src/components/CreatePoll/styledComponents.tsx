@@ -23,7 +23,6 @@ export const FormItem = styled.div`
   label {
     font-size: 1.2rem;
     text-align: left;
-
   }
 
   input[type=text] {
@@ -51,6 +50,7 @@ export const SubmitButton = styled.button`
   border: none;
   float: right;
   transition: 0.2s;
+  background: white;
 
   :hover {
     cursor: pointer;
@@ -92,6 +92,7 @@ export const ExpansionButtons = styled.div`
   button {
     display: flex;
     justify-content: center;
+    background: white;
     padding: 10px;
     border-radius: 50%;
     height: 40px;
