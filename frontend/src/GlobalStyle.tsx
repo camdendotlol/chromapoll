@@ -1,7 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
 export interface Theme {
-  backgroundColor: string
+  backgroundColor: string,
+  transition: string
 }
 
 export const GlobalStyle = createGlobalStyle<{ theme: Theme}>`
@@ -12,7 +13,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme}>`
     padding: 0;
     font-family: "Noto Sans", sans-serif;
     color: #e9e9e9;
-    transition: background 0.2s;
+    transition: ${props => props.theme.transition};
   }
 
   a {

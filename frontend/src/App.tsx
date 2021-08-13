@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import HomePage from './components/HomePage'
 import { Route, Switch } from 'react-router-dom'
 import LatestPolls from './components/LatestPolls'
@@ -11,14 +11,22 @@ import { useAppSelector } from './hooks'
 import { UIColor } from './reducers/colorReducer'
 import CreatePoll from './components/CreatePoll'
 
-const chromaTheme = (uiColor: UIColor) => ({
-  backgroundColor: uiColor.dark
+const chromaTheme = (uiColor: UIColor, firstLoad: boolean) => ({
+  backgroundColor: uiColor.dark,
+  transition: firstLoad ? '0' : 'background 0.2s'
 })
 
 const App: React.FC = () => {
+  const [firstLoad, setFirstLoad] = useState(true)
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
+
+  // Prevent the 0.2s transition from white to black in the background on first load
+  useEffect(() => {
+    setFirstLoad(false)
+  }, [])
+
   return (
-    <ThemeProvider theme={() => chromaTheme(uiColor)}>
+    <ThemeProvider theme={() => chromaTheme(uiColor, firstLoad)}>
       <React.Fragment>
         <GlobalStyle />
         <Navbar />
