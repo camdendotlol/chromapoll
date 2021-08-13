@@ -14,16 +14,16 @@ router.get('/', async (req, res) => {
     populate: ['choices'],
     limit: 50
   })
-  res.json(polls)
+  return res.json(polls)
 })
 
 router.get('/:id', async (req, res) => {
   const em = DI.orm.em.fork()
   const poll = await em.getRepository(Poll).findOne(req.params.id, ['choices'])
   if (!poll) {
-    res.status(404).json({ error: 'Poll not found' })
+    return res.status(404).json({ error: 'Poll not found' })
   }
-  res.status(200).json(poll)
+  return res.status(200).json(poll)
 })
 
 // EXAMPLE NEW POLL REQUEST BODY:
