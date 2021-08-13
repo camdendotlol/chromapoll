@@ -6,5 +6,5 @@ server/requests
 # These files are needed for compilation and serving the subsequent webpage.
 dist/server
 dist/frontend/*
-!dist/frontend/favicon.svg
+!dist/frontend/favicon.ico
 !dist/frontend/index.html
