@@ -48,6 +48,7 @@ const AnimatedChart: React.FC<Props> = ({ results, chartType }) => {
     // ignore the animation when the component first loads
     // otherwise it will be triggered because it's recieving new props
     if (!isFirstLoad) {
+      console.log('starting animation')
       voteBounce.scale.start()
     }
     

@@ -50,24 +50,29 @@ const PollPie: React.FC = () => {
     dispatch(getPoll(id))
   }, [id])
 
-  const poll = useAppSelector(({ polls }) => polls.find(p => p.id === id))
+  const pollSelector = useAppSelector(({ polls }) => polls)
+  const pending = pollSelector.pending
+  const poll = pollSelector.polls.find(poll => poll.id === id)
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
 
   useEffect(() => {
-    if (poll) {
+    if (poll?.choices) {
       const calculatedResults = calculateDisplayData(poll.choices)
       setResults(calculatedResults)
     }
-  }, [poll])
+  }, [poll?.choices])
+
+  if (pending.singlePoll) {
+    return null
+  }
 
   if (!poll) {
     // TODO: nice error screen
-    // use the loading implementation from Groupread
     return <p>Poll not found :(</p>
   }
 
   if (!results || results.length === 0) {
-    return <p>still loading...</p>
+    return null
   }
 
   // Don't show the pie option if there's nothing useful to show in it

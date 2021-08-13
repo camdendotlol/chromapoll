@@ -53,12 +53,16 @@ const LatestPolls: React.FC = () => {
   }, [])
   
   useEffect(() => {
-    setPolls(pollsSelector)
-  }, [pollsSelector])
+    setPolls(pollsSelector.polls)
+  }, [pollsSelector.polls])
 
   useEffect(() => {
     dispatch(getLatestPolls())
   }, [dispatch])
+
+  if (pollsSelector.pending.latestPolls) {
+    return null
+  }
 
   return (
     <>
