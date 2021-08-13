@@ -13,12 +13,13 @@ interface PollState {
   polls: Poll[]
 }
 
+// Start with all true so 404 errors don't pop up before dispatches go through
 const initialState: PollState = {
   pending: {
-    latestPolls: false,
-    singlePoll: false,
-    createPoll: false,
-    vote: false
+    latestPolls: true,
+    singlePoll: true,
+    createPoll: true,
+    vote: true
   },
   polls: [] as Poll[]
 }
