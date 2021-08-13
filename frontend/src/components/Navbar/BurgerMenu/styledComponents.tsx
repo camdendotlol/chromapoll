@@ -4,13 +4,15 @@ export const FullScreenContainer = styled.div`
   z-index: 1000;
   position: absolute;
   top: 0;
-  left: 0;
+  right: -100vw;
   margin: 0;
   padding: 0;
   background: #e9e9e9;
   width: 100vw;
   height: 100vh;
   color: black;
+  transform: translateX(${props => props.property});
+  transition: 0.2s;
 `
 
 export const ExitButton = styled.span`

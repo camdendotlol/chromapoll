@@ -6,7 +6,6 @@ import { resetUIColor } from '../../reducers/colorReducer'
 import { getTextColor, isBright } from '../lib'
 import { BurgerButton, NavbarContent, NavbarDiv, NavbarLinks } from './styledComponents'
 import BurgerMenu from './BurgerMenu'
-import { animated, useTransition } from 'react-spring'
 
 const Navbar: React.FC = () => {
   const [navColor, setNavColor] = useState('#4c4e52')
@@ -24,16 +23,6 @@ const Navbar: React.FC = () => {
     })
   }, [uiColor])
 
-  const handleMenu = () => {
-    if (menuOpen) {
-      return (
-        <BurgerMenu setMenuOpen={setMenuOpen} />
-      )
-    } else {
-      return null
-    }
-  }
-
   return (
     <NavbarDiv color={navColor}>
       <NavbarContent>
@@ -50,7 +39,7 @@ const Navbar: React.FC = () => {
           <hr />
           <hr />
         </BurgerButton>
-        {handleMenu()}
+        <BurgerMenu setMenuOpen={setMenuOpen} menuOpen={menuOpen} />
       </NavbarContent>
     </NavbarDiv>
   )

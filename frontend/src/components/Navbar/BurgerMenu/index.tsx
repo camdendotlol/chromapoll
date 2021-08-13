@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom'
 import { ExitButton, FullScreenContainer, MenuList } from './styledComponents'
 
 interface Props {
-  setMenuOpen: (arg: boolean) => void
+  setMenuOpen: (arg: boolean) => void,
+  menuOpen: boolean
 }
 
-const BurgerMenu: React.FC<Props> = ({ setMenuOpen }) => {
+const BurgerMenu: React.FC<Props> = ({ setMenuOpen, menuOpen }) => {
   return (
-   <FullScreenContainer>
+    <FullScreenContainer property={menuOpen ? '-100%' : '0'}>
     <ExitButton
       onClick={() => setMenuOpen(false)}
     >
