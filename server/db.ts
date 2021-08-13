@@ -3,15 +3,14 @@ import { Poll } from './entities/Poll'
 import config from './config'
 import { Choice } from './entities/Choice'
 import { IP } from './entities/Ip'
+import { AsyncLocalStorage } from 'async_hooks'
+import { EntityManager } from '@mikro-orm/mongodb'
 
-let orm: MikroORM
+export const storage = new AsyncLocalStorage<EntityManager>()
 
-const dbPool = async () => {  
-  if (orm) {
-    return orm
-  }
-
-  orm = await MikroORM.init({
+const setUpORM = async () => {
+  const orm: MikroORM = await MikroORM.init({
+    context: () => storage.getStore(),
     entities: [Poll, Choice, IP],
     dbName: 'chromapoll',
     type: 'mongo',
@@ -20,7 +19,8 @@ const dbPool = async () => {
   })
 
   console.log(`Connected to database at ${config.DB_URL}`);
+
   return orm
 }
 
-export default dbPool
+export default setUpORM

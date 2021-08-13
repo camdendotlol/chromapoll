@@ -12,11 +12,6 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.use('/api/polls', pollController)
-
-// Catch all remaining requests to nonexisting routes
-app.use('/api/*', (req, res) => res.status(404).json({ message: 'Resource not found' }))
-
 interface DatabaseInfo {
   orm: MikroORM,
   em: EntityManager,
@@ -35,5 +30,10 @@ export const initDB = async () => {
 }
 
 initDB()
+
+app.use('/api/polls', pollController)
+
+// Catch all remaining requests to nonexisting routes
+app.use('/api/*', (_req, res) => res.status(404).json({ message: 'Resource not found' }))
 
 export default app

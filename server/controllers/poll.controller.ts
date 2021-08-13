@@ -8,7 +8,8 @@ import { QueryOrder } from '@mikro-orm/core'
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  const polls = await DI.pollRepository.findAll({
+  const em = DI.orm.em.fork()
+  const polls = await em.getRepository(Poll).findAll({
     orderBy: { createdAt: QueryOrder.DESC },
     populate: ['choices'],
     limit: 50
@@ -17,7 +18,8 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-  const poll = await DI.pollRepository.findOne(req.params.id, ['choices'])
+  const em = DI.orm.em.fork()
+  const poll = await em.getRepository(Poll).findOne(req.params.id, ['choices'])
   if (!poll) {
     res.status(404).json({ error: 'Poll not found' })
   }
@@ -44,6 +46,8 @@ router.get('/:id', async (req, res) => {
 // }
 
 router.post('/create', async (req, res) => {
+  const em = DI.orm.em.fork()
+
   if (!req.body.title || !req.body.choices) {
     return res.status(400).json('New polls must have a question and answers')
   }
@@ -76,14 +80,15 @@ router.post('/create', async (req, res) => {
     ))
   }
 
-  await DI.pollRepository.persistAndFlush(poll)
+  await em.getRepository(Poll).persistAndFlush(poll)
 
   return res.status(200).json({ ...poll, choices: choices })
 })
 
 // Vote on a poll
 router.post('/vote/:pid/:cid', async (req, res) => {
-  const poll = await DI.pollRepository.findOne(req.params.pid, ['choices', 'voters'])
+  const em = DI.orm.em.fork()
+  const poll = await em.getRepository(Poll).findOne(req.params.pid, ['choices', 'voters'])
 
   if (!poll) {
     return res.status(404).json('Poll not found')
@@ -107,7 +112,7 @@ router.post('/vote/:pid/:cid', async (req, res) => {
   poll.voters.add(ipToSave)
   choice.votes = choice.votes += 1
 
-  await DI.pollRepository.persistAndFlush(poll)
+  await em.getRepository(Poll).persistAndFlush(poll)
 
   return res.status(200).json(poll)
 })
