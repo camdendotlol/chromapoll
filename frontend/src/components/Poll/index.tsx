@@ -27,6 +27,14 @@ const PollDiv = styled.div`
   }
 `
 
+// Solution for applying two transform: scale properties at once
+const ScalingDiv = styled.div`
+  @media (max-width: ${breakpoints.phone}) {
+    transform: scale(0.4);
+    margin-top: -90px;
+  }
+`
+
 const Header = styled.h1`
   text-align: center;
   transition: color 0.2s;
@@ -95,7 +103,9 @@ const PollPie: React.FC = () => {
     <>
       <Header color={uiColor.light}>{poll.title}</Header>
       <PollDiv>
-        <Circle results={results} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
+        <ScalingDiv>
+          <Circle results={results} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
+        </ScalingDiv>
         <div>
           <VotePanel results={results} pollID={poll.id} />
           {handleToggleButton()}

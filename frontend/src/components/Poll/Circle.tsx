@@ -12,20 +12,14 @@ interface Props {
   chartType: ChartType
 }
 
-const CircleContainer = styled(animated.div)`
-  @media (max-width: ${breakpoints.phone}) {
-    scale: 60%;
-  }
-`
-
 const AnimatedChart: React.FC<Props> = ({ results, chartType }) => {
   const [isFirstLoad, setFirstLoad] = useState(true)
 
   const voteBounce = useSpring({
-    from: { scale: '100%' },
+    from: { transform: 'scale(1)' },
     to: [
-      { scale: '105%' },
-      { scale: '100%' }
+      { transform: 'scale(1.05)' },
+      { transform: 'scale(1)' }
     ],
     config: {
       duration: 100
@@ -34,10 +28,10 @@ const AnimatedChart: React.FC<Props> = ({ results, chartType }) => {
 
   const parentProps = useSpring({
     from: {
-      scale: '50%'
+      transform: 'scale(0.5)'
     },
     to: {
-      scale: '100%'
+      transform: 'scale(1)'
     },
     config: {
       duration: 240
@@ -48,8 +42,7 @@ const AnimatedChart: React.FC<Props> = ({ results, chartType }) => {
     // ignore the animation when the component first loads
     // otherwise it will be triggered because it's recieving new props
     if (!isFirstLoad) {
-      console.log('starting animation')
-      voteBounce.scale.start()
+      voteBounce.transform.start()
     }
     
     setFirstLoad(false)
@@ -65,12 +58,12 @@ const AnimatedChart: React.FC<Props> = ({ results, chartType }) => {
   }
 
   return (
-    <CircleContainer style={voteBounce}>
+    <animated.div style={voteBounce}>
       <animated.svg height='400' width='400' style={parentProps}>
           <animated.circle cx='200' cy='200' r='200' fill='#000000' />
           {displayChart()}
       </animated.svg>
-    </CircleContainer>
+    </animated.div>
   )
 } 
 
