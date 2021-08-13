@@ -53,7 +53,13 @@ const LatestPolls: React.FC = () => {
   }, [])
   
   useEffect(() => {
-    setPolls(pollsSelector.polls)
+    // When the user navigates directly to a poll page and then comes to the
+    // latest poll page, there will briefly be only one poll in state. Wait
+    // until recieving the rest of the polls before displaying to avoid a
+    // single poll flashing on the screen for a split second.
+    if (pollsSelector.polls.length > 1) {
+      setPolls(pollsSelector.polls)
+    }
   }, [pollsSelector.polls])
 
   useEffect(() => {
