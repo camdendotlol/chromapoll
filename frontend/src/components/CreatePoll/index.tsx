@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 import { useHistory } from 'react-router'
 import { useTrail } from 'react-spring'
 import { useAppDispatch } from '../../hooks'
@@ -10,9 +11,10 @@ import { NewPollObject } from '../../types'
 import { CenteredHeader, CenteredSubtitle, FormInput } from '../common/styledComponents'
 import { generateRandomColor } from '../lib'
 import { ChoiceItem, ExpansionButtons, FormItem, PollFormContainer, SubmitButton } from './styledComponents'
+import errorMessages from '../../errorMessages'
 
 const CreatePoll: React.FC = () => {
-  const { control, register, handleSubmit } = useForm()
+  const { control, register, handleSubmit, formState: { errors } } = useForm()
   const dispatch = useAppDispatch()
   const history = useHistory()
 
@@ -95,38 +97,58 @@ const CreatePoll: React.FC = () => {
         <FormItem>
           <label htmlFor='title'>Question</label>
           <br />
-          <FormInput type='text' id='title' {...register('title')} />
+          <ErrorMessage errors={errors} name='title' />
+          <FormInput type='text' id='title' {...register('title', {
+            required: 'Title is required.',
+            maxLength: {
+              value: 64,
+              message: errorMessages.TooLong('Titles', 64)
+            }
+          })} />
         </FormItem>
         <CenteredSubtitle>Choices</CenteredSubtitle>
         {trail.map((style, index) => (
-          <ChoiceItem key={index} style={style}>
-            <FormItem>
-              <label
-                htmlFor={`choice${index}Name`}
-              >
-                Choice
-              </label>
-              <br />
-              <input
-                type='text'
-                id={`choice${index}Name`}
-                {...register(`choices.${index}.name`)}
-              />
-            </FormItem>
-            <FormItem>
-              <label
-                htmlFor={`choice${index}Color`}
-              >
-                Color
-              </label>
-              <br />
-              <input
-                type='color'
-                id={`choice${index}Color`}
-                {...register(`choices.${index}.color`)}
-              />
-            </FormItem>
-          </ChoiceItem>
+          <>
+            <ErrorMessage errors={errors} name={`choices.${index}.name`} />
+            <ErrorMessage errors={errors} name={`choices.${index}.color`} />
+            <ChoiceItem key={index} style={style}>
+              <FormItem>
+                <label
+                  htmlFor={`choice${index}Name`}
+                >
+                  Choice
+                </label>
+                <br />
+                <input
+                  type='text'
+                  id={`choice${index}Name`}
+                  {...register(`choices.${index}.name`,
+                    {
+                      required: errorMessages.MissingLabel, maxLength: {
+                        value: 32,
+                        message: errorMessages.TooLong('Choices', 32)
+                      }
+                    })}
+                />
+              </FormItem>
+              <FormItem>
+                <label
+                  htmlFor={`choice${index}Color`}
+                >
+                  Color
+                </label>
+                <br />
+                <input
+                  type='color'
+                  id={`choice${index}Color`}
+                  {...register(`choices.${index}.color`, {
+                    required: errorMessages.MissingColor,
+                    pattern: /^#[A-Fa-f0-9]{6}$/
+                  })}
+                />
+              </FormItem>
+            </ChoiceItem>
+          </>
         ))}
         <ExpansionButtons>
           {handleAddButton()}

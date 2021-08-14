@@ -53,6 +53,10 @@ router.post('/create', async (req, res) => {
     return res.status(400).json({ error: errorMessages.MissingTitle})
   }
 
+  if (req.body.title.length > 64) {
+    return res.status(400).json({ error: errorMessages.TooLong('Titles', 64)})
+  }
+
   if (!req.body.choices || req.body.choices.length < 2) {
     return res.status(400).json({ error: errorMessages.MissingChoices })
   }
@@ -72,6 +76,12 @@ router.post('/create', async (req, res) => {
     }
     if (!req.body.choices[x].color) {
       return res.status(400).json({ error: errorMessages.MissingColor })
+    }
+    if (req.body.choices[x].name.length > 32) {
+      return res.status(400).json({ error: errorMessages.TooLong('Choices', 32) })
+    }
+    if (!/^#[A-Fa-f0-9]{6}$/.test(req.body.choices[x].color)) {
+      return res.status(400).json({ error: errorMessages.BadHexCode })
     }
 
     choices.push(new Choice(
