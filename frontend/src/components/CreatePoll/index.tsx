@@ -108,10 +108,10 @@ const CreatePoll: React.FC = () => {
         </FormItem>
         <CenteredSubtitle>Choices</CenteredSubtitle>
         {trail.map((style, index) => (
-          <>
+          <div key={index}>
             <ErrorMessage errors={errors} name={`choices.${index}.name`} />
             <ErrorMessage errors={errors} name={`choices.${index}.color`} />
-            <ChoiceItem key={index} style={style}>
+            <ChoiceItem style={style}>
               <FormItem>
                 <label
                   htmlFor={`choice${index}Name`}
@@ -148,7 +148,7 @@ const CreatePoll: React.FC = () => {
                 />
               </FormItem>
             </ChoiceItem>
-          </>
+          </div>
         ))}
         <ExpansionButtons>
           {handleAddButton()}
