@@ -26,8 +26,6 @@ const VotePanel: React.FC<Props> = ({ results, pollID }) => {
     try {
       await dispatch(vote({ pollID, choiceID }))
     } catch(e) {
-      console.log('oops')
-      console.log(e.message)
       dispatch(setErrorMessage(e.message))
     }
   }
