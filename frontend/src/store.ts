@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import colorReducer from './reducers/colorReducer'
+import errorReducer from './reducers/errorReducer'
 import pollReducer from './reducers/pollReducer'
 
 const store = configureStore({
   reducer: {
     polls: pollReducer,
-    uiColor: colorReducer
+    uiColor: colorReducer,
+    error: errorReducer
   }
 })
 

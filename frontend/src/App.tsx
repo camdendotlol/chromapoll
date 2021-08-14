@@ -10,6 +10,7 @@ import { GlobalStyle } from './GlobalStyle'
 import { useAppSelector } from './hooks'
 import { UIColor } from './reducers/colorReducer'
 import CreatePoll from './components/CreatePoll'
+import ErrorPopup from './components/ErrorPopup'
 
 const chromaTheme = (uiColor: UIColor, firstLoad: boolean) => ({
   backgroundColor: uiColor.dark,
@@ -30,6 +31,7 @@ const App: React.FC = () => {
       <React.Fragment>
         <GlobalStyle />
         <Navbar />
+        <ErrorPopup />
         <main>
           <Container>
             <Switch>

@@ -23,7 +23,7 @@ const colorSlice = createSlice({
     resetUIColor() {
       return initialState
     },
-    updateUIColor(state, action: PayloadAction<string>) {
+    updateUIColor(_state, action: PayloadAction<string>) {
       const rgbColor = hexToRGB(action.payload)
 
       const getBrightMode = (colorCode: number) => {
