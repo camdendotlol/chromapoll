@@ -18,6 +18,7 @@ const setUpORM = async (): Promise<MikroORM<IDatabaseDriver<Connection>>> => {
     tsNode: true
   })
 
+  // eslint-disable-next-line no-console
   console.log(`Connected to database at ${config.DB_URL}`)
 
   return orm

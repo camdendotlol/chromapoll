@@ -24,6 +24,7 @@ app.get('/*', (req, res) => {
 })
 
 server.listen(config.PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`Chromapoll API is ready at http://localhost:${config.PORT}`)
 })
 
