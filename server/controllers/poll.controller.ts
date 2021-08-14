@@ -111,15 +111,24 @@ router.post('/vote/:pid/:cid', async (req, res) => {
     return res.status(404).json({ error: errorMessages.NotFound('Choice') })
   }
 
-  const ip = req.ip
+  const ip = req.socket.remoteAddress
+
+  if (!ip) {
+    return res.status(500).json({ error: 'Something went wrong with the connection between you and the sever..' })
+  }
 
   if (poll.voters.getIdentifiers('address').includes(ip)) {
     return res.status(400).json({ error: errorMessages.AlreadyVoted })
   }
 
-  const ipToSave = new IP(ip)
+  const ipInDB = await em.getRepository(IP).findOne({ address: ip })
 
-  poll.voters.add(ipToSave)
+  if (ipInDB) {
+    poll.voters.add(ipInDB)
+  } else {
+    poll.voters.add(new IP(ip))
+  }
+
   choice.votes = choice.votes += 1
 
   await em.getRepository(Poll).persistAndFlush(poll)
