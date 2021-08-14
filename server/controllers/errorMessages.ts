@@ -6,7 +6,8 @@ const errorMessages = {
   MissingLabel: 'At least one choice is missing a label',
   MissingColor: 'At least one choices is missing a color',
   BadHexCode: 'At least one choice has an invalid color hex code.',
-  TooLong: (name: string, number: number): string => `${name} are limited to ${number} characters.`
+  TooLong: (name: string, number: number): string => `${name} are limited to ${number} characters.`,
+  AlreadyVoted: 'You have already voted in this poll.'
 }
 
 export default errorMessages

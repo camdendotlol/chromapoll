@@ -113,10 +113,9 @@ router.post('/vote/:pid/:cid', async (req, res) => {
 
   const ip = req.ip
 
-  // TODO: re-enable this once the app ships to production
-  // if (poll.voters.getIdentifiers('address').includes(ip)) {
-  //   return res.status(400).json('You have already voted in this poll')
-  // }
+  if (poll.voters.getIdentifiers('address').includes(ip)) {
+    return res.status(400).json({ error: errorMessages.AlreadyVoted })
+  }
 
   const ipToSave = new IP(ip)
 

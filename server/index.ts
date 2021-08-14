@@ -2,11 +2,20 @@ import config from './config'
 import http from 'http'
 import path from 'path'
 import app from './app'
+import fs from 'fs'
 
 const server = http.createServer(app)
 
-app.get('/ui.js', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'frontend', 'ui.js'))
+// get a list of files in /build
+const staticFolder = path.join(__dirname, '..')
+const staticFiles = fs.readdirSync(staticFolder)
+
+app.get('/:path', (req, res) => {
+  if (staticFiles.includes(req.params.path)) {
+    return res.sendFile(path.join(staticFolder, req.params.path))
+  } else {
+    return res.sendFile(path.join(staticFolder, 'index.html'))
+  }
 })
 
 // Provide the homepage for any unknown frontend request, URLs created by react-router will still work.

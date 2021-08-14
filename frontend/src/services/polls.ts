@@ -22,6 +22,7 @@ const vote = async (pollID: string, choiceID: string) => {
   })
 
   if (res.status >= 400 && res.status <= 404) {
+    console.log(res.data)
     throw new Error(res.data.error)
   }
 
