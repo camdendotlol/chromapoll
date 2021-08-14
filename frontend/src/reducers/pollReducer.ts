@@ -63,8 +63,12 @@ export const createPoll = createAsyncThunk(
 export const vote = createAsyncThunk(
   '/voteStatus',
   async (payload: VotePayload) => {
-    const res = await pollService.vote(payload.pollID, payload.choiceID)
-    return res
+    try {
+      const res = await pollService.vote(payload.pollID, payload.choiceID)
+      return res
+    } catch(e) {
+      throw new Error(e.message)
+    }
   }
 )
 
@@ -136,23 +140,8 @@ const pollSlice = createSlice({
         polls: [...state.polls, payload ]
       }
     }),
-    builder.addCase(createPoll.pending, (state) => {
-      return {
-        pending: {
-          ...state.pending,
-          createPoll: true
-        },
-        polls: state.polls
-      }
-    }),
-    builder.addCase(createPoll.rejected, (state) => {
-      return {
-        pending: {
-          ...state.pending,
-          createPoll: false
-        },
-        polls: state.polls
-      }
+    builder.addCase(createPoll.rejected, (state, { error }) => {
+      throw new Error(error.message)
     }),
     builder.addCase(createPoll.fulfilled, (state, { payload }) => {
       return {
@@ -171,6 +160,9 @@ const pollSlice = createSlice({
         },
         polls: state.polls.map(poll => poll.id === payload.id ? payload : poll)
       }
+    }),
+    builder.addCase(vote.rejected, (_state, { error }) => {
+      throw new Error(error.message)
     })
   }
 })

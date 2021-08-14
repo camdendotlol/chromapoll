@@ -4,6 +4,7 @@ import { Poll } from '../../server/entities/Poll'
 import { Choice } from '../../server/entities/Choice'
 import { IP } from '../entities/Ip'
 import { QueryOrder } from '@mikro-orm/core'
+import errorMessages from './errorMessages'
 
 const router = express.Router()
 
@@ -21,7 +22,7 @@ router.get('/:id', async (req, res) => {
   const em = DI.orm.em.fork()
   const poll = await em.getRepository(Poll).findOne(req.params.id, ['choices'])
   if (!poll) {
-    return res.status(404).json({ error: 'Poll not found' })
+    return res.status(404).json({ error: errorMessages.NotFound('Poll') })
   }
   return res.status(200).json(poll)
 })
@@ -48,16 +49,16 @@ router.get('/:id', async (req, res) => {
 router.post('/create', async (req, res) => {
   const em = DI.orm.em.fork()
 
-  if (!req.body.title || !req.body.choices) {
-    return res.status(400).json('New polls must have a question and answers')
+  if (!req.body.title) {
+    return res.status(400).json({ error: errorMessages.MissingTitle})
   }
 
-  if (req.body.choices.length < 2) {
-    return res.status(400).json('Questions must have at least 2 choices')
+  if (!req.body.choices || req.body.choices.length < 2) {
+    return res.status(400).json({ error: errorMessages.MissingChoices })
   }
 
   if (req.body.choices.length > 8) {
-    return res.status(400).json('Questions are limited to a maximum of 8 choices')
+    return res.status(400).json({ error: errorMessages.TooManyChoices })
   }
 
   const choices: Choice[] = []
@@ -67,10 +68,10 @@ router.post('/create', async (req, res) => {
   // Map each choice to its corresponding color
   for (let x = 0; x < req.body.choices.length; x++) {
     if (!req.body.choices[x].name) {
-      return res.status(400).json('At least one choice is missing a label')
+      return res.status(400).json({ error: errorMessages.MissingLabel })
     }
     if (!req.body.choices[x].color) {
-      return res.status(400).json('At least one choice is missing a color')
+      return res.status(400).json({ error: errorMessages.MissingColor })
     }
 
     choices.push(new Choice(
@@ -91,13 +92,13 @@ router.post('/vote/:pid/:cid', async (req, res) => {
   const poll = await em.getRepository(Poll).findOne(req.params.pid, ['choices', 'voters'])
 
   if (!poll) {
-    return res.status(404).json('Poll not found')
+    return res.status(404).json({ error: errorMessages.NotFound('Poll') })
   }
 
   const choice = poll.choices.getItems().find(c => c.id === req.params.cid)
 
   if (!choice) {
-    return res.status(404).json('Choice not found')
+    return res.status(404).json({ error: errorMessages.NotFound('Choice') })
   }
 
   const ip = req.ip

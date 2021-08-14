@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useAppSelector, useAppDispatch } from '../../hooks'
+import { setErrorMessage } from '../../reducers/errorReducer'
 import { vote } from '../../reducers/pollReducer'
 import { ChoiceWithData } from '../../types'
 import CuteTable from '../common/CuteTable'
@@ -22,7 +23,13 @@ const VotePanel: React.FC<Props> = ({ results, pollID }) => {
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
 
   const handleVote = async (choiceID: string) => {
-    await dispatch(vote({ pollID, choiceID }))
+    try {
+      await dispatch(vote({ pollID, choiceID }))
+    } catch(e) {
+      console.log('oops')
+      console.log(e.message)
+      dispatch(setErrorMessage(e.message))
+    }
   }
 
   const displayPercentage = (percentage: number) => {

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks'
 import { setErrorMessage } from '../../reducers/errorReducer'
 
 const PopupDiv = styled.div`
-  position: absolute;
+  position: fixed;
   top: 100px;
   width: 40vw;
   left: 30vw;

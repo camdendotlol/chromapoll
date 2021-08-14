@@ -15,12 +15,31 @@ const getPoll = async (id: string) => {
 }
 
 const vote = async (pollID: string, choiceID: string) => {
-  const res = await axios.post(`${baseUrl}/vote/${pollID}/${choiceID}`)
+  const res = await axios({
+    url: `${baseUrl}/vote/${pollID}/${choiceID}`,
+    method: 'post',
+    validateStatus: status => [200, 400, 401, 404].includes(status)
+  })
+
+  if (res.status >= 400 && res.status <= 404) {
+    throw new Error(res.data.error)
+  }
+
   return res.data
 }
 
 const createPoll = async (data: NewPollObject) => {
-  const res = await axios.post(`${baseUrl}/create`, data)
+  const res = await axios({
+    url: `${baseUrl}/create`,
+    method: 'post',
+    data: data,
+    validateStatus: status => [200, 400, 401, 404].includes(status)
+  })
+
+  if (res.status >= 400 && res.status <= 404) {
+    throw new Error(res.data.error)
+  }
+
   return res.data
 }
 

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router'
 import { useTrail } from 'react-spring'
 import { useAppDispatch } from '../../hooks'
 import { resetUIColor } from '../../reducers/colorReducer'
+import { setErrorMessage } from '../../reducers/errorReducer'
 import { createPoll } from '../../reducers/pollReducer'
 import { NewPollObject } from '../../types'
 import { CenteredHeader, CenteredSubtitle, FormInput } from '../common/styledComponents'
@@ -24,7 +25,7 @@ const CreatePoll: React.FC = () => {
       const res = await dispatch(createPoll(data)).unwrap()
       history.push(`/poll/${res._id}`)
     } catch(e) {
-      throw new Error(e)
+      dispatch(setErrorMessage(e.message))
     }
   }
 
