@@ -72,29 +72,29 @@ export const toHex = (number: number): string => {
 }
 
 export const mixColors = (choices: Choice[]): string => {
-  const multipliedColors = []
-
-  // Create an array of color codes, with each one multipled by the number of votes.
-  // This makes it easy to average below but I'm sure there's a faster, more
-  // algorithmic way to do this.
-  for (let x = 0; x < choices.length; x++) {
-    const RGBColor = hexToRGB(choices[x].color)
-    
-    for (let y = 0; y < choices[x].votes; y++) {
-      multipliedColors.push(RGBColor)
-    }
-  }
-
   let averages
 
-  // if there are no votes in the poll yet
-  if (multipliedColors.length === 0) {
+  const totalVotes = choices.map(choice => choice.votes).reduce(sum)
+
+  const colors = choices.map(choice => ({
+    name: hexToRGB(choice.color),
+    votes: choice.votes
+  }))
+
+  const tally = {
+    r: colors.map(color => color.name.r * color.votes).reduce(sum),
+    g: colors.map(color => color.name.g * color.votes).reduce(sum),
+    b: colors.map(color => color.name.b * color.votes).reduce(sum)
+  }
+
+  if (totalVotes === 0) {
+    // if there are no votes in the poll yet, just average the colors
     averages = getAverageColor(choices.map(c => hexToRGB(c.color)))
   } else {
     averages = {
-      r: Math.floor(multipliedColors.map(c => c.r).reduce(sum) / multipliedColors.length),
-      g: Math.floor(multipliedColors.map(c => c.g).reduce(sum) / multipliedColors.length),
-      b: Math.floor(multipliedColors.map(c => c.b).reduce(sum) / multipliedColors.length)
+      r: Math.floor(tally.r / totalVotes),
+      g: Math.floor(tally.g / totalVotes),
+      b: Math.floor(tally.b / totalVotes)
     }
   }
 
