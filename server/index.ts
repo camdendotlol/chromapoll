@@ -7,7 +7,7 @@ import fs from 'fs'
 const server = http.createServer(app)
 
 // get a list of files in /build
-const staticFolder = path.join(__dirname, '..')
+const staticFolder = path.join(__dirname, '..', 'frontend')
 const staticFiles = fs.readdirSync(staticFolder)
 
 app.get('/:path', (req, res) => {
