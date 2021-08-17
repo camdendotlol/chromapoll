@@ -60,6 +60,14 @@ const PollPie: React.FC = () => {
   
   useEffect(() => {
     dispatch(getPoll(id))
+
+    // TODO: socket should send a message saying what poll it's on
+    // then the server sends new votes live until a new signal or close
+    const socket = new WebSocket(window.location.href.slice(0, 8) === 'https://' ? 'wss://localhost:42069' : 'ws://localhost:42069')
+    socket.onopen = () => {
+      socket.send(`coming from poll ${id}`)
+      socket.close()
+    }
   }, [id])
 
   const pollSelector = useAppSelector(({ polls }) => polls)

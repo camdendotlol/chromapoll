@@ -3,12 +3,26 @@ import http from 'http'
 import path from 'path'
 import app from './app'
 import express from 'express'
+import ws from 'ws'
+import { Socket } from 'net'
 
 const server = http.createServer(app)
+
+const wsSocket = new ws.Server({ noServer: true })
+wsSocket.on('connection', socket => {
+  // eslint-disable-next-line no-console
+  socket.on('message', message => console.log(message.toString()))
+})
 
 server.listen(config.PORT)
 
 app.use(express.static(path.join(__dirname, '..', 'frontend')))
+
+server.on('upgrade', (request, socket, head) => {
+  wsSocket.handleUpgrade(request, socket as Socket, head, socket => {
+    wsSocket.emit('connection', socket, request)
+  })
+})
 
 // Provide the homepage for any unknown frontend request, so URLs created by react-router will still work.
 app.get('/*', (req, res) => {
