@@ -35,6 +35,6 @@ initDB()
 app.use('/api/polls', pollController)
 
 // Catch all remaining requests to nonexisting routes
-app.use('/api/*', (_req, res) => res.status(404).json({ message: 'Resource not found' }))
+app.use('/api/*', (_req, res) => res.status(404).json({ error: 'Resource not found' }))
 
 export default app
