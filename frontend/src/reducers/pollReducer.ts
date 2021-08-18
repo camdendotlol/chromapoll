@@ -75,7 +75,23 @@ export const vote = createAsyncThunk(
 const pollSlice = createSlice({
   name: 'pollSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    updateVoteTotals(state, { payload }) {
+      return {
+        ...state,
+        polls: state.polls.map(poll => {
+          if (poll.id === payload.id) {
+            return {
+              ...poll,
+              choices: payload.choices
+            }
+          } else {
+            return poll
+          }
+        })
+      }
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getLatestPolls.pending, (state) => {
       return {
@@ -167,5 +183,6 @@ const pollSlice = createSlice({
   }
 })
 
+export const { updateVoteTotals } = pollSlice.actions
 export default pollSlice.reducer
 export const pollSelector = (state: { pollStore: Poll[] }): Poll[] => state.pollStore

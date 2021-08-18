@@ -5,6 +5,7 @@ import { Choice } from '../../server/entities/Choice'
 import { IP } from '../entities/Ip'
 import { QueryOrder } from '@mikro-orm/core'
 import errorMessages from './errorMessages'
+import { socketClients, wsSocket } from '..'
 
 const router = express.Router()
 
@@ -111,23 +112,30 @@ router.post('/vote/:pid/:cid', async (req, res) => {
     return res.status(404).json({ error: errorMessages.NotFound('Choice') })
   }
 
-  const ip = req.ip
+  // TODO: enable once development finishes
+  // const ip = req.ip
 
-  if (poll.voters.getIdentifiers('address').includes(ip)) {
-    return res.status(400).json({ error: errorMessages.AlreadyVoted })
-  }
+  // if (poll.voters.getIdentifiers('address').includes(ip)) {
+  //   return res.status(400).json({ error: errorMessages.AlreadyVoted })
+  // }
 
-  const ipInDB = await em.getRepository(IP).findOne({ address: ip })
+  // const ipInDB = await em.getRepository(IP).findOne({ address: ip })
 
-  if (ipInDB) {
-    poll.voters.add(ipInDB)
-  } else {
-    poll.voters.add(new IP(ip))
-  }
+  // if (ipInDB) {
+  //   poll.voters.add(ipInDB)
+  // } else {
+  //   poll.voters.add(new IP(ip))
+  // }
 
   choice.votes = choice.votes += 1
 
   await em.getRepository(Poll).persistAndFlush(poll)
+
+  const socketWatchers = socketClients.filter(client => client.pollID === poll.id && client.active)
+
+  socketWatchers.forEach(client => {
+    client.socket.send(JSON.stringify(poll.choices))
+  })
 
   return res.status(200).json(poll)
 })
