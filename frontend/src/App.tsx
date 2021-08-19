@@ -46,7 +46,7 @@ const App: React.FC = () => {
       const hostname = window.location.hostname
       const protocol = window.location.protocol
       const wsProtocol = protocol === 'https:' ? 'wss:' : 'ws:'
-      const newSocket = new WebSocket(`${wsProtocol}://${hostname}:8080`)
+      const newSocket = new WebSocket(`${wsProtocol}//${hostname}:8080`)
 
       newSocket.onopen = () => {
         newSocket.send(window.location.pathname.slice(6))
