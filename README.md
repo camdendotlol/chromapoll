@@ -1,10 +1,10 @@
 # Chromapoll 🟥🟩🟦
 
-Chromapoll is a fun polling platform where you can assign a color to each choice.
+Chromapoll is a fun polling platform where you can assign a color to each option.
 
 As the votes come in, watch the colors mix together based on the number of votes for each choice.
 
-Chromapoll employs basic protection with IP logging to prevent cheating.
+Chromapoll employs basic protection with local storage and IP logging to prevent cheating.
 
 ## How to run
 
@@ -37,9 +37,9 @@ Chromapoll looks for two env variables.
 
 ## Portfolio Reflection
 
-Compared to my previous projects, I used relatively few new technologies. However, this is the first project I've made using MongoDB in many months, after using PostgreSQL for a while. I decided to try a new ORM - I used Sequelize for Groupread and it was a pain point for backend work. So this time around I tried out MikroORM and I've found it to be powerful and easy to use.
+The most prominent new technology that I learned for Chromapoll was WebSocket. Chromapoll uses web sockets to show changes in vote totals without having to refresh the page. I had to do some experimentation to get it to work on the same server as the API, but I ended up using the `ws` package to configure the socket in `/server/socket.ts`. Each time the client opens a poll, it opens a WebSocket connection and transmits the ID of the poll. The server then stores an object that keeps track of which poll the client is watching. When the server recieves a new vote for a poll, the vote path handler in `/server/controllers/poll.controller.ts` iterates through the array of WebSocket clients to broadcast the latest vote totals to anyone watching the newly updated poll. Meanwhile, the server runs a heartbeat function every 30 seconds to drop any disconnected clients.
 
-On the frontend, this was my first time using styled-components, and I also immediately found it pleasant to work with. One architectural mistake with Groupread that I only recognized late in development was that it used a single sass file (along with importing the Bulma CSS file). It wasn't a big deal at the very beginning, but as the project grew it became bothersome to move between the sass file and the component code. I am still figuring out the best practices for styled-components so there might be some less-than-ideal component code, but it's already a much more efficient way to handle styling for each component.
+On the frontend, this was my first time using `styled-components`, and I immediately found it pleasant to work with. One architectural mistake with [Groupread](https://github.com/mythmakerseven/groupread) that I recognized late in development was that it used a single sass file (along with importing the Bulma CSS file). It wasn't a big deal at the very beginning, but as the project grew it became bothersome to move between the sass file and the component code. I am still figuring out the best practices for styled-components so there might be some less-than-ideal component code, but it's already a much more efficient way to handle styling for each component.
 
 This is the first project in which I've made an effort from the beginning to make re-usable components whenever possible. Some of my older projects have a few of them, but none of them started off with reusability as a priority and I started with them more recently. I keep these components in `/frontend/src/components/common`, but as with styled-components I am still learning the best way to write them. I'm particularly satisfied with the `Button` component, which includes some nice styling and accepts a label and a callback function as props.
 
