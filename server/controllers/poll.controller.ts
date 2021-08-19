@@ -5,7 +5,7 @@ import { Choice } from '../../server/entities/Choice'
 import { IP } from '../entities/Ip'
 import { QueryOrder } from '@mikro-orm/core'
 import errorMessages from './errorMessages'
-import { socketClients, wsSocket } from '..'
+import { socketClients, wsSocket } from '../socket'
 
 const router = express.Router()
 

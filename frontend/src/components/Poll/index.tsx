@@ -4,7 +4,7 @@ import Circle from './Circle'
 import VotePanel from '../VotePanel'
 import { useAppSelector, useAppDispatch } from '../../hooks'
 import { useParams } from 'react-router-dom'
-import { getPoll, updateVoteTotals } from '../../reducers/pollReducer'
+import { getPoll } from '../../reducers/pollReducer'
 import styled from 'styled-components'
 import { sum, calculateDisplayData } from '../lib'
 import ToggleButton from '../common/ToggleButton'
@@ -53,7 +53,6 @@ export enum ChartType {
 const PollPie: React.FC = () => {
   const [showPie, setShowPie] = useState<boolean>(false)
   const [results, setResults] = useState<ChoiceWithData[]>([])
-  const [socket, setSocket] = useState<WebSocket | null>(null)
 
   const { id } = useParams<({ id: string })>()
 
@@ -61,25 +60,6 @@ const PollPie: React.FC = () => {
   
   useEffect(() => {
     dispatch(getPoll(id))
-
-    if (socket) {
-      socket.close(1001)
-      setSocket(null)
-    }
-
-    const newSocket = new WebSocket(window.location.href.slice(0, 8) === 'https://' ? 'wss://localhost:42069' : 'ws://localhost:42069')
-
-    newSocket.onopen = () => {
-      newSocket.send(id)
-    }
-
-    newSocket.onmessage = message => {
-      dispatch(updateVoteTotals({
-        id: id,
-        choices: JSON.parse(message.data)
-      }))
-    }
-    setSocket(newSocket)
   }, [id])
 
   const pollSelector = useAppSelector(({ polls }) => polls)

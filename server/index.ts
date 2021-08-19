@@ -3,63 +3,10 @@ import http from 'http'
 import path from 'path'
 import app from './app'
 import express from 'express'
-import ws from 'ws'
+import { wsSocket } from './socket'
 import { Socket } from 'net'
 
 const server = http.createServer(app)
-
-export let socketClients: SocketMap[] = []
-
-interface SocketMap {
-  socket: ws,
-  pollID: string | null,
-  active: boolean
-}
-
-export const wsSocket = new ws.Server({ noServer: true })
-wsSocket.on('connection', (socket, req) => {
-
-  socketClients.push({
-    socket,
-    pollID: null,
-    active: true
-  })
-
-  socket.on('pong', () => {
-    const socketToUpdate = socketClients.find(client => client.socket === socket)
-    
-    if (!socketToUpdate) {
-      return null
-    }
-    
-    socketToUpdate.active = true
-  })
-
-  socket.on('message', message => {
-    const clientToUpdate = socketClients.find(client => socket === client.socket)
-
-    if (!clientToUpdate) {
-      return socketClients = socketClients.filter(ws => clientToUpdate !== ws.socket)
-    }
-
-    return clientToUpdate.pollID = message.toString()
-  })
-})
-
-const heartbeat = () => setInterval(() => {
-  socketClients.forEach((client) => {
-    if (!client.active) {
-      client.socket.terminate()
-      socketClients = socketClients.filter(s => s.socket !== client.socket)
-    }
-
-    client.active = false
-
-    return client.socket.ping()
-  })
-}, 3000)
-
-heartbeat()
 
 server.listen(config.PORT)
 
