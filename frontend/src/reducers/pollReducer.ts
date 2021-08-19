@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import errorMessages from '../errorMessages'
 
 import pollService from '../services/polls'
 import { NewPollObject, Poll } from '../types'
@@ -63,6 +64,12 @@ export const createPoll = createAsyncThunk(
 export const vote = createAsyncThunk(
   '/voteStatus',
   async (payload: VotePayload) => {
+    // the client remembers which polls the user has already voted in
+    const votedIn = JSON.parse(localStorage.getItem('votedIn') || '[]')
+    if (votedIn.includes(payload.pollID)) {
+      throw new Error(errorMessages.AlreadyVoted)
+    }
+
     try {
       const res = await pollService.vote(payload.pollID, payload.choiceID)
       return res
@@ -169,6 +176,11 @@ const pollSlice = createSlice({
       }
     }),
     builder.addCase(vote.fulfilled, (state, { payload }) => {
+      // Add the poll to the client-side list of polls the person has voted in
+      const votedIn = JSON.parse(localStorage.getItem('votedIn') || '[]')
+      votedIn.push(payload.id)
+      localStorage.setItem('votedIn', JSON.stringify(votedIn))
+
       return {
         pending: {
           ...state.pending,
