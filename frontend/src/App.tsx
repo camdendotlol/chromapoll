@@ -44,7 +44,7 @@ const App: React.FC = () => {
     // Open a new one with the current poll if applicable
     if (window.location.pathname.slice(0, 6) === '/poll/') {
       const hostname = window.location.hostname
-      const newSocket = new WebSocket(`ws://${hostname}:7991`)
+      const newSocket = new WebSocket(`ws://${hostname}:8080`)
 
       newSocket.onopen = () => {
         newSocket.send(window.location.pathname.slice(6))

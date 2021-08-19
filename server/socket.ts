@@ -8,9 +8,8 @@ interface SocketMap {
   active: boolean
 }
 
-export const wsSocket = new ws.Server({ port: 7991 })
+export const wsSocket = new ws.Server({ noServer: true })
 wsSocket.on('connection', (socket) => {
-
   socketClients.push({
     socket,
     pollID: null,
