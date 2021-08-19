@@ -48,6 +48,6 @@ const heartbeat = () => setInterval(() => {
 
     return client.socket.ping()
   })
-}, 3000)
+}, 30000)
 
 heartbeat()
