@@ -41,7 +41,8 @@ const config = {
   devServer: {
     client: {
       webSocketURL: {
-        port: process.env.PORT
+        port: process.env.PORT,
+        hostname: 'localhost'
       }
     },
     proxy: {

@@ -13,6 +13,8 @@ server.listen(config.PORT)
 app.use(express.static(path.join(__dirname, '..', 'frontend')))
 
 server.on('upgrade', (request, socket, head) => {
+  // TODO: this breaks websockets on the dev server
+  // see https://github.com/mythmakerseven/chromapoll/issues/21
   wsSocket.handleUpgrade(request, socket as Socket, head, socket => {
     wsSocket.emit('connection', socket, request)
   })
