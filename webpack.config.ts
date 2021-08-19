@@ -39,11 +39,17 @@ const config = {
     extensions: ['.tsx', '.ts', '.js']
   },
   devServer: {
+    client: {
+      webSocketURL: {
+        port: process.env.PORT
+      }
+    },
     proxy: {
       '/api': `http://localhost:${process.env.PORT}`
     },
-    contentBase: path.resolve(__dirname, 'dist', 'frontend'),
-    publicPath: '/',
+    static: {
+      directory: path.resolve(__dirname, 'dist', 'frontend')
+    },
     historyApiFallback: { index: 'index.html' }
   }
 }
