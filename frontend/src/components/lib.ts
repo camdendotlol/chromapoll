@@ -72,21 +72,20 @@ export const toHex = (number: number): string => {
 }
 
 export const mixColors = (choices: Choice[]): string => {
-  let averages
-
   const totalVotes = choices.map(choice => choice.votes).reduce(sum)
-
+  
   const colors = choices.map(choice => ({
     name: hexToRGB(choice.color),
     votes: choice.votes
   }))
-
+  
   const tally = {
     r: colors.map(color => color.name.r * color.votes).reduce(sum),
     g: colors.map(color => color.name.g * color.votes).reduce(sum),
     b: colors.map(color => color.name.b * color.votes).reduce(sum)
   }
-
+  
+  let averages
   if (totalVotes === 0) {
     // if there are no votes in the poll yet, just average the colors
     averages = getAverageColor(choices.map(c => hexToRGB(c.color)))

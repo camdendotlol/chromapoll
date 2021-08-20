@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import errorMessages from '../../errorMessages'
-import { useAppSelector, useAppDispatch } from '../../hooks'
-import { setErrorMessage } from '../../reducers/errorReducer'
-import { vote } from '../../reducers/pollReducer'
-import { ChoiceWithData } from '../../types'
-import CuteTable from '../common/CuteTable'
+import errorMessages from '../../../errorMessages'
+import { useAppSelector, useAppDispatch } from '../../../hooks'
+import { setErrorMessage } from '../../../reducers/errorReducer'
+import { vote } from '../../../reducers/pollReducer'
+import { ChoiceWithData } from '../../../types'
+import CuteTable from '../../common/CuteTable'
 
 interface Props {
   results: ChoiceWithData[],

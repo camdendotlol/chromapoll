@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ChoiceWithData } from '../../types'
 import Circle from './Circle'
-import VotePanel from '../VotePanel'
+import VotePanel from './VotePanel'
 import { useAppSelector, useAppDispatch } from '../../hooks'
 import { useParams } from 'react-router-dom'
 import { getPoll } from '../../reducers/pollReducer'
