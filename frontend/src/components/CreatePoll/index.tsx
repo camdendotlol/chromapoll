@@ -94,7 +94,7 @@ const CreatePoll: React.FC = () => {
   return (
     <PollFormContainer>
       <Helmet>
-        <title>Create a poll</title>
+        <title>Chromapoll - Create a poll</title>
         <link rel='canonical' href='https://chromapoll.xyz/create' />
       </Helmet>
       <CenteredHeader>Create a poll</CenteredHeader>
