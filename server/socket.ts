@@ -35,6 +35,16 @@ wsSocket.on('connection', (socket) => {
 
     return clientToUpdate.pollID = message.toString()
   })
+
+  socket.on('close', () => {
+    const clientToYeet = socketClients.find(client => socket === client.socket)
+
+    if (!clientToYeet) {
+      return socketClients
+    }
+
+    return socketClients = socketClients.filter(client => clientToYeet.socket !== client.socket)
+  })
 })
 
 const heartbeat = () => setInterval(() => {
