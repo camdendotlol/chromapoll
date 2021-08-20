@@ -112,7 +112,6 @@ router.post('/vote/:pid/:cid', async (req, res) => {
     return res.status(404).json({ error: errorMessages.NotFound('Choice') })
   }
 
-  // TODO: enable once development finishes
   const ip = req.ip
 
   if (poll.voters.getIdentifiers('address').includes(ip)) {
