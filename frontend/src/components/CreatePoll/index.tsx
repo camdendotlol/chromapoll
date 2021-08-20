@@ -12,15 +12,12 @@ import { CenteredHeader, CenteredSubtitle, FormInput } from '../common/styledCom
 import { generateRandomColor } from '../lib'
 import { ChoiceItem, ExpansionButtons, FormItem, PollFormContainer, SubmitButton } from './styledComponents'
 import errorMessages from '../../errorMessages'
+import { Helmet } from 'react-helmet'
 
 const CreatePoll: React.FC = () => {
   const { control, register, handleSubmit, formState: { errors } } = useForm()
   const dispatch = useAppDispatch()
   const history = useHistory()
-
-  useEffect(() => {
-    document.title = 'Chromapoll - Create a poll'
-  }, [])
 
   useEffect(() => {
     dispatch(resetUIColor())
@@ -96,6 +93,10 @@ const CreatePoll: React.FC = () => {
 
   return (
     <PollFormContainer>
+      <Helmet>
+        <title>Create a poll</title>
+        <link rel='canonical' href='https://chromapoll.xyz/create' />
+      </Helmet>
       <CenteredHeader>Create a poll</CenteredHeader>
       <form onSubmit={handleSubmit(createNewPoll)}>
         <FormItem>

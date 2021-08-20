@@ -8,6 +8,7 @@ import { getLatestPolls } from '../../reducers/pollReducer'
 import { Poll } from '../../types'
 import { CenteredHeader } from '../common/styledComponents'
 import PollItem from './PollItem'
+import { Helmet } from 'react-helmet'
 
 const PollList = styled.div`
   display: flex;
@@ -35,10 +36,6 @@ const LatestPolls: React.FC = () => {
   const [polls, setPolls] = useState<Poll[]>([])
 
   const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    document.title = 'Chromapoll - Latest Polls'
-  }, [])
 
   const trail = useTrail(polls.length, {
     from: { opacity: 0, scale: 0.2 },
@@ -76,6 +73,10 @@ const LatestPolls: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Chromapoll - Latest Polls</title>
+        <link rel='canonical' href='https://chromapoll.xyz/latest' />
+      </Helmet>
       <CenteredHeader>Latest polls</CenteredHeader>
       <PollList>
         {trail.map((style, i) => (

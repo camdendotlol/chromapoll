@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Title from './Title'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -6,6 +6,7 @@ import { CenteredSubtitle, PrettyLink } from '../common/styledComponents'
 import Logo from '../common/Logo'
 import breakpoints from '../../breakpoints'
 import { animated, useSpring } from 'react-spring'
+import { Helmet } from 'react-helmet'
 
 const HomeDiv = styled.div`
   display: flex;
@@ -46,12 +47,12 @@ const HomePage: React.FC = () => {
     config: { duration: 300 }
   })
 
-  useEffect(() => {
-    document.title = 'Chromapoll'
-  }, [])
-
   return (
     <HomeDiv>
+      <Helmet>
+        <title>Chromapoll</title>
+        <link rel='canonical' href='https://chromapoll.xyz' />
+      </Helmet>
       <TitleDiv style={props}>
         <Logo size={'100px'} />
         <Title text={'Chromapoll!'} />

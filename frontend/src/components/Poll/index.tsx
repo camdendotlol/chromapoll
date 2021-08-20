@@ -9,6 +9,7 @@ import styled from 'styled-components'
 import { sum, calculateDisplayData } from '../lib'
 import ToggleButton from '../common/ToggleButton'
 import breakpoints from '../../breakpoints'
+import { Helmet } from 'react-helmet'
 
 const PollDiv = styled.div`
   display: flex;
@@ -64,10 +65,6 @@ const PollPie: React.FC = () => {
   const pending = pollSelector.pending
   const poll = pollSelector.polls.find(poll => poll.id === id)
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
-
-  useEffect(() => {
-    document.title = poll?.title ? poll.title : 'Chromapoll'
-  }, [poll?.title])
 
   useEffect(() => {
     dispatch(getPoll(id))
@@ -129,6 +126,10 @@ const PollPie: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{poll.title}</title>
+        <link rel='canonical' href={`https://chromapoll.xyz/poll/${poll.id}`} />
+      </Helmet>
       <Header color={uiColor.light}>{poll.title}</Header>
       <PollDiv>
         <ScalingDiv>
