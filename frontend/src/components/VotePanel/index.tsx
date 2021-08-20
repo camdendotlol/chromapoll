@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import errorMessages from '../../errorMessages'
 import { useAppSelector, useAppDispatch } from '../../hooks'
@@ -9,7 +9,9 @@ import CuteTable from '../common/CuteTable'
 
 interface Props {
   results: ChoiceWithData[],
-  pollID: string
+  pollID: string,
+  hasVoted: boolean,
+  setHasVoted: (arg: boolean) => void
 }
 
 const LegendTitle = styled.h3`
@@ -19,28 +21,16 @@ const LegendTitle = styled.h3`
   color: ${props => props.color}
 `
 
-const VotePanel: React.FC<Props> = ({ results, pollID }) => {
-  const [hasVoted, setHasVoted] = useState<boolean>(false)
-  const [serverSaysVoted, setServerSaysVoted] = useState<boolean>(false)
-
+const VotePanel: React.FC<Props> = ({ results, pollID, hasVoted, setHasVoted }) => {
   const dispatch = useAppDispatch()
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
-
-  useEffect(() => {
-    const pollsVotedIn = JSON.parse(localStorage.getItem('votedIn') || '[]')
-    if (pollsVotedIn.includes(pollID)) {
-      setHasVoted(true)
-    } else {
-      setHasVoted(false)
-    }
-  }, [pollID, serverSaysVoted, results])
 
   const handleVote = async (choiceID: string) => {
     try {
       await dispatch(vote({ pollID, choiceID }))
     } catch(e) {
       if (e.message === errorMessages.AlreadyVoted) {
-        setServerSaysVoted(true)
+        setHasVoted(true)
       }
       dispatch(setErrorMessage(e.message))
     }

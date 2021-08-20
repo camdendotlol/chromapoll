@@ -53,6 +53,8 @@ export enum ChartType {
 const PollPie: React.FC = () => {
   const [showPie, setShowPie] = useState<boolean>(false)
   const [results, setResults] = useState<ChoiceWithData[]>([])
+  const [hasCheckedLocalStorage, setHasCheckedLocalStorage] = useState<boolean>(false)
+  const [hasVoted, setHasVoted] = useState<boolean>(false)
 
   const { id } = useParams<({ id: string })>()
 
@@ -74,6 +76,18 @@ const PollPie: React.FC = () => {
     }
   }, [poll?.choices])
 
+  useEffect(() => {
+    const pollsVotedIn = JSON.parse(localStorage.getItem('votedIn') || '[]')
+
+    if (pollsVotedIn.includes(id)) {
+      setHasVoted(true)
+    } else {
+      setHasVoted(false)
+    }
+
+    setHasCheckedLocalStorage(true)
+  }, [results])
+
   if (pending.singlePoll) {
     return null
   }
@@ -84,6 +98,12 @@ const PollPie: React.FC = () => {
   }
 
   if (!results || results.length === 0) {
+    return null
+  }
+
+  // Don't show the table until we've checked localstorage for vote status
+  // This fixes an issue where the voting panel flashed for a split second
+  if (!hasCheckedLocalStorage) {
     return null
   }
 
@@ -111,7 +131,12 @@ const PollPie: React.FC = () => {
           <Circle results={results} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
         </ScalingDiv>
         <div>
-          <VotePanel results={results} pollID={poll.id} />
+          <VotePanel
+            results={results}
+            pollID={poll.id}
+            hasVoted={hasVoted}
+            setHasVoted={setHasVoted}
+          />
           {handleToggleButton()}
         </div>
       </PollDiv>
