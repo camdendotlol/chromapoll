@@ -36,6 +36,10 @@ const LatestPolls: React.FC = () => {
 
   const dispatch = useAppDispatch()
 
+  useEffect(() => {
+    document.title = 'Chromapoll - Latest Polls'
+  }, [])
+
   const trail = useTrail(polls.length, {
     from: { opacity: 0, scale: 0.2 },
     to: { opacity: 1, scale: 1 },

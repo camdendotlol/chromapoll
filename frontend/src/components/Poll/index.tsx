@@ -66,6 +66,10 @@ const PollPie: React.FC = () => {
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
 
   useEffect(() => {
+    document.title = poll?.title ? poll.title : 'Chromapoll'
+  }, [poll?.title])
+
+  useEffect(() => {
     dispatch(getPoll(id))
   }, [id])
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Title from './Title'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -45,6 +45,10 @@ const HomePage: React.FC = () => {
     from: { opacity: 0 },
     config: { duration: 300 }
   })
+
+  useEffect(() => {
+    document.title = 'Chromapoll'
+  }, [])
 
   return (
     <HomeDiv>

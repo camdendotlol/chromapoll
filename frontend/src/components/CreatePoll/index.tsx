@@ -19,6 +19,10 @@ const CreatePoll: React.FC = () => {
   const history = useHistory()
 
   useEffect(() => {
+    document.title = 'Chromapoll - Create a poll'
+  }, [])
+
+  useEffect(() => {
     dispatch(resetUIColor())
   }, [])
 
