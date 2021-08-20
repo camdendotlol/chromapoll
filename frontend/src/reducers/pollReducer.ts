@@ -3,6 +3,7 @@ import errorMessages from '../errorMessages'
 
 import pollService from '../services/polls'
 import { NewPollObject, Poll } from '../types'
+import { checkIfAlreadyVoted } from './lib'
 
 interface PollState {
   pending: {
@@ -65,8 +66,7 @@ export const vote = createAsyncThunk(
   '/voteStatus',
   async (payload: VotePayload) => {
     // the client remembers which polls the user has already voted in
-    const votedIn = JSON.parse(localStorage.getItem('votedIn') || '[]')
-    if (votedIn.includes(payload.pollID)) {
+    if (checkIfAlreadyVoted(payload.pollID)) {
       throw new Error(errorMessages.AlreadyVoted)
     }
 
@@ -74,6 +74,13 @@ export const vote = createAsyncThunk(
       const res = await pollService.vote(payload.pollID, payload.choiceID)
       return res
     } catch(e) {
+      // add it to the localstorage so the client remembers next time 😤
+      if (e.message === errorMessages.AlreadyVoted) {
+        const votedIn = JSON.parse(localStorage.getItem('votedIn') || '[]')
+        votedIn.push(payload.pollID)
+        localStorage.setItem('votedIn', JSON.stringify(votedIn))
+      }
+
       throw new Error(e.message)
     }
   }

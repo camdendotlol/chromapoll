@@ -57,15 +57,15 @@ const PollPie: React.FC = () => {
   const { id } = useParams<({ id: string })>()
 
   const dispatch = useAppDispatch()
-  
-  useEffect(() => {
-    dispatch(getPoll(id))
-  }, [id])
 
   const pollSelector = useAppSelector(({ polls }) => polls)
   const pending = pollSelector.pending
   const poll = pollSelector.polls.find(poll => poll.id === id)
   const uiColor = useAppSelector(({ uiColor }) => uiColor)
+
+  useEffect(() => {
+    dispatch(getPoll(id))
+  }, [id])
 
   useEffect(() => {
     if (poll?.choices) {

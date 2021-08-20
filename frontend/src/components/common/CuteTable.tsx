@@ -16,11 +16,12 @@ const TableContainer = styled.div`
   margin: 0;
   overflow: hidden;
 `
-
+  
 const Table = styled.table`
   border-spacing: 0px;
   border-radius: 10px;
   font-weight: 600;
+  width: 100%;
 
   th, td {
     padding: 10px;
@@ -30,15 +31,15 @@ const Table = styled.table`
     border: 0;
     transition: 0.2s;
   }
-
-  tbody tr:hover {
-    filter: brightness(75%);
-    cursor: pointer;
-  }
 `
 
 const ColorfulRow = styled.tr`
   background: ${props => props.color};
+
+  :hover {
+    filter: ${props => props.autoCorrect};
+    cursor: ${props => props.about};
+  }
 `
 
 const Label = styled.td`
@@ -66,6 +67,9 @@ const CuteTable: React.FC<Props> = ({ items }) => {
             <ColorfulRow
               key={index}
               color={item.color ? item.color : 'inital'}
+              // only imply interactivity if a callback is provided
+              autoCorrect={item.callback ? 'brightness(75%)' : 'none' }
+              about={item.callback ? 'pointer' : 'unset'}
             >
               {item.properties.map((property, index) =>
                 <Label
