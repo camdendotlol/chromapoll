@@ -35,9 +35,16 @@ export const getMetadata = async (path: string, indexPage: string): Promise<stri
       url: 'https://chromapoll.xyz/latest'
     })
   } else if (path.slice(0, 6) === '/poll/') {
+    // Sometimes there's an extra / in the URL
+    // Let's strip it before we pass the ID to the DB
+    let pollID = path.slice(6)
+    if (path.split('').reverse()[0] === '/') {
+      pollID = path.slice(6, path.length - 1)
+    }
+
     return insertMetadata(indexPage, {
-      title: await fetchPollTitle(path.slice(6)),
-      url: `https://chromapoll.xyz${path}`
+      title: await fetchPollTitle(pollID),
+      url: `https://chromapoll.xyz${pollID}`
     })
   } else {
     return insertMetadata(indexPage, {
