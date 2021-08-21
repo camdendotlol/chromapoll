@@ -2,15 +2,30 @@ import config from './config'
 import http from 'http'
 import path from 'path'
 import app from './app'
-import express from 'express'
+import fs from 'fs'
 import { wsSocket } from './socket'
 import { Socket } from 'net'
+import { getMetadata } from './metadata'
 
 const server = http.createServer(app)
 
 server.listen(config.PORT)
 
-app.use(express.static(path.join(__dirname, '..', 'frontend')))
+// get a list of files in /build
+const staticFolder = path.join(__dirname, '..', 'frontend')
+// filter out index.html for special treatment
+const staticFiles = fs.readdirSync(staticFolder).filter(filename => filename !== 'index.html')
+// read index.html to a string so we can replace parts of it later
+const indexPage = fs.readFileSync(`${staticFolder}/index.html`, 'utf8')
+
+app.get('/:path', async (req, res) => {
+  if (staticFiles.includes(req.params.path)) {
+    return res.sendFile(path.join(staticFolder, req.params.path))
+  } else {
+    const formattedIndexPage = await getMetadata(req.path, indexPage)
+    return res.send(formattedIndexPage)
+  }
+})
 
 server.on('upgrade', (request, socket, head) => {
   // TODO: this breaks websockets on the dev server
@@ -21,8 +36,9 @@ server.on('upgrade', (request, socket, head) => {
 })
 
 // Provide the homepage for any unknown frontend request, so URLs created by react-router will still work.
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'))
+app.get('/*', async (req, res) => {
+  const formattedIndex = await getMetadata(req.path, indexPage)
+  res.send(formattedIndex)
 })
 
 // eslint-disable-next-line no-console
