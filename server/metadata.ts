@@ -24,12 +24,14 @@ const fetchPollTitle = async (id: string): Promise<string> => {
 }
 
 export const getMetadata = async (path: string, indexPage: string): Promise<string> => {
-  if (path ==='/create') {
+  // Chromapoll has few enough paths that a simple if-else block is enough.
+  // If there are more paths in the future, this should probably be refactored.
+  if (path === '/create' || path === '/create/') {
     return insertMetadata(indexPage, {
       title: 'Chromapoll - Create a Poll',
       url: 'https://chromapoll.xyz/create'
     })
-  } else if (path === '/latest') {
+  } else if (path === '/latest' || path === '/latest/') {
     return insertMetadata(indexPage, {
       title: 'Chromapoll - Latest Polls',
       url: 'https://chromapoll.xyz/latest'
