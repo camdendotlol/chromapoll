@@ -18,6 +18,11 @@ const staticFiles = fs.readdirSync(staticFolder).filter(filename => filename !==
 // read index.html to a string so we can replace parts of it later
 const indexPage = fs.readFileSync(`${staticFolder}/index.html`, 'utf8')
 
+// Handle OpenGraph social media cards
+app.get('/cards/*', async (req, res) => {
+  return res.sendFile(path.join(staticFolder, req.path))
+})
+
 app.get('/:path', async (req, res) => {
   if (staticFiles.includes(req.params.path)) {
     return res.sendFile(path.join(staticFolder, req.params.path))
