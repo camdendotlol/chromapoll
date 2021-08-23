@@ -7,4 +7,3 @@ server/requests
 dist/server
 dist/frontend/ui.js
 dist/frontend/ui.js.LICENSE.txt
-dist/frontend/cards/*
