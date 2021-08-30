@@ -19,7 +19,7 @@
   "dependencies": {
     "@hookform/error-message": "^2.0.0",
     "@mikro-orm/core": "^4.5.7",
-    "@mikro-orm/mongodb": "^4.5.7",
+    "@mikro-orm/mongodb": "^4.5.9",
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.21.1",
     "canvas": "^2.8.0",
