@@ -43,8 +43,8 @@ const LatestPolls: React.FC = () => {
     to: { opacity: 1, scale: 1 },
     config: {
       mass: 1,
-      tension: 210,
-      friction: 20
+      tension: 220,
+      friction: 21
     }
   })
 
