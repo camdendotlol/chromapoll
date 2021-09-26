@@ -13,9 +13,12 @@ server.listen(config.PORT)
 
 // get a list of files in /build
 const staticFolder = path.join(__dirname, '..', 'frontend')
-// filter out index.html for special treatment
+
+
+// it's okay to pause the main thread with these commands because they only run once at launch
+// 1. filter out index.html for special treatment
 const staticFiles = fs.readdirSync(staticFolder).filter(filename => filename !== 'index.html')
-// read index.html to a string so we can replace parts of it later
+// 2. read index.html to a string so we can replace parts of it later
 const indexPage = fs.readFileSync(`${staticFolder}/index.html`, 'utf8')
 
 // Handle OpenGraph social media cards

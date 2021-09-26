@@ -3,6 +3,7 @@ import { Poll } from './entities/Poll'
 import { getAverageColor } from './lib'
 import { Choice } from './entities/Choice'
 import fs from 'fs'
+import util from 'util'
 import path from 'path'
 import { registerFont, createCanvas, loadImage } from 'canvas'
 
@@ -54,7 +55,16 @@ const generatePollCard = async (poll: Poll) => {
   context.fillText('Chromapoll', 700, 450)
 
   const buffer = canvas.toBuffer('image/jpeg')
-  fs.writeFileSync(path.join(__dirname, '..', 'frontend', 'cards', `./${poll.id}.jpg`), buffer)
+  const writeFile = util.promisify(fs.writeFile)
+
+  try {
+    await writeFile(path.join(__dirname, '..', 'frontend', 'cards', `./${poll.id}.jpg`), buffer)
+  } catch(e) {
+    // eslint-disable-next-line no-console
+    console.log(`Error on saving thumbnail file: ${e}\nReverting to default thumbnail.`)
+    return 'opengraph_image.jpg'
+  }
+  
   return `/cards/${poll.id}.jpg`
 }
 
