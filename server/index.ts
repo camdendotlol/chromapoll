@@ -46,7 +46,7 @@ server.on('upgrade', (request, socket, head) => {
 // Provide the homepage for any unknown frontend request, so URLs created by react-router will still work.
 app.get('/*', async (req, res) => {
   const formattedIndex = await getMetadata(req.path, indexPage)
-  res.send(formattedIndex)
+  return res.send(formattedIndex)
 })
 
 // eslint-disable-next-line no-console

@@ -34,6 +34,7 @@ const PollList = styled.div`
 
 const LatestPolls: React.FC = () => {
   const [polls, setPolls] = useState<Poll[]>([])
+  const [loading, setLoading] = useState(true)
 
   const dispatch = useAppDispatch()
 
@@ -65,9 +66,10 @@ const LatestPolls: React.FC = () => {
 
   useEffect(() => {
     dispatch(getLatestPolls())
+    setLoading(false)
   }, [dispatch])
 
-  if (pollsSelector.pending.latestPolls) {
+  if (loading) {
     return null
   }
 
