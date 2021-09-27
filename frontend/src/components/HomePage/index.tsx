@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { CenteredSubtitle, PrettyLink } from '../common/styledComponents'
 import Logo from '../common/Logo'
 import breakpoints from '../../breakpoints'
-import { animated, useSpring } from 'react-spring'
+import { animated, useSpring } from '@react-spring/web'
 import { Helmet } from 'react-helmet'
 
 const HomeDiv = styled.div`

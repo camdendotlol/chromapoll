@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { animated, useTrail } from 'react-spring'
+import { animated, useTrail } from '@react-spring/web'
 import styled from 'styled-components'
 import breakpoints from '../../breakpoints'
 import { useAppDispatch, useAppSelector } from '../../hooks'
