@@ -22,7 +22,7 @@
     "@mikro-orm/mongodb": "^4.5.9",
     "@react-spring/web": "^9.2.4",
     "@reduxjs/toolkit": "^1.6.1",
-    "axios": "^0.21.1",
+    "axios": "^0.22.0",
     "canvas": "^2.8.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
