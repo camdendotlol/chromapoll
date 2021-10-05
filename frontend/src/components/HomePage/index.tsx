@@ -57,7 +57,7 @@ const HomePage: React.FC = () => {
         <Logo size={'100px'} />
         <Title text={'Chromapoll!'} />
       </TitleDiv>
-      <CenteredSubtitle>Make polls with color</CenteredSubtitle>
+      <CenteredSubtitle>Consensus voting with colors</CenteredSubtitle>
       <Link to='/latest'>
         <PrettyLink>See polls</PrettyLink>
       </Link>
