@@ -17,6 +17,7 @@ interface Props {
 const LegendTitle = styled.h3`
   text-align: center;
   margin: 0;
+  font-size: 1.5rem;
   margin-bottom: 5px;
   color: ${props => props.color}
 `
@@ -66,7 +67,7 @@ const VotePanel: React.FC<Props> = ({ results, pollID, hasVoted, setHasVoted }) 
       <LegendTitle
         color={uiColor.light}
       >
-        { hasVoted ? 'Results' : 'Choices' }
+        { hasVoted ? 'Results' : 'Vote now:' }
       </LegendTitle>
       <div
         id='vote-box'

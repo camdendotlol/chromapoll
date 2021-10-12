@@ -46,6 +46,11 @@ const Header = styled.h1`
   }
 `
 
+const PanelContainer = styled.div`
+  width: 300px;
+  text-align: center;
+`
+
 export enum ChartType {
   Chroma,
   Pie
@@ -135,7 +140,7 @@ const PollPie: React.FC = () => {
         <ScalingDiv>
           <Circle results={results} chartType={showPie ? ChartType.Pie : ChartType.Chroma} />
         </ScalingDiv>
-        <div>
+        <PanelContainer>
           <VotePanel
             results={results}
             pollID={poll.id}
@@ -143,7 +148,7 @@ const PollPie: React.FC = () => {
             setHasVoted={setHasVoted}
           />
           {handleToggleButton()}
-        </div>
+        </PanelContainer>
       </PollDiv>
     </>
   )
