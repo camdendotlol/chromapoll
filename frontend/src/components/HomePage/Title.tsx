@@ -43,7 +43,7 @@ const Title: React.FC<Props> = ({ text }) => {
   })
 
   return (
-    <AnimatedHeader style={props}>{text}</AnimatedHeader>
+    <AnimatedHeader style={props} id="chromapoll-title">{text}</AnimatedHeader>
   )
 }
 

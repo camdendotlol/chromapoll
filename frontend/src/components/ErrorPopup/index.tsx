@@ -45,7 +45,10 @@ const ErrorPopup: React.FC = () => {
   }, [error])
 
   return (
-    <PopupDiv about={message ? '0.95' : '0' }>
+    <PopupDiv
+      id='error-popup'
+      about={message ? '0.95' : '0' }
+    >
       <p>{message}</p>
     </PopupDiv>
   )

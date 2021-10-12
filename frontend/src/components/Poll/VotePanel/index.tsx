@@ -68,9 +68,13 @@ const VotePanel: React.FC<Props> = ({ results, pollID, hasVoted, setHasVoted }) 
       >
         { hasVoted ? 'Results' : 'Choices' }
       </LegendTitle>
-      <CuteTable
-        items={results.map(r => getTableItems(r))}
-      />
+      <div
+        id='vote-box'
+      >
+        <CuteTable
+          items={results.map(r => getTableItems(r))}
+        />
+      </div>
     </div>
   )
 }

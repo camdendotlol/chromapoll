@@ -34,7 +34,7 @@ const Table = styled.table`
 `
 
 const ColorfulRow = styled.tr`
-  background: ${props => props.color};
+  background-color: ${props => props.color};
 
   :hover {
     filter: ${props => props.autoCorrect};

@@ -32,7 +32,7 @@ const Chroma: React.FC<Props> = ({ results }) => {
   })
 
   return (
-    <animated.circle style={props} cx='200' cy='200' r='200' fill={color} />
+    <animated.circle id='chroma-circle' style={props} cx='200' cy='200' r='200' fill={color} />
   )
 }
 

@@ -12,14 +12,13 @@ const setUpORM = async (): Promise<MikroORM<IDatabaseDriver<Connection>>> => {
   const orm: MikroORM = await MikroORM.init({
     context: () => storage.getStore(),
     entities: [Poll, Choice, IP],
-    dbName: 'chromapoll',
     type: 'mongo',
     clientUrl: config.DB_URL,
     tsNode: true
   })
 
   // eslint-disable-next-line no-console
-  console.log(`Connected to database at ${config.DB_URL}`)
+  console.log(`Connected to database at ${orm.config.getClientUrl()}`)
 
   return orm
 }

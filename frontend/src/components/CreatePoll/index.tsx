@@ -70,6 +70,7 @@ const CreatePoll: React.FC = () => {
       return (
         <button
           type='button'
+          id='add-choice-button'
           onClick={() => addChoice()}
         >
           <span>+</span>
@@ -83,6 +84,7 @@ const CreatePoll: React.FC = () => {
       return (
         <button
           type='button'
+          id='remove-choice-button'
           onClick={() => removeChoice()}
         >
           <span>-</span>
@@ -98,7 +100,10 @@ const CreatePoll: React.FC = () => {
         <link rel='canonical' href='https://chromapoll.xyz/create' />
       </Helmet>
       <CenteredHeader>Create a poll</CenteredHeader>
-      <form onSubmit={handleSubmit(createNewPoll)}>
+      <form
+        id='poll-creation-form'
+        onSubmit={handleSubmit(createNewPoll)}
+      >
         <FormItem>
           <label htmlFor='title'>Question</label>
           <br />
@@ -113,7 +118,7 @@ const CreatePoll: React.FC = () => {
         </FormItem>
         <CenteredSubtitle>Choices</CenteredSubtitle>
         {trail.map((style, index) => (
-          <div key={index}>
+          <div className='choice-item-div' key={index}>
             <ErrorMessage errors={errors} name={`choices.${index}.name`} />
             <ErrorMessage errors={errors} name={`choices.${index}.color`} />
             <ChoiceItem style={style}>
@@ -159,7 +164,7 @@ const CreatePoll: React.FC = () => {
           {handleAddButton()}
           {handleRemoveButton()}
         </ExpansionButtons>
-        <SubmitButton type='submit'>Submit</SubmitButton>
+        <SubmitButton id='submit-button' type='submit'>Submit</SubmitButton>
       </form>
     </PollFormContainer>
   )
