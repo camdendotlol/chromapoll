@@ -88,11 +88,11 @@ describe('voting', () => {
   it('does not let you vote twice after clearing local storage', () => {
     cy.contains('What\'s your favorite animal?').click()
 
-    cy.get('#vote-box').contains('Rabbit').click()
-
-    cy.clearLocalStorage()
-
-    cy.reload()
+    cy.get('#vote-box').contains('Rabbit').click().then(() => {
+      cy.clearLocalStorage().then(() => {
+        cy.reload()
+      })
+    })
 
     cy.get('#vote-box').contains('Rabbit').click()
 
