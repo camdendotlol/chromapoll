@@ -27,8 +27,8 @@ jobs:
           PORT: 3001
         with:
           env: true
-          command: npm run test:e2e
-          start: npm run start:cypress
+          command: yarn test
+          start: yarn start:cypress
           wait-on: http://localhost:3001
       - name: install doctl (digitalocean deployment tool)
         uses: digitalocean/action-doctl@v2
