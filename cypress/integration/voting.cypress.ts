@@ -90,12 +90,12 @@ describe('voting', () => {
 
     cy.get('#vote-box').contains('Rabbit').click().then(() => {
       cy.clearLocalStorage().then(() => {
-        cy.reload()
+        cy.reload().then(() => {
+          cy.get('#vote-box').contains('Rabbit').click().then(() => {
+            cy.get('#error-popup').contains('already voted')
+          })
+        })
       })
     })
-
-    cy.get('#vote-box').contains('Rabbit').click()
-
-    cy.get('#error-popup').contains('already voted')
   })
 })
