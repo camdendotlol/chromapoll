@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
         </NavbarLinks>
         <BurgerButton
           color={isBright(navColor) ? 'black' : 'white'}
-          onClick={() => setMenuOpen(true)}
+          onClick={() => setMenuOpen(!menuOpen)}
         >
           <hr />
           <hr />

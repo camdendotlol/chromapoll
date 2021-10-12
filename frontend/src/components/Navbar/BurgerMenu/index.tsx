@@ -16,9 +16,9 @@ const BurgerMenu: React.FC<Props> = ({ setMenuOpen, menuOpen }) => {
       X
       </ExitButton>
       <MenuList>
-        <li><Link to='/' onClick={() => setMenuOpen(false)}>Home</Link></li>
-        <li><Link to='/latest' onClick={() => setMenuOpen(false)}>Recent polls</Link></li>
-        <li><Link to='/create' onClick={() => setMenuOpen(false)}>Create a poll</Link></li>
+        <li><Link to='/' tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)}>Home</Link></li>
+        <li><Link to='/latest' tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)}>Recent polls</Link></li>
+        <li><Link to='/create' tabIndex={menuOpen ? 0 : -1} onClick={() => setMenuOpen(false)}>Create a poll</Link></li>
         <div>
           <p>Made in Kentucky</p>
           <p>by Camden Mecklem</p>

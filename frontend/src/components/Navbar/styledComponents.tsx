@@ -58,10 +58,12 @@ export const NavbarLinks = styled.div`
   }
 `
 
-export const BurgerButton = styled.div`
+export const BurgerButton = styled.button`
   display: none;
   transition: 0.2s;
   margin-right: 10px;
+  background: none;
+  border: none;
 
   :hover {
     cursor: pointer;
