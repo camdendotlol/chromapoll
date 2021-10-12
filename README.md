@@ -20,9 +20,14 @@ Other commands:
 
 * `yarn build` to create a production build of both the backend and frontend.
 * `yarn start` to run the full production build after building.
-* `yarn dev:server` for a development build that automatically reloads when you make a change.
+* `yarn start:full` to run both of the above commands for a simple one-click deployment.
+* `yarn dev:server` for a development build that automatically rebuilds when you make a change.
 * `yarn dev:ui` for a development build of the frontend.
-* `yarn test:server` for some very rudimentary testing of the server API.
+
+To run a comprehensize end-to-end test suite:
+1. `yarn build` if you haven't run it already.
+2. `yarn start:cypress` starts Chromapoll in test mode, which expects a `TEST_DB_URL` environment variable. **DO NOT** use your production database for this, as the tests involve clearing the database repeatedly.
+3. `yarn test` runs a suite of Cypress tests.
 
 The `build` command also offers `:server` and `:ui` suffixes if you only need to build one of them, e.g. `yarn build:server`.
 
@@ -30,10 +35,11 @@ Builds are placed in the `/dist` directory, with `/dist/server` for the backend 
 
 ## Configuration
 
-Chromapoll looks for two env variables.
+Chromapoll looks for two env variables, along with an optional test variable.
 
 * PORT: the port on which the server will accept connections
 * DB_URL: the URL to your MongoDB database
+* TEST_DB_URL (optional): the URL to the database to be used for testing, only needed if you intend to run the test suite (recommended!)
 
 ## Portfolio Reflection
 
