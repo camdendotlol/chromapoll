@@ -88,14 +88,12 @@ describe('voting', () => {
   it('does not let you vote twice after clearing local storage', () => {
     cy.contains('What\'s your favorite animal?').click()
 
-    cy.get('#vote-box').contains('Rabbit').click().then(() => {
-      cy.clearLocalStorage().then(() => {
-        cy.reload().then(() => {
-          cy.get('#vote-box').contains('Rabbit').click().then(() => {
-            cy.get('#error-popup').contains('already voted')
-          })
-        })
-      })
-    })
+    cy.get('#vote-box').contains('Rabbit').click()
+
+    cy.clearLocalStorage()
+    
+    cy.reload()
+    cy.get('#vote-box').contains('Rabbit').click()
+    cy.get('#error-popup').contains('already voted', { timeout: 15000 })
   })
 })
