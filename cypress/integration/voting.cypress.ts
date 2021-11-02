@@ -98,6 +98,6 @@ describe('voting', () => {
     
   //   cy.reload()
   //   cy.get('#vote-box').contains('Rabbit').click()
-  //   cy.get('#error-popup').contains('already voted', { timeout: 15000 })
+  //   cy.get('#error-popup').contains('already voted')
   // })
 })
