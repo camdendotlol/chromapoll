@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
-import { useHistory } from 'react-router'
+import { useNavigate } from 'react-router'
 import { useTrail } from '@react-spring/web'
 import { useAppDispatch } from '../../hooks'
 import { resetUIColor } from '../../reducers/colorReducer'
@@ -17,7 +17,7 @@ import { Helmet } from 'react-helmet'
 const CreatePoll: React.FC = () => {
   const { control, register, handleSubmit, formState: { errors } } = useForm()
   const dispatch = useAppDispatch()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(resetUIColor())
@@ -26,7 +26,7 @@ const CreatePoll: React.FC = () => {
   const createNewPoll = async (data: NewPollObject) => {
     try {
       const res = await dispatch(createPoll(data)).unwrap()
-      history.push(`/poll/${res._id}`)
+      navigate(`/poll/${res._id}`)
     } catch(e) {
       dispatch(setErrorMessage(e.message))
     }

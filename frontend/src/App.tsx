@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import HomePage from './components/HomePage'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import LatestPolls from './components/LatestPolls'
 import Poll from './components/Poll'
 import Container from './components/common/Container'
@@ -70,20 +70,12 @@ const App: React.FC = () => {
         <ErrorPopup />
         <main>
           <Container>
-            <Switch>
-              <Route path='/latest'>
-                <LatestPolls />
-              </Route>
-              <Route path='/poll/:id'>
-                <Poll />
-              </Route>
-              <Route path='/create'>
-                <CreatePoll />
-              </Route>
-              <Route path='/'>
-                <HomePage />
-              </Route>
-            </Switch>
+            <Routes>
+              <Route path='/latest' element={<LatestPolls />} />
+              <Route path='/poll/:id' element={<Poll />} />
+              <Route path='/create' element={<CreatePoll />} />
+              <Route path='/' element={<HomePage />} />
+            </Routes>
           </Container>
         </main>
       </React.Fragment>
