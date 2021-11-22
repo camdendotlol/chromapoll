@@ -7,13 +7,13 @@ import { IP } from './Ip'
 export class Poll extends BaseEntity {
 
   @Property()
-  title: string
+    title: string
 
   @OneToMany(() => Choice, c => c.poll)
-  choices = new Collection<Choice>(this)
+    choices = new Collection<Choice>(this)
 
   @ManyToMany(() => IP, 'votes', { owner: true, lazy: true })
-  voters = new Collection<IP>(this)
+    voters = new Collection<IP>(this)
 
   constructor(title: string) {
     super()

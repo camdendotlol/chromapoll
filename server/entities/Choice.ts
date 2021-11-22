@@ -6,16 +6,16 @@ import { Poll } from './Poll'
 export class Choice extends BaseEntity {
 
   @Property()
-  label: string
+    label: string
 
   @Property()
-  color: string
+    color: string
 
   @Property()
-  votes: number
+    votes: number
 
   @ManyToOne(() => Poll)
-  poll: Poll
+    poll: Poll
 
   constructor(text: string, color: string, poll: Poll) {
     super()

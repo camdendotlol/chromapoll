@@ -6,10 +6,10 @@ import { Poll } from './Poll'
 export class IP extends BaseEntity {
 
   @Property()
-  address: string
+    address: string
 
   @ManyToMany(() => Poll, poll => poll.voters)
-  votes = new Collection<Poll>(this)
+    votes = new Collection<Poll>(this)
 
   constructor(address: string) {
     super()
