@@ -59,7 +59,7 @@
     "babel-plugin-styled-components": "^2.0.6",
     "css-loader": "^6.7.0",
     "cypress": "^9.5.2",
-    "eslint": "^8.10.0",
+    "eslint": "^8.11.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-react": "^7.29.3",
     "nodemon": "^2.0.15",
