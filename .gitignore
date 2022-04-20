@@ -2,6 +2,7 @@
 node_modules
 server/requests
 cypress/videos
+.DS_Store
 
 # Exclude everything in the dist folder except for favicon and index.html
 # These files are needed for compilation and serving the subsequent webpage.
